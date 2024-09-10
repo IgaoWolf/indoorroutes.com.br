@@ -202,5 +202,3 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 ### Considerações Finais
 
 Esse `README.md` fornece uma visão detalhada e completa do seu projeto **Indoor Routes**. Inclui instruções de instalação, configuração, execução, detalhes da API, estrutura do projeto, e como contribuir. Sinta-se à vontade para personalizar conforme necessário. 
-
-Se precisar de mais ajustes ou tiver outras dúvidas, estou à disposição para ajudar!
