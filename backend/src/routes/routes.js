@@ -30,7 +30,7 @@ router.post('/api/rota', async (req, res) => {
   try {
     // Encontre o waypoint mais próximo do usuário
     const { rows: [waypointOrigem] } = await db.query(`
-      SELECT id, ST_Distance(coordenadas, ST_SetSRID(ST_MakePoint($1, $2), 4326)) AS distancia
+      SELECT id, andar_id, tipo, ST_Distance(coordenadas, ST_SetSRID(ST_MakePoint($1, $2), 4326)) AS distancia
       FROM waypoints
       ORDER BY coordenadas <-> ST_SetSRID(ST_MakePoint($1, $2), 4326)
       LIMIT 1;
@@ -38,7 +38,7 @@ router.post('/api/rota', async (req, res) => {
 
     // Encontre o waypoint de destino com base na tabela destinos
     const { rows: [waypointDestino] } = await db.query(`
-      SELECT w.id
+      SELECT w.id, w.andar_id
       FROM waypoints w
       JOIN destinos d ON d.waypoint_id = w.id
       WHERE d.nome = $1
@@ -55,24 +55,43 @@ router.post('/api/rota', async (req, res) => {
 
     // Obter as coordenadas dos waypoints na rota
     const { rows: waypointsNaRota } = await db.query(`
-      SELECT id, ST_X(ST_Transform(coordenadas::geometry, 4326)) AS longitude, ST_Y(ST_Transform(coordenadas::geometry, 4326)) AS latitude
+      SELECT id, andar_id, tipo, ST_X(ST_Transform(coordenadas::geometry, 4326)) AS longitude, ST_Y(ST_Transform(coordenadas::geometry, 4326)) AS latitude
       FROM waypoints
       WHERE id = ANY(ARRAY[${rota.map(r => r.node).join(',')}])
     `);
 
-    // Mapear as coordenadas de volta para o resultado da rota e calcular a distância total
+    // Instruções de navegação
+    const instrucoes = [];
     let distanciaTotal = 0;
-    const rotaComCoordenadas = rota.map((r, index) => {
+    let andarAtual = waypointsNaRota[0].andar_id; // Iniciar com o andar do primeiro waypoint
+
+    const rotaComInstrucoes = rota.map((r, index) => {
       const waypoint = waypointsNaRota.find(w => w.id == r.node);
       if (index > 0) {
         const prevWaypoint = waypointsNaRota.find(w => w.id == rota[index - 1].node);
+
         if (waypoint && prevWaypoint) {
           const dx = waypoint.longitude - prevWaypoint.longitude;
           const dy = waypoint.latitude - prevWaypoint.latitude;
           const distancia = Math.sqrt(dx * dx + dy * dy) * 111139; // Conversão de graus para metros
           distanciaTotal += distancia;
+
+          // Verificar se há mudança de andar
+          if (waypoint.andar_id !== andarAtual) {
+            // Adicionar instrução para mudança de andar (usando escada ou elevador)
+            if (prevWaypoint.tipo === 'escada') {
+              instrucoes.push(`Suba a escada para o andar ${waypoint.andar_id}`);
+            } else if (prevWaypoint.tipo === 'elevador') {
+              instrucoes.push(`Pegue o elevador até o andar ${waypoint.andar_id}`);
+            }
+            andarAtual = waypoint.andar_id; // Atualizar o andar atual
+          } else {
+            // Instrução normal de seguir em frente
+            instrucoes.push(`Siga em frente por ${Math.round(distancia)} metros`);
+          }
         }
       }
+
       return {
         ...r,
         latitude: waypoint ? waypoint.latitude : null,
@@ -80,55 +99,14 @@ router.post('/api/rota', async (req, res) => {
       };
     });
 
-    if (rotaComCoordenadas.length > 0) {
-      res.json({ rota: rotaComCoordenadas, distanciaTotal });
+    if (rotaComInstrucoes.length > 0) {
+      res.json({ rota: rotaComInstrucoes, distanciaTotal, instrucoes });
     } else {
       res.status(404).json({ error: 'Rota não encontrada' });
     }
   } catch (error) {
     console.error('Erro ao calcular a rota:', error);
     res.status(500).json({ error: 'Erro ao calcular a rota' });
-  }
-});
-// Endpoint para obter andares com seus respectivos destinos
-router.get('/api/andares-com-destinos', async (req, res) => {
-  try {
-    // Query para buscar os andares e seus respectivos destinos
-    const query = `
-      SELECT a.id AS andar_id, a.nome AS andar_nome, d.id AS destino_id, d.nome AS destino_nome
-      FROM andares a
-      JOIN waypoints w ON a.id = w.andar_id
-      JOIN destinos d ON w.id = d.waypoint_id
-      ORDER BY a.numero ASC, d.nome ASC;
-    `;
-
-    const { rows: andaresComDestinos } = await db.query(query);
-
-    if (andaresComDestinos.length > 0) {
-      // Agrupando destinos por andar
-      const resultado = andaresComDestinos.reduce((acc, curr) => {
-        const { andar_id, andar_nome, destino_id, destino_nome } = curr;
-
-        if (!acc[andar_id]) {
-          acc[andar_id] = {
-            andar_id,
-            andar_nome,
-            destinos: [],
-          };
-        }
-
-        acc[andar_id].destinos.push({ destino_id, destino_nome });
-
-        return acc;
-      }, {});
-
-      res.json(Object.values(resultado)); // Retorna a lista agrupada por andar
-    } else {
-      res.status(404).json({ error: 'Nenhum andar ou destino encontrado' });
-    }
-  } catch (error) {
-    console.error('Erro ao buscar andares com destinos:', error);
-    res.status(500).json({ error: 'Erro ao buscar andares com destinos' });
   }
 });
 

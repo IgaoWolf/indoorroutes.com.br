@@ -3,6 +3,7 @@ import axios from 'axios';
 import MapView from './components/MapView';
 import DestinosList from './components/DestinosList';
 import DestinoInfo from './components/DestinoInfo';
+import InstrucoesNavegacao from './components/InstrucoesNavegacao';
 import './App.css';
 
 const App = () => {
@@ -16,7 +17,9 @@ const App = () => {
   const [confirmado, setConfirmado] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [tempoEstimado, setTempoEstimado] = useState('');
+  const [instrucoes, setInstrucoes] = useState([]); // Estado para instruções de navegação
 
+  // Obter a localização atual
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -28,12 +31,12 @@ const App = () => {
     }
   }, []);
 
+  // Função para buscar destinos
   useEffect(() => {
     if (showDestinos) {
       const fetchDestinos = async () => {
         try {
           const response = await axios.get('/api/destinos');
-          console.log('Destinos recebidos:', response.data); // Adicione este log para verificar os dados
           setDestinos(response.data);
         } catch (error) {
           console.error('Erro ao buscar destinos:', error);
@@ -43,6 +46,7 @@ const App = () => {
     }
   }, [showDestinos]);
 
+  // Função para calcular a rota e instruções
   const calcularRota = async (destino) => {
     if (!latitude || !longitude || !destino) {
       alert('Por favor, selecione um destino.');
@@ -53,11 +57,12 @@ const App = () => {
       const response = await axios.post('/api/rota', {
         latitude,
         longitude,
-        destino: destino.destino_nome, // Ajuste para refletir a chave correta
+        destino: destino.destino_nome, // Ajuste aqui para combinar com os dados do backend
       });
 
       setRota(response.data.rota);
       setDistanciaTotal(response.data.distanciaTotal);
+      setInstrucoes(response.data.instrucoes); // Armazena as instruções recebidas
 
       const tempoMin = (response.data.distanciaTotal * 0.72) / 60;
       const tempoMax = (response.data.distanciaTotal * 0.90) / 60;
@@ -83,16 +88,23 @@ const App = () => {
     setConfirmado(false);
     setRota([]);
     setSelectedDestino(null);
+    setInstrucoes([]); // Limpa as instruções ao trocar de destino
   };
 
+  // Filtragem dos destinos conforme a busca
   const filteredDestinos = destinos.filter((destino) =>
-    destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase()) // Ajuste o filtro
+    destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="app-container">
+      {/* Mapa com a rota desenhada */}
       <MapView latitude={latitude} longitude={longitude} rota={rota} />
 
+      {/* Exibe as instruções de navegação, se houver */}
+      {instrucoes.length > 0 && <InstrucoesNavegacao instrucoes={instrucoes} />}
+
+      {/* Informações detalhadas do destino selecionado */}
       {selectedDestino && !confirmado && (
         <DestinoInfo
           destino={selectedDestino}
@@ -102,16 +114,16 @@ const App = () => {
         />
       )}
 
+      {/* Painel de informações após confirmar o destino */}
       {confirmado && (
         <div className="info-panel">
-          <h2>{selectedDestino.destino_nome}</h2> {/* Ajuste aqui */}
+          <h2>{selectedDestino.destino_nome}</h2>
           <p>Tempo estimado: {tempoEstimado}</p>
-          <button className="trocar-destino-button" onClick={handleTrocarDestino}>
-            Trocar destino
-          </button>
+          <button className="trocar-destino-button" onClick={handleTrocarDestino}>Trocar destino</button>
         </div>
       )}
 
+      {/* Botão e painel para selecionar o destino */}
       {!selectedDestino && !confirmado && (
         <div className="bottom-panel">
           <button className="destino-button" onClick={() => setShowDestinos(!showDestinos)}>
@@ -126,6 +138,7 @@ const App = () => {
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
+              {/* Lista de destinos */}
               <DestinosList
                 destinos={filteredDestinos}
                 onSelectDestino={(destino) => {
@@ -142,4 +155,3 @@ const App = () => {
 };
 
 export default App;
-
