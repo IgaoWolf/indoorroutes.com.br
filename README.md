@@ -1,7 +1,3 @@
-Aqui está o `README.md` atualizado com base nas mudanças recentes que fizemos no projeto **Indoor Routes**:
-
----
-
 # Indoor Routes
 
 **Indoor Routes** é uma aplicação de navegação interna desenvolvida para ambientes como instituições de ensino, shoppings, hospitais e outros locais onde a navegação interna é necessária. A aplicação permite aos usuários encontrar rotas otimizadas entre diferentes pontos dentro desses ambientes, similar ao funcionamento de aplicativos de navegação como Google Maps ou Waze, mas focado exclusivamente em navegação indoor.
@@ -207,7 +203,3 @@ Se você deseja contribuir para este projeto, siga as etapas abaixo:
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-Esse `README.md` foi ajustado para refletir as alterações no projeto, como a adição de instruções de navegação em tempo real, suporte a múltiplos andares e a integração do algoritmo de Dijkstra para cálculo de rotas.
