@@ -2,30 +2,49 @@ import React, { useEffect, useState, useCallback } from 'react';
 
 const DestinoInfo = ({ destino, onClose, onConfirm }) => {
   const [status, setStatus] = useState(''); // Estado para o status "Aberto" ou "Fechado"
+  const [horariofuncionamento, sethorariofuncionamento] = useState(''); // Estado para exibir o horário de funcionamento
 
-  // Função para verificar o horário de funcionamento (usando useCallback para evitar a recriação da função)
-  const verificarHorarioFuncionamento = useCallback(() => {
-    if (!destino.horarioFuncionamento) {
+  // Função para verificar o horário de funcionamento
+  const verificarhorariofuncionamento = useCallback(() => {
+    if (!destino || !destino.horariofuncionamento) {
       setStatus('Horário de funcionamento não disponível');
       return;
     }
 
-    const now = new Date();
-    const horarioAbertura = criarDataComHorario(destino.horarioFuncionamento.abertura);
-    const horarioFechamento = criarDataComHorario(destino.horarioFuncionamento.fechamento);
+    // Verifica se o formato do horário é válido
+    const horarioArray = destino.horariofuncionamento.split(' - ');
+    if (horarioArray.length !== 2) {
+      setStatus('Horário de funcionamento inválido');
+      return;
+    }
 
-    if (now >= horarioAbertura && now <= horarioFechamento) {
+    // Extrai os horários de abertura e fechamento
+    const [horarioAbertura, horarioFechamento] = horarioArray;
+
+    const now = new Date();
+    const horarioAberturaData = criarDataComHorario(horarioAbertura);
+    const horarioFechamentoData = criarDataComHorario(horarioFechamento);
+
+    // Caso o horário de fechamento seja no dia seguinte
+    if (horarioFechamentoData < horarioAberturaData) {
+      horarioFechamentoData.setDate(horarioFechamentoData.getDate() + 1);
+    }
+
+    if (now >= horarioAberturaData && now <= horarioFechamentoData) {
       setStatus('Aberto');
     } else {
       setStatus('Fechado');
     }
+
+    // Atualiza o estado do horário de funcionamento para exibição
+    sethorariofuncionamento(`${horarioAbertura} - ${horarioFechamento}`);
   }, [destino]);
 
   useEffect(() => {
-    if (destino && destino.horarioFuncionamento) {
-      verificarHorarioFuncionamento();
+    if (destino && destino.horariofuncionamento) {
+      verificarhorariofuncionamento();
     }
-  }, [destino, verificarHorarioFuncionamento]); // Adicionada a função como dependência
+  }, [destino, verificarhorariofuncionamento]);
 
   // Função auxiliar para criar uma data com a hora correta
   const criarDataComHorario = (horario) => {
@@ -47,10 +66,10 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
         {destino.tempoEstimado} {/* Exibe o tempo estimado de chegada */}
       </button>
 
-      {destino.horarioFuncionamento ? (
+      {destino.horariofuncionamento ? (
         <div className="horario-info">
           <p><strong>Horário de Funcionamento:</strong></p>
-          <p>{destino.horarioFuncionamento.abertura} - {destino.horarioFuncionamento.fechamento}</p>
+          <p>{horariofuncionamento}</p>
           <p className={status === 'Aberto' ? 'status-aberto' : 'status-fechado'}>
             {status === 'Aberto' ? 'Aberto agora' : 'Fechado agora'}
           </p>
@@ -65,4 +84,3 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
 };
 
 export default DestinoInfo;
-
