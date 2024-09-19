@@ -87,13 +87,28 @@ body {
   margin-bottom: 10px;
 }
 
-/* Lista de destinos */
+/* Lista de destinos separada por andar */
 .destinos-list-container {
   max-height: 40vh;
   overflow-y: auto;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   padding: 10px;
+}
+
+/* Título do grupo de destinos por andar */
+.destino-andar-group h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+/* Remover o marcador da lista de destinos */
+.destinos-list {
+  list-style-type: none; /* Remove os marcadores da lista */
+  padding: 0;
+  margin: 0;
 }
 
 /* Itens da lista de destinos */

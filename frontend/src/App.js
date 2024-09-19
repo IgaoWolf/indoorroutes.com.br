@@ -15,7 +15,9 @@ const App = () => {
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [waypointAndares, setWaypointAndares] = useState({}); // Estado para armazenar o mapeamento de waypoint_id -> andares
 
+  // Função para obter a localização do usuário
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -27,15 +29,30 @@ const App = () => {
     }
   }, []);
 
-  // Função para buscar os destinos
+  // Função para buscar os destinos e seus respectivos andares
   useEffect(() => {
     if (showDestinos) {
       const fetchDestinos = async () => {
         try {
-          const response = await axios.get('/api/destinos');
-          setDestinos(response.data);
+          const response = await axios.get('/api/destinos'); // Pega os destinos
+          const destinosData = response.data;
+
+          // Obter os waypoints_id de cada destino
+          const waypointIds = destinosData.map(destino => destino.waypoint_id);
+
+          // Agora faz a consulta para obter os andares com base nos waypoint_id
+          const andaresResponse = await axios.post('/api/andares', { waypointIds }); // Supondo que a API retorne os andares
+
+          const andaresMap = {}; // Cria um mapeamento de waypoint_id -> andar
+          andaresResponse.data.forEach(andar => {
+            andaresMap[andar.waypoint_id] = andar.andar;
+          });
+
+          setDestinos(destinosData); // Define os destinos
+          setWaypointAndares(andaresMap); // Define o mapeamento dos andares
+
         } catch (error) {
-          console.error('Erro ao buscar destinos:', error);
+          console.error('Erro ao buscar destinos ou andares:', error);
         }
       };
       fetchDestinos();
@@ -82,6 +99,7 @@ const App = () => {
     setSearchQuery(event.target.value);
   };
 
+  // Filtra os destinos com base na consulta de pesquisa
   const filteredDestinos = destinos.filter((destino) =>
     destino.nome.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -124,6 +142,7 @@ const App = () => {
               />
               <DestinosList
                 destinos={filteredDestinos}
+                waypointAndares={waypointAndares} // Passa o mapeamento dos andares para a listagem
                 onSelectDestino={(destino) => {
                   setSelectedDestino(destino);
                   setConfirmado(false); // Reseta a confirmação ao selecionar um novo destino

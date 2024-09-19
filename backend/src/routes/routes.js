@@ -81,5 +81,48 @@ router.post('/api/rota', async (req, res) => {
   }
 });
 
+// Endpoint para obter andares com seus respectivos destinos
+router.get('/api/andares-com-destinos', async (req, res) => {
+  try {
+    // Query para buscar os andares e seus respectivos destinos
+    const query = `
+      SELECT a.id AS andar_id, a.nome AS andar_nome, d.id AS destino_id, d.nome AS destino_nome
+      FROM andares a
+      JOIN waypoints w ON a.id = w.andar_id
+      JOIN destinos d ON w.id = d.waypoint_id
+      ORDER BY a.numero ASC, d.nome ASC;
+    `;
+
+    const { rows: andaresComDestinos } = await db.query(query);
+
+    if (andaresComDestinos.length > 0) {
+      // Agrupando destinos por andar
+      const resultado = andaresComDestinos.reduce((acc, curr) => {
+        const { andar_id, andar_nome, destino_id, destino_nome } = curr;
+
+        if (!acc[andar_id]) {
+          acc[andar_id] = {
+            andar_id,
+            andar_nome,
+            destinos: [],
+          };
+        }
+
+        acc[andar_id].destinos.push({ destino_id, destino_nome });
+
+        return acc;
+      }, {});
+
+      res.json(Object.values(resultado)); // Retorna a lista agrupada por andar
+    } else {
+      res.status(404).json({ error: 'Nenhum andar ou destino encontrado' });
+    }
+  } catch (error) {
+    console.error('Erro ao buscar andares com destinos:', error);
+    res.status(500).json({ error: 'Erro ao buscar andares com destinos' });
+  }
+});
+
 module.exports = router;
+
 
