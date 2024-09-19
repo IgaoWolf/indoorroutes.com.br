@@ -87,26 +87,36 @@ body {
   margin-bottom: 10px;
 }
 
-/* Lista de destinos separada por andar */
+/* Lista de destinos */
 .destinos-list-container {
   max-height: 40vh;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
   padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 }
 
-/* Título do grupo de destinos por andar */
+/* Estilo para o grupo de cada andar */
+.destino-andar-group {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título para o andar */
 .destino-andar-group h3 {
   font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  margin-top: 10px;
+  color: #007bff;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }
 
-/* Remover o marcador da lista de destinos */
+/* Lista de destinos para cada andar */
 .destinos-list {
-  list-style-type: none; /* Remove os marcadores da lista */
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -119,6 +129,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
+  transition: background-color 0.3s;
 }
 
 .destino-item:hover {
@@ -220,6 +231,15 @@ p {
 
   .destino-info {
     bottom: 60px; /* Ajuste para telas menores */
+  }
+
+  .destino-andar-group h3 {
+    font-size: 16px;
+  }
+
+  .destino-item {
+    padding: 8px;
+    font-size: 14px;
   }
 }
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const DestinosList = ({ destinos, waypointAndares, onSelectDestino }) => {
-  // Agrupa os destinos por andar com base no mapeamento de waypointAndares
+const DestinosList = ({ destinos, onSelectDestino }) => {
+  // Agrupa os destinos por andar
   const destinosPorAndar = destinos.reduce((acc, destino) => {
-    const andar = waypointAndares[destino.waypoint_id] || 'Desconhecido'; // Usa o mapeamento de waypointAndares
+    const andar = destino.andar || 'Desconhecido'; // Assume "Desconhecido" se o andar não for informado
     if (!acc[andar]) {
       acc[andar] = [];
     }

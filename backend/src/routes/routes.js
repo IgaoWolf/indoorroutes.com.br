@@ -80,7 +80,6 @@ router.post('/api/rota', async (req, res) => {
     res.status(500).json({ error: 'Erro ao calcular a rota' });
   }
 });
-
 // Endpoint para obter andares com seus respectivos destinos
 router.get('/api/andares-com-destinos', async (req, res) => {
   try {
@@ -124,5 +123,4 @@ router.get('/api/andares-com-destinos', async (req, res) => {
 });
 
 module.exports = router;
-
 
