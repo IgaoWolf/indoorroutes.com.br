@@ -33,6 +33,7 @@ const App = () => {
       const fetchDestinos = async () => {
         try {
           const response = await axios.get('/api/destinos');
+          console.log('Destinos recebidos:', response.data); // Adicione este log para verificar os dados
           setDestinos(response.data);
         } catch (error) {
           console.error('Erro ao buscar destinos:', error);
@@ -52,7 +53,7 @@ const App = () => {
       const response = await axios.post('/api/rota', {
         latitude,
         longitude,
-        destino: destino.nome,
+        destino: destino.destino_nome, // Ajuste para refletir a chave correta
       });
 
       setRota(response.data.rota);
@@ -85,7 +86,7 @@ const App = () => {
   };
 
   const filteredDestinos = destinos.filter((destino) =>
-    destino.nome.toLowerCase().includes(searchQuery.toLowerCase())
+    destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase()) // Ajuste o filtro
   );
 
   return (
@@ -103,9 +104,11 @@ const App = () => {
 
       {confirmado && (
         <div className="info-panel">
-          <h2>{selectedDestino.nome}</h2>
+          <h2>{selectedDestino.destino_nome}</h2> {/* Ajuste aqui */}
           <p>Tempo estimado: {tempoEstimado}</p>
-          <button className="trocar-destino-button" onClick={handleTrocarDestino}>Trocar destino</button>
+          <button className="trocar-destino-button" onClick={handleTrocarDestino}>
+            Trocar destino
+          </button>
         </div>
       )}
 
@@ -139,3 +142,4 @@ const App = () => {
 };
 
 export default App;
+

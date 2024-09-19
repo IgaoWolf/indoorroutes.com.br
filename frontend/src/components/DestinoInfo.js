@@ -51,8 +51,8 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
   return (
     <div className="destino-info">
       <div className="header">
-        <h2>{destino.nome}</h2>
-        <p>{destino.tipo}</p>
+        <h2>{destino.destino_nome}</h2> {/* Ajuste para refletir o nome correto do destino */}
+        <p>{destino.tipo}</p> {/* Ajuste para refletir o tipo do destino */}
         <button className="close-button" onClick={onClose}>✕</button>
       </div>
 

@@ -5,7 +5,17 @@ const router = express.Router();
 // Endpoint para obter todos os destinos
 router.get('/api/destinos', async (req, res) => {
   try {
-    const { rows: destinos } = await db.query('SELECT * FROM destinos');
+    const { rows: destinos } = await db.query(`
+      SELECT d.id AS destino_id,
+       d.nome AS destino_nome,
+       d.descricao,
+       w.tipo,
+       a.nome AS andar_nome,
+       d.horariofuncionamento
+       FROM destinos d
+       JOIN waypoints w ON d.waypoint_id = w.id
+       JOIN andares a ON w.andar_id = a.id;
+    `);
     res.json(destinos);
   } catch (error) {
     console.error('Erro ao buscar destinos:', error);

@@ -3,7 +3,7 @@ import React from 'react';
 const DestinosList = ({ destinos, onSelectDestino }) => {
   // Agrupa os destinos por andar
   const destinosPorAndar = destinos.reduce((acc, destino) => {
-    const andar = destino.andar || 'Desconhecido'; // Assume "Desconhecido" se o andar não for informado
+    const andar = destino.andar_nome || 'Desconhecido'; // Assume "Desconhecido" se o andar não for informado
     if (!acc[andar]) {
       acc[andar] = [];
     }
@@ -15,16 +15,15 @@ const DestinosList = ({ destinos, onSelectDestino }) => {
     <div className="destinos-list-container">
       {Object.keys(destinosPorAndar).map((andar) => (
         <div key={andar} className="destino-andar-group">
-          {/* Título para o andar */}
           <h3>{andar}</h3>
           <ul className="destinos-list">
             {destinosPorAndar[andar].map((destino) => (
               <li
-                key={destino.id}
+                key={destino.destino_id} // Ajuste aqui
                 className="destino-item"
                 onClick={() => onSelectDestino(destino)}
               >
-                {destino.nome}
+                {destino.destino_nome} {/* Ajuste aqui */}
               </li>
             ))}
           </ul>
