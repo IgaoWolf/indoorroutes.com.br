@@ -7,7 +7,7 @@ const DestinoInfo = ({ destino, tempoEstimado, onClose }) => {
       <h2>{destino.nome}</h2>
       <p><strong>Tipo:</strong> {destino.tipo}</p> {/* Mostra o tipo de destino */}
       <p><strong>Tempo estimado:</strong> {tempoEstimado}</p> {/* Mostra o tempo estimado de caminhada */}
-      <p><strong>Horário de Funcionamento:</strong> {destino.horarioFuncionamento}</p> {/* Mostra o horário de funcionamento */}
+      <p><strong>Horário de Funcionamento:</strong> {destino.horariofuncionamento}</p> {/* Mostra o horário de funcionamento */}
     </div>
   );
 };

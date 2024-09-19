@@ -1,31 +1,35 @@
+/* Estilos base para o corpo */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   overflow: hidden;
-  height: 100vh;
+  height: 100vh; /* Define a altura do corpo para 100% da viewport */
   display: flex;
   flex-direction: column;
 }
 
+/* Container principal da aplicação */
 .app-container {
   position: relative;
-  height: 100vh;
+  height: 100vh; /* Garante que o container ocupe toda a altura da viewport */
   width: 100vw;
   overflow: hidden;
 }
 
+/* Estilos para o mapa */
 .map-container {
-  height: 100%;
-  width: 100%;
+  height: 100vh; /* O mapa preenche a tela inteira */
+  width: 100vw;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 1; /* Coloca o mapa no plano de fundo */
 }
 
+/* Painel inferior para o botão e o campo de busca */
 .bottom-panel {
-  position: absolute;
-  bottom: 20px;
+  position: fixed; /* Usa position fixed para garantir que o botão fique sempre visível */
+  bottom: 20px; /* Mantém o painel 20px acima do limite inferior da tela */
   left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
@@ -33,40 +37,48 @@ body {
   border-radius: 10px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
-  z-index: 10;
+  z-index: 1000; /* Garante que o painel esteja acima do mapa */
   width: 90%;
   max-width: 400px;
+  pointer-events: auto; /* Garante que o painel seja clicável */
 }
 
+/* Destaque para o botão "Qual seu destino?" */
 .destino-button {
   width: 100%;
   padding: 15px;
   font-size: 18px;
-  color: #333;
-  background-color: #f0f0f0;
+  color: #fff;
+  background-color: #007bff; /* Cor azul para destaque */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   display: block;
+  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2000; /* Certifica-se de que o botão fique acima de todos os outros elementos */
+  position: relative;
 }
 
 .destino-button:hover {
-  background-color: #ddd;
+  background-color: #0056b3;
 }
 
+/* Caixa de busca */
 .search-container {
-  position: absolute;
-  bottom: 70px;
+  position: fixed; /* Usa position fixed para que a busca fique visível */
+  bottom: 70px; /* Ajusta a posição para que fique acima do painel */
   left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  z-index: 1000;
   width: 90%;
   max-width: 400px;
 }
 
+/* Estilo para o campo de entrada de texto */
 .search-input {
   width: 100%;
   padding: 10px;
@@ -76,6 +88,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* Lista de destinos */
 .destinos-list-container {
   max-height: 40vh;
   overflow-y: auto;
@@ -84,12 +97,7 @@ body {
   padding: 10px;
 }
 
-.destinos-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
+/* Itens da lista de destinos */
 .destino-item {
   padding: 10px;
   margin: 5px 0;
@@ -103,9 +111,10 @@ body {
   background-color: #d8d8d8;
 }
 
+/* Informações detalhadas do destino */
 .destino-info {
-  position: absolute;
-  bottom: 80px;
+  position: fixed; /* Usa position fixed para manter visível */
+  bottom: 80px; /* Mantém 80px acima do limite inferior */
   left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
@@ -115,9 +124,11 @@ body {
   width: 90%;
   max-width: 400px;
   text-align: left;
-  z-index: 10;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
 }
 
+/* Botão de fechar */
 .close-button {
   position: absolute;
   top: 10px;
@@ -126,5 +137,31 @@ body {
   border: none;
   font-size: 18px;
   cursor: pointer;
+}
+
+/* Melhorias de responsividade para telas menores */
+@media (max-width: 600px) {
+  .bottom-panel {
+    bottom: 10px;
+    width: 95%;
+    max-width: 95%;
+  }
+
+  .search-container {
+    bottom: 60px;
+    width: 95%;
+  }
+}
+
+/* Ajustes para telas grandes */
+@media (min-width: 1024px) {
+  .bottom-panel {
+    max-width: 600px;
+    padding: 20px;
+  }
+
+  .search-container {
+    max-width: 600px;
+  }
 }
 
