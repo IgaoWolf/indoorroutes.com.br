@@ -1,0 +1,40 @@
+-- Função para calcular conexões considerando apenas corredores, áreas de circulação e destinos finais
+CREATE OR REPLACE FUNCTION preencher_conexoes_com_destinos(raio_maximo NUMERIC)
+RETURNS INTEGER AS $$
+DECLARE
+    waypoint_origem RECORD;
+    waypoint_destino RECORD;
+    distancia NUMERIC;
+    num_conexoes INTEGER := 0;
+BEGIN
+    -- Primeiro: Conectar apenas corredores e áreas de circulação entre si
+    FOR waypoint_origem IN SELECT id, coordenadas FROM waypoints WHERE tipo IN ('corredor', 'circulacao') LOOP
+        FOR waypoint_destino IN SELECT id, coordenadas FROM waypoints WHERE tipo IN ('corredor', 'circulacao') LOOP
+            IF waypoint_origem.id <> waypoint_destino.id THEN
+                distancia := ST_Distance(waypoint_origem.coordenadas, waypoint_destino.coordenadas);
+
+                IF distancia <= raio_maximo THEN
+                    INSERT INTO conexoes (waypoint_origem_id, waypoint_destino_id, distancia)
+                    VALUES (waypoint_origem.id, waypoint_destino.id, distancia);
+                    num_conexoes := num_conexoes + 1;
+                END IF;
+            END IF;
+        END LOOP;
+    END LOOP;
+
+    -- Segundo: Conectar corredores e áreas de circulação aos destinos finais (usando a tabela destinos)
+    FOR waypoint_origem IN SELECT id, coordenadas FROM waypoints WHERE tipo IN ('corredor', 'circulacao') LOOP
+        FOR waypoint_destino IN SELECT waypoint_id AS id, (SELECT coordenadas FROM waypoints WHERE id = d.waypoint_id) AS coordenadas FROM destinos d LOOP
+            distancia := ST_Distance(waypoint_origem.coordenadas, waypoint_destino.coordenadas);
+
+            IF distancia <= raio_maximo THEN
+                INSERT INTO conexoes (waypoint_origem_id, waypoint_destino_id, distancia)
+                VALUES (waypoint_origem.id, waypoint_destino.id, distancia);
+                num_conexoes := num_conexoes + 1;
+            END IF;
+        END LOOP;
+    END LOOP;
+
+    RETURN num_conexoes; -- Retorna o número de conexões inseridas
+END;
+$$ LANGUAGE plpgsql;
