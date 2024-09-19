@@ -1,3 +1,7 @@
+Aqui está o `README.md` atualizado com base nas mudanças recentes que fizemos no projeto **Indoor Routes**:
+
+---
+
 # Indoor Routes
 
 **Indoor Routes** é uma aplicação de navegação interna desenvolvida para ambientes como instituições de ensino, shoppings, hospitais e outros locais onde a navegação interna é necessária. A aplicação permite aos usuários encontrar rotas otimizadas entre diferentes pontos dentro desses ambientes, similar ao funcionamento de aplicativos de navegação como Google Maps ou Waze, mas focado exclusivamente em navegação indoor.
@@ -23,6 +27,8 @@
 - Integração com banco de dados PostgreSQL com extensão PostGIS para manipulação geoespacial.
 - Exibição de informações úteis sobre os destinos, como horário de funcionamento.
 - Interface responsiva para dispositivos móveis.
+- **Instruções de navegação em tempo real**, exibindo alertas sobre os próximos passos (ex.: "Vire à direita", "Suba a escada", etc.).
+- Suporte a navegação por múltiplos andares, incluindo mudança de andar via escadas ou elevadores.
 
 ## Pré-requisitos
 
@@ -129,7 +135,7 @@ indoor-routes/
 ├── frontend/
 │   ├── public/                # Arquivos públicos (index.html, etc.)
 │   ├── src/
-│   │   ├── components/        # Componentes React (MapView, DestinosList, etc.)
+│   │   ├── components/        # Componentes React (MapView, DestinosList, InstrucoesNavegacao, etc.)
 │   │   ├── App.js             # Componente principal do React
 │   │   └── ...                # Outros componentes e arquivos de estilo
 │   └── package.json
@@ -148,10 +154,12 @@ Retorna todos os destinos disponíveis.
   ```json
   [
     {
-      "id": 1,
-      "nome": "Sala 1201",
-      "tipo": "Sala de aula",
-      "horarioFuncionamento": "17:00 - 00:00"
+      "destino_id": 1,
+      "destino_nome": "Sala 1201",
+      "descricao": "Sala de aula",
+      "tipo": "Sala",
+      "andar_nome": "Segundo Andar",
+      "horariofuncionamento": "07:00 - 18:00"
     },
     ...
   ]
@@ -159,7 +167,7 @@ Retorna todos os destinos disponíveis.
 
 #### 2. `POST /api/rota`
 
-Calcula a rota mais curta até o destino fornecido.
+Calcula a rota mais curta até o destino fornecido, incluindo mudanças de andar (escada ou elevador).
 
 - **Parâmetros de Entrada:**
   ```json
@@ -177,7 +185,12 @@ Calcula a rota mais curta até o destino fornecido.
       { "id": 1, "latitude": -23.561, "longitude": -46.656 },
       ...
     ],
-    "distanciaTotal": 150.5
+    "distanciaTotal": 150.5,
+    "instrucoes": [
+      "Siga em frente por 50 metros",
+      "Suba a escada para o andar 2",
+      "Pegue o elevador até o andar 3"
+    ]
   }
   ```
 
@@ -195,6 +208,6 @@ Se você deseja contribuir para este projeto, siga as etapas abaixo:
 
 Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-### Considerações Finais
+---
 
-Esse `README.md` fornece uma visão detalhada e completa do seu projeto **Indoor Routes**. Inclui instruções de instalação, configuração, execução, detalhes da API, estrutura do projeto, e como contribuir. Sinta-se à vontade para personalizar conforme necessário. 
+Esse `README.md` foi ajustado para refletir as alterações no projeto, como a adição de instruções de navegação em tempo real, suporte a múltiplos andares e a integração do algoritmo de Dijkstra para cálculo de rotas.
