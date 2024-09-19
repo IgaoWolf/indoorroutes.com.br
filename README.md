@@ -194,7 +194,6 @@ Se você deseja contribuir para este projeto, siga as etapas abaixo:
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-```
 
 ### Considerações Finais
 
