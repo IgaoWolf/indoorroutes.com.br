@@ -11,21 +11,17 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
       return;
     }
 
-    // Verifica se o formato do horário é válido
     const horarioArray = destino.horariofuncionamento.split(' - ');
     if (horarioArray.length !== 2) {
       setStatus('Horário de funcionamento inválido');
       return;
     }
 
-    // Extrai os horários de abertura e fechamento
     const [horarioAbertura, horarioFechamento] = horarioArray;
-
     const now = new Date();
     const horarioAberturaData = criarDataComHorario(horarioAbertura);
     const horarioFechamentoData = criarDataComHorario(horarioFechamento);
 
-    // Caso o horário de fechamento seja no dia seguinte
     if (horarioFechamentoData < horarioAberturaData) {
       horarioFechamentoData.setDate(horarioFechamentoData.getDate() + 1);
     }
@@ -36,7 +32,6 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
       setStatus('Fechado');
     }
 
-    // Atualiza o estado do horário de funcionamento para exibição
     sethorariofuncionamento(`${horarioAbertura} - ${horarioFechamento}`);
   }, [destino]);
 
@@ -46,11 +41,10 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
     }
   }, [destino, verificarhorariofuncionamento]);
 
-  // Função auxiliar para criar uma data com a hora correta
   const criarDataComHorario = (horario) => {
     const [horas, minutos] = horario.split(':');
     const dataAtual = new Date();
-    dataAtual.setHours(horas, minutos, 0, 0); // Define horas e minutos, ignorando segundos e milissegundos
+    dataAtual.setHours(horas, minutos, 0, 0);
     return dataAtual;
   };
 
@@ -63,7 +57,7 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
       </div>
 
       <button className="confirm-button" onClick={onConfirm}>
-        {destino.tempoEstimado} {/* Exibe o tempo estimado de chegada */}
+        Iniciar Rota
       </button>
 
       {destino.horariofuncionamento ? (
@@ -84,3 +78,4 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
 };
 
 export default DestinoInfo;
+

@@ -128,8 +128,11 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* Alinha o conteúdo em coluna */
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative; /* Define o contexto de posicionamento relativo */
+  width: 100%;
 }
 
 h2 {
@@ -146,13 +149,15 @@ p {
 .confirm-button {
   background-color: #007bff;
   color: #fff;
-  padding: 15px;
+  padding: 20px; /* Aumentei o padding para deixar o botão mais "grosso" */
   border: none;
-  border-radius: 10px;
+  border-radius: 12px; /* Aumentei o raio da borda para deixá-la mais suave */
   width: 100%;
-  font-size: 18px;
+  font-size: 20px; /* Aumentei o tamanho da fonte */
+  font-weight: bold; /* Adicionando negrito para destacar ainda mais o botão */
   cursor: pointer;
   margin-top: 15px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1); /* Adicionei uma sombra mais pronunciada */
 }
 
 .confirm-button:hover {
@@ -180,6 +185,9 @@ p {
   border: none;
   font-size: 18px;
   cursor: pointer;
+  position: absolute; /* Posiciona o botão no canto superior direito */
+  top: 10px;
+  right: 10px;
 }
 
 /* Melhorias de responsividade para telas menores */

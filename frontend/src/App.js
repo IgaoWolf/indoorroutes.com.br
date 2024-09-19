@@ -10,12 +10,11 @@ const App = () => {
   const [longitude, setLongitude] = useState(null);
   const [showDestinos, setShowDestinos] = useState(false);
   const [destinos, setDestinos] = useState([]);
-  const [rota, setRota] = useState([]);
+  const [rota, setRota] = useState([]); // Estado para armazenar a rota calculada
   const [distanciaTotal, setDistanciaTotal] = useState(0);
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [tempoEstimado, setTempoEstimado] = useState('');
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -28,6 +27,7 @@ const App = () => {
     }
   }, []);
 
+  // Função para buscar os destinos
   useEffect(() => {
     if (showDestinos) {
       const fetchDestinos = async () => {
@@ -42,6 +42,7 @@ const App = () => {
     }
   }, [showDestinos]);
 
+  // Função para calcular a rota
   const calcularRota = async (destino) => {
     if (!latitude || !longitude || !destino) {
       alert('Por favor, selecione um destino.');
@@ -55,33 +56,30 @@ const App = () => {
         destino: destino.nome,
       });
 
-      setRota(response.data.rota);
-      setDistanciaTotal(response.data.distanciaTotal);
-
-      const tempoMin = (response.data.distanciaTotal * 0.72) / 60;
-      const tempoMax = (response.data.distanciaTotal * 0.90) / 60;
-      setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
+      setRota(response.data.rota); // Armazena a rota retornada pela API
+      setDistanciaTotal(response.data.distanciaTotal); // Armazena a distância total
+      console.log("Rota calculada: ", response.data.rota);
 
     } catch (error) {
       console.error('Erro ao calcular a rota:', error);
     }
   };
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleConfirmarRota = () => {
+  const handleConfirmarRota = async () => {
     if (selectedDestino) {
-      calcularRota(selectedDestino);
-      setConfirmado(true); // Confirma a rota para ser gerada
+      await calcularRota(selectedDestino); // Calcula a rota antes de confirmar
+      setConfirmado(true); // Define como confirmado após a rota ser calculada
     }
   };
 
   const handleTrocarDestino = () => {
     setConfirmado(false);
-    setRota([]);
-    setSelectedDestino(null);
+    setRota([]); // Limpa a rota ao trocar de destino
+    setSelectedDestino(null); // Limpa o destino selecionado
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   const filteredDestinos = destinos.filter((destino) =>
@@ -90,12 +88,11 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <MapView latitude={latitude} longitude={longitude} rota={rota} />
+      <MapView latitude={latitude} longitude={longitude} rota={rota} /> {/* Passa a rota para o MapView */}
 
       {selectedDestino && !confirmado && (
         <DestinoInfo
           destino={selectedDestino}
-          tempoEstimado={tempoEstimado}
           onClose={() => setSelectedDestino(null)}
           onConfirm={handleConfirmarRota}
         />
@@ -104,8 +101,10 @@ const App = () => {
       {confirmado && (
         <div className="info-panel">
           <h2>{selectedDestino.nome}</h2>
-          <p>Tempo estimado: {tempoEstimado}</p>
-          <button className="trocar-destino-button" onClick={handleTrocarDestino}>Trocar destino</button>
+          <p>Rota confirmada!</p>
+          <button className="trocar-destino-button" onClick={handleTrocarDestino}>
+            Trocar destino
+          </button>
         </div>
       )}
 
