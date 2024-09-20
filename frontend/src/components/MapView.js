@@ -18,6 +18,22 @@ const endIcon = new L.Icon({
   popupAnchor: [0, -32],
 });
 
+// Ícone para escada
+const stairIcon = new L.Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/2927/2927067.png', // Ícone de escada
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+});
+
+// Ícone para elevador
+const elevatorIcon = new L.Icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/2927/2927066.png', // Ícone de elevador
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+});
+
 const MapView = ({ latitude, longitude, rota }) => {
   const [userPosition, setUserPosition] = useState({ lat: latitude, lon: longitude });
   const defaultZoom = 18; // Zoom padrão
@@ -76,6 +92,39 @@ const MapView = ({ latitude, longitude, rota }) => {
               </Tooltip>
             </Marker>
           )}
+
+          {/* Exibir ícones de escada ou elevador em pontos da rota */}
+          {rota.map((ponto, index) => {
+            const prevPonto = index > 0 ? rota[index - 1] : null;
+            const proximoPonto = index < rota.length - 1 ? rota[index + 1] : null;
+
+            // Verifica se o ponto atual é uma escada ou elevador e se houve mudança de andar
+            if (prevPonto && proximoPonto && ponto.andar_id !== prevPonto.andar_id) {
+              // Se o tipo do ponto anterior for escadaria, adiciona ícone de escada
+              if (prevPonto.tipo === 'Escadaria') {
+                return (
+                  <Marker key={index} position={[ponto.latitude, ponto.longitude]} icon={stairIcon}>
+                    <Tooltip direction="top" offset={[0, -32]} permanent>
+                      <strong>Suba/Desça a Escada</strong>
+                    </Tooltip>
+                  </Marker>
+                );
+              }
+
+              // Se o tipo do ponto anterior for elevador, adiciona ícone de elevador
+              if (prevPonto.tipo === 'Elevador') {
+                return (
+                  <Marker key={index} position={[ponto.latitude, ponto.longitude]} icon={elevatorIcon}>
+                    <Tooltip direction="top" offset={[0, -32]} permanent>
+                      <strong>Pegue o Elevador</strong>
+                    </Tooltip>
+                  </Marker>
+                );
+              }
+            }
+
+            return null; // Nenhum ícone se não houver mudança de andar
+          })}
         </MapContainer>
       ) : (
         <p>Carregando mapa...</p>

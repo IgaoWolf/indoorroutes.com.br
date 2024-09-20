@@ -23,26 +23,28 @@ router.get('/api/destinos', async (req, res) => {
   }
 });
 
-// Função auxiliar para calcular o ângulo de direção entre dois waypoints
-function calcularAnguloEntrePontos(lat1, lon1, lat2, lon2) {
+// Função para calcular o ângulo entre dois pontos geográficos
+const calcularAnguloEntrePontos = (lat1, lon1, lat2, lon2) => {
   const rad = Math.PI / 180;
-  const y = Math.sin((lon2 - lon1) * rad) * Math.cos(lat2 * rad);
-  const x = Math.cos(lat1 * rad) * Math.sin(lat2 * rad) - Math.sin(lat1 * rad) * Math.cos(lat2 * rad) * Math.cos((lon2 - lon1) * rad);
-  const angulo = Math.atan2(y, x) * (180 / Math.PI); // Converte o ângulo de radianos para graus
-  return (angulo + 360) % 360; // Normaliza o ângulo para o intervalo [0, 360]
-}
+  const y = Math.sin(lon2 - lon1) * Math.cos(lat2 * rad);
+  const x = Math.cos(lat1 * rad) * Math.sin(lat2 * rad) - 
+            Math.sin(lat1 * rad) * Math.cos(lat2 * rad) * Math.cos(lon2 - lon1);
+  let brng = Math.atan2(y, x) * (180 / Math.PI);
+  brng = (brng + 360) % 360;
+  return brng;
+};
 
-// Função auxiliar para determinar se o movimento é "reta", "curva à direita" ou "curva à esquerda"
-function determinarDirecao(anguloAtual, anguloProximo) {
-  const diferenca = (anguloProximo - anguloAtual + 360) % 360;
-  if (diferenca < 10 || diferenca > 350) {
+// Função para determinar a direção de uma curva com base nos ângulos
+const determinarDirecao = (anguloAtual, anguloProximo) => {
+  const diferencaAngulo = (anguloProximo - anguloAtual + 360) % 360;
+  if (diferencaAngulo < 15 || diferencaAngulo > 345) {
     return 'reta';
-  } else if (diferenca < 180) {
+  } else if (diferencaAngulo >= 15 && diferencaAngulo <= 180) {
     return 'curva à direita';
   } else {
     return 'curva à esquerda';
   }
-}
+};
 
 // Endpoint para calcular a rota
 router.post('/api/rota', async (req, res) => {
@@ -86,6 +88,7 @@ router.post('/api/rota', async (req, res) => {
     let distanciaTotal = 0;
     let andarAtual = waypointsNaRota[0].andar_id; // Iniciar com o andar do primeiro waypoint
     let anguloAtual = null;
+    let distanciaAcumulada = 0; // Para acumular distâncias quando não há curva
 
     const rotaComInstrucoes = rota.map((r, index) => {
       const waypoint = waypointsNaRota.find(w => w.id == r.node);
@@ -100,13 +103,15 @@ router.post('/api/rota', async (req, res) => {
 
           // Verificar se há mudança de andar
           if (waypoint.andar_id !== andarAtual) {
-            // Adicionar instrução para mudança de andar (usando Escadaria ou Elevador)
+            // Instrução de mudança de andar
             if (prevWaypoint.tipo === 'Escadaria') {
               instrucoes.push(`Suba a Escadaria para o andar ${waypoint.andar_id}`);
             } else if (prevWaypoint.tipo === 'Elevador') {
               instrucoes.push(`Pegue o Elevador até o andar ${waypoint.andar_id}`);
             }
-            andarAtual = waypoint.andar_id; // Atualizar o andar atual
+            instrucoes.push(`Confirme se chegou ao andar ${waypoint.andar_id}.`);
+            andarAtual = waypoint.andar_id;
+            distanciaAcumulada = 0; // Reiniciar a distância acumulada
           } else {
             // Calcular o ângulo de direção entre o waypoint anterior e o atual
             const anguloProximo = calcularAnguloEntrePontos(
@@ -114,18 +119,16 @@ router.post('/api/rota', async (req, res) => {
               waypoint.latitude, waypoint.longitude
             );
 
-            if (anguloAtual !== null) {
-              const direcao = determinarDirecao(anguloAtual, anguloProximo);
-
-              if (direcao === 'reta') {
-                instrucoes.push(`Siga em frente por ${Math.round(distancia)} metros`);
-              } else if (direcao === 'curva à direita') {
-                instrucoes.push(`Vire à direita e siga por ${Math.round(distancia)} metros`);
-              } else if (direcao === 'curva à esquerda') {
-                instrucoes.push(`Vire à esquerda e siga por ${Math.round(distancia)} metros`);
-              }
+            // Se o ângulo for "reta", acumulamos a distância; senão, descrevemos uma curva
+            if (anguloAtual === null || determinarDirecao(anguloAtual, anguloProximo) === 'reta') {
+              distanciaAcumulada += distancia;
             } else {
-              instrucoes.push(`Siga em frente por ${Math.round(distancia)} metros`);
+              if (distanciaAcumulada > 0) {
+                instrucoes.push(`Siga em frente por ${Math.round(distanciaAcumulada)} metros`);
+                distanciaAcumulada = 0;
+              }
+              const direcao = determinarDirecao(anguloAtual, anguloProximo);
+              instrucoes.push(`Vire à ${direcao} e siga por ${Math.round(distancia)} metros`);
             }
 
             // Atualizar o ângulo atual
@@ -141,6 +144,11 @@ router.post('/api/rota', async (req, res) => {
       };
     });
 
+    // Se ainda houver uma distância acumulada no final, emitir uma última instrução "Siga em frente"
+    if (distanciaAcumulada > 0) {
+      instrucoes.push(`Siga em frente por ${Math.round(distanciaAcumulada)} metros`);
+    }
+
     if (rotaComInstrucoes.length > 0) {
       res.json({ rota: rotaComInstrucoes, distanciaTotal, instrucoes });
     } else {
@@ -153,4 +161,3 @@ router.post('/api/rota', async (req, res) => {
 });
 
 module.exports = router;
-
