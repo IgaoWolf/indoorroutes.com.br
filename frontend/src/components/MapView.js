@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 
 // Ícone de boneco para a posição do usuário
@@ -62,16 +62,18 @@ const MapView = ({ latitude, longitude, rota }) => {
           {/* Marker para o ponto final com ícone vermelho e popup */}
           {pontoFinal && (
             <Marker position={[pontoFinal.latitude, pontoFinal.longitude]} icon={endIcon}>
-              <Popup>
+              <Tooltip direction="top" offset={[0, -20]} permanent>
                 <strong>Ponto de Chegada</strong>
-              </Popup>
+              </Tooltip>
             </Marker>
           )}
 
           {/* Marker para a localização do usuário em tempo real */}
           {userPosition.lat && userPosition.lon && (
             <Marker position={[userPosition.lat, userPosition.lon]} icon={userIcon}>
-              <Popup>Você está aqui!</Popup>
+              <Tooltip direction="top" offset={[0, -38]} permanent>
+                Você está aqui!
+              </Tooltip>
             </Marker>
           )}
         </MapContainer>

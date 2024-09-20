@@ -247,6 +247,54 @@ p {
   margin-bottom: 8px;
 }
 
+/* Ajustes para o ícone de usuário */
+.leaflet-marker-icon.user-icon {
+  border-radius: 50%; /* Deixa o ícone em formato circular */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adiciona uma leve sombra para destaque */
+}
+
+/* Ajustes para o ícone de ponto final */
+.leaflet-marker-icon.end-icon {
+  border-radius: 50%; /* Deixa o ícone de chegada também circular */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Sombra vermelha para maior contraste */
+}
+
+/* Ajustes para o pop-up de localização do usuário */
+.user-popup {
+  text-align: center; /* Centraliza o texto */
+  font-size: 14px; /* Tamanho de fonte menor para uma interface mais limpa */
+  font-weight: bold; /* Deixa o texto em negrito */
+  color: #007bff; /* Azul para combinar com o ícone de localização */
+}
+
+/* Ajustes para o pop-up de ponto final */
+.leaflet-popup-content-wrapper {
+  background-color: #f9f9f9; /* Fundo mais claro para os pop-ups */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
+}
+
+.leaflet-popup-content {
+  margin: 5px; /* Margem interna para o conteúdo do pop-up */
+  font-size: 14px; /* Fonte um pouco menor */
+  font-weight: bold; /* Deixa o texto do pop-up em negrito */
+  text-align: center; /* Centraliza o texto */
+}
+
+.leaflet-popup-tip-container {
+  display: none; /* Remove a seta padrão do pop-up para uma aparência mais limpa */
+}
+
+/* Ajustes gerais para o mapa */
+.map-container {
+  height: 100vh; /* Mapa preenche toda a altura da tela */
+  width: 100vw; /* Mapa preenche toda a largura da tela */
+}
+
+.leaflet-container {
+  background-color: #f0f0f0; /* Adiciona um fundo suave para quando o mapa está carregando */
+}
+
 /* Melhorias de responsividade para telas menores */
 @media (max-width: 600px) {
   .bottom-panel {
