@@ -6096,6 +6096,11 @@ COPY public.conexoes (id, waypoint_origem_id, waypoint_destino_id, distancia) FR
 5547	147	10	1.01
 5548	8	149	5.09
 5549	9	146	4.50
+5554	232	233	66.30
+5555	233	234	44.24
+5556	234	100	86.38
+5557	235	233	35.62
+5558	235	2	4.23
 \.
 
 
@@ -6413,6 +6418,10 @@ COPY public.waypoints (id, nome, descricao, tipo, bloco_id, andar_id, coordenada
 229	Waypoint Corredor 59	Ponto no corredor do 2º andar	corredor	1	2	0101000020E61000009634D29415C14AC0F6D765D741F238C0
 230	Waypoint Corredor 60	Ponto no corredor do 2º andar	corredor	1	2	0101000020E6100000BA7C355115C14AC01485C8AF40F238C0
 231	Waypoint Corredor 61	Ponto no corredor do 2º andar	corredor	1	2	0101000020E610000066BB632D15C14AC0150DA5383FF238C0
+232	\N	Corredor Granvia - Ponto 1	corredor	\N	\N	0101000020E61000008FF770EAFFC04AC06D86025359F238C0
+233	\N	Corredor Granvia - Ponto 2	corredor	\N	\N	0101000020E6100000FCBE032C07C14AC039008F6634F238C0
+234	\N	Corredor Granvia - Ponto 3	corredor	\N	\N	0101000020E6100000124705EB0BC14AC0042138B21BF238C0
+235	\N	Corredor Porta B01 - Granvia	corredor	\N	\N	0101000020E6100000B596762812C14AC0A0306AEF3AF238C0
 \.
 
 
@@ -6434,7 +6443,7 @@ SELECT pg_catalog.setval('public.blocos_id_seq', 1, true);
 -- Name: conexoes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: indoor
 --
 
-SELECT pg_catalog.setval('public.conexoes_id_seq', 5553, true);
+SELECT pg_catalog.setval('public.conexoes_id_seq', 5558, true);
 
 
 --
@@ -6455,7 +6464,7 @@ SELECT pg_catalog.setval('public.usuarios_id_seq', 1, false);
 -- Name: waypoints_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.waypoints_id_seq', 231, true);
+SELECT pg_catalog.setval('public.waypoints_id_seq', 235, true);
 
 
 --
