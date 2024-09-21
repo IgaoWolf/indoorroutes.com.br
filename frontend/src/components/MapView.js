@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
 // Ícone de boneco para a posição do usuário
@@ -33,6 +33,21 @@ const elevatorIcon = new L.Icon({
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
 });
+
+// Componente para ajustar o mapa para caber a rota e a localização do usuário
+const AjustarMapaParaRota = ({ rota, userPosition }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (rota.length > 0 && userPosition.lat && userPosition.lon) {
+      const pontos = rota.map(ponto => [ponto.latitude, ponto.longitude]);
+      pontos.push([userPosition.lat, userPosition.lon]); // Adiciona a posição do usuário
+      map.fitBounds(pontos); // Ajusta o mapa para caber todos os pontos
+    }
+  }, [rota, userPosition, map]);
+
+  return null;
+};
 
 const MapView = ({ latitude, longitude, rota }) => {
   const [userPosition, setUserPosition] = useState({ lat: latitude, lon: longitude });
@@ -74,6 +89,9 @@ const MapView = ({ latitude, longitude, rota }) => {
               color="blue"
             />
           )}
+
+          {/* Ajusta o mapa para caber a rota e a posição do usuário */}
+          <AjustarMapaParaRota rota={rota} userPosition={userPosition} />
 
           {/* Marker para o ponto final com ícone vermelho e popup */}
           {pontoFinal && (
