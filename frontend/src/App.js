@@ -14,34 +14,25 @@ const App = () => {
   const [rota, setRota] = useState([]);
   const [distanciaTotal, setDistanciaTotal] = useState(0);
   const [selectedDestino, setSelectedDestino] = useState(null);
-  const [selectedOrigem, setSelectedOrigem] = useState(null); // Novo estado para origem
+  const [selectedOrigem, setSelectedOrigem] = useState(null); // Estado para origem
   const [confirmado, setConfirmado] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
   const [useGeolocation, setUseGeolocation] = useState(true); // Determina se a geolocalização será usada
-  const [isSelectingOrigem, setIsSelectingOrigem] = useState(false); // Estado para controlar se está selecionando a origem
-  const [isSelectingDestino, setIsSelectingDestino] = useState(false); // Estado para controlar se está selecionando o destino
+  const [isSelectingOrigem, setIsSelectingOrigem] = useState(false); // Controla a seleção da origem
+  const [isSelectingDestino, setIsSelectingDestino] = useState(false); // Controla a seleção do destino
 
   // Obter a localização atual
   useEffect(() => {
     if (navigator.geolocation && useGeolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-        },
-        () => {
-          // Se a geolocalização falhar ou for negada, desativamos o uso dela
-          setUseGeolocation(false);
-          setLatitude(-23.55052); // Coordenadas padrão para Assis Burgaz
-          setLongitude(-46.633308);
-        }
-      );
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      });
     } else if (!useGeolocation) {
-      // Define as coordenadas padrão para Assis Burgaz se geolocalização estiver desativada
-      setLatitude(-23.55052);
-      setLongitude(-46.633308);
+      setLatitude(null);
+      setLongitude(null);
     }
   }, [useGeolocation]);
 
@@ -100,7 +91,7 @@ const App = () => {
     setInstrucoes([]);
   };
 
-  // Função para alternar entre uso da geolocalização e origem manual
+  // Função para alternar entre geolocalização e origem manual
   const toggleGeolocation = () => {
     setUseGeolocation(!useGeolocation);
     handleTrocarDestino(); // Reinicia o processo ao trocar a forma de localização
@@ -146,44 +137,43 @@ const App = () => {
         </div>
       )}
 
-      {/* Botões para selecionar origem e destino quando a geolocalização está desativada */}
-      {!useGeolocation && !selectedOrigem && (
+      {/* Botão para geolocalização ou selecionar manualmente */}
+      {!selectedDestino && !confirmado && (
         <div className="bottom-panel">
-          <button
-            className="origem-button"
-            onClick={() => {
-              setShowDestinos(true);
-              setIsSelectingOrigem(true);
-              setIsSelectingDestino(false);
-            }}
-          >
-            Selecione sua origem
-          </button>
-        </div>
-      )}
-
-      {/* Exibe o botão de destino após selecionar a origem */}
-      {!useGeolocation && selectedOrigem && !selectedDestino && (
-        <div className="bottom-panel">
-          <button
-            className="destino-button"
-            onClick={() => {
-              setShowDestinos(true);
-              setIsSelectingDestino(true);
-              setIsSelectingOrigem(false);
-            }}
-          >
-            Selecione seu destino
-          </button>
-        </div>
-      )}
-
-      {/* Botão de geolocalização e seleção de destino */}
-      {!selectedDestino && !confirmado && useGeolocation && (
-        <div className="bottom-panel">
-          <button className="destino-button" onClick={() => setShowDestinos(!showDestinos)}>
-            {useGeolocation ? 'Qual seu destino?' : 'Selecione seu destino'}
-          </button>
+          {useGeolocation ? (
+            <button className="destino-button" onClick={() => setShowDestinos(!showDestinos)}>
+              Qual seu destino?
+            </button>
+          ) : (
+            <>
+              {/* Exibe o botão de selecionar origem quando geolocalização não for permitida */}
+              {!selectedOrigem && (
+                <button
+                  className="origem-button"
+                  onClick={() => {
+                    setShowDestinos(true);
+                    setIsSelectingOrigem(true);
+                    setIsSelectingDestino(false);
+                  }}
+                >
+                  Selecione sua Origem
+                </button>
+              )}
+              {/* Exibe o botão de selecionar destino após a origem ser selecionada */}
+              {selectedOrigem && !selectedDestino && (
+                <button
+                  className="destino-button"
+                  onClick={() => {
+                    setShowDestinos(true);
+                    setIsSelectingDestino(true);
+                    setIsSelectingOrigem(false);
+                  }}
+                >
+                  Selecione seu Destino
+                </button>
+              )}
+            </>
+          )}
           <button onClick={toggleGeolocation}>
             {useGeolocation ? 'Usar origem manual' : 'Usar geolocalização'}
           </button>
@@ -196,7 +186,7 @@ const App = () => {
           <input
             type="text"
             className="search-input"
-            placeholder="Digite o destino ou origem"
+            placeholder={isSelectingOrigem ? 'Digite sua origem' : 'Digite seu destino'}
             value={searchQuery}
             onChange={handleSearchChange}
           />
@@ -206,11 +196,11 @@ const App = () => {
             onSelectDestino={(destino) => {
               setSelectedDestino(destino);
               setConfirmado(false);
-              setShowDestinos(false); // Esconder a lista de destinos após selecionar
+              setShowDestinos(false); // Esconde a lista após selecionar o destino
             }}
             onSelectOrigem={(origem) => {
               setSelectedOrigem(origem);
-              setShowDestinos(false); // Esconder a lista de destinos após selecionar a origem
+              setShowDestinos(false); // Esconde a lista após selecionar a origem
             }}
             isSelectingOrigem={isSelectingOrigem} // Passa o estado para o componente
             isSelectingDestino={isSelectingDestino} // Passa o estado para o componente
