@@ -1,3 +1,4 @@
+/* Estilos globais */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -23,6 +24,10 @@ body {
   top: 0;
   left: 0;
   z-index: 1; /* Coloca o mapa no plano de fundo */
+}
+
+.leaflet-container {
+  background-color: #f0f0f0; /* Adiciona um fundo suave para quando o mapa está carregando */
 }
 
 /* Painel inferior para o botão e o campo de busca */
@@ -285,16 +290,6 @@ p {
   display: none; /* Remove a seta padrão do pop-up para uma aparência mais limpa */
 }
 
-/* Ajustes gerais para o mapa */
-.map-container {
-  height: 100vh; /* Mapa preenche toda a altura da tela */
-  width: 100vw; /* Mapa preenche toda a largura da tela */
-}
-
-.leaflet-container {
-  background-color: #f0f0f0; /* Adiciona um fundo suave para quando o mapa está carregando */
-}
-
 /* Estilos para o botão "Trocar Destino" */
 .trocar-destino-button {
   width: 100%;
@@ -337,6 +332,27 @@ p {
   background-color: #0056b3;
 }
 
+/* Adicionado: Botão específico para seleção de origem e destino */
+.origem-destino-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #28a745; /* Cor verde para destacar */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.origem-destino-button:hover {
+  background-color: #218838; /* Verde mais escuro ao passar o mouse */
+}
+
 .bottom-panel {
   position: fixed;
   bottom: 20px;
@@ -363,6 +379,19 @@ p {
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.geolocation-error {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f8d7da; /* Fundo vermelho claro */
+  color: #721c24; /* Texto vermelho escuro */
+  padding: 10px 20px;
+  border: 1px solid #f5c6cb; /* Borda vermelha clara */
+  border-radius: 5px;
   z-index: 1000;
 }
 

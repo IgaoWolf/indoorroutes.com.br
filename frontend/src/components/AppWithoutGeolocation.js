@@ -7,9 +7,10 @@ import InstrucoesNavegacao from './InstrucoesNavegacao';
 import '../App.css';
 
 const AppWithoutGeolocation = () => {
-  const [searchQuery, setSearchQuery] = useState(''); // Adicionado searchQuery e setSearchQuery
+  const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
   const [showDestinos, setShowDestinos] = useState(false);
+  const [selectingOrigem, setSelectingOrigem] = useState(true);
   const [selectedOrigem, setSelectedOrigem] = useState(null);
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
@@ -18,7 +19,7 @@ const AppWithoutGeolocation = () => {
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
 
-  // Função para buscar destinos
+  // Fetch destinos
   useEffect(() => {
     const fetchDestinos = async () => {
       try {
@@ -29,12 +30,10 @@ const AppWithoutGeolocation = () => {
       }
     };
 
-    if (showDestinos) {
-      fetchDestinos();
-    }
-  }, [showDestinos]);
+    fetchDestinos();
+  }, []);
 
-  // Função para calcular a rota e instruções
+  // Calculate route
   const calcularRota = async () => {
     if (!selectedOrigem || !selectedDestino) {
       alert('Por favor, selecione uma origem e um destino.');
@@ -43,8 +42,7 @@ const AppWithoutGeolocation = () => {
 
     try {
       const response = await axios.post('/api/rota', {
-        latitude: selectedOrigem.latitude,
-        longitude: selectedOrigem.longitude,
+        origem: selectedOrigem.destino_nome,
         destino: selectedDestino.destino_nome,
       });
 
@@ -53,11 +51,15 @@ const AppWithoutGeolocation = () => {
       setInstrucoes(response.data.instrucoes);
 
       const tempoMin = (response.data.distanciaTotal * 0.72) / 60;
-      const tempoMax = (response.data.distanciaTotal * 0.90) / 60;
+      const tempoMax = (response.data.distanciaTotal * 0.9) / 60;
       setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
       setConfirmado(true);
     } catch (error) {
-      console.error('Erro ao calcular a rota:', error);
+      console.error(
+        'Erro ao calcular a rota:',
+        error.response ? error.response.data : error.message
+      );
+      alert('Erro ao calcular a rota. Por favor, tente novamente.');
     }
   };
 
@@ -71,98 +73,96 @@ const AppWithoutGeolocation = () => {
     setSelectedDestino(null);
     setSelectedOrigem(null);
     setInstrucoes([]);
+    setDistanciaTotal(0);
+    setTempoEstimado('');
+    setShowDestinos(false);
+    setSearchQuery('');
+    setSelectingOrigem(true);
   };
 
-  // Filtragem dos destinos conforme a busca
+  // Filter destinos based on search query
   const filteredDestinos = destinos.filter((destino) =>
     destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="app-container">
-      {/* Mapa com a rota desenhada */}
+      {/* Map with the route */}
       <MapView latitude={null} longitude={null} rota={rota} />
 
-      {/* Exibe as instruções de navegação, se houver */}
+      {/* Navigation instructions */}
       {instrucoes.length > 0 && <InstrucoesNavegacao instrucoes={instrucoes} />}
 
-      {/* Informações detalhadas do destino selecionado */}
-      {selectedDestino && !confirmado && (
+      {/* Destination info */}
+      {selectedDestino && selectedOrigem && !confirmado && (
         <DestinoInfo
           destino={selectedDestino}
+          origem={selectedOrigem}
           tempoEstimado={tempoEstimado}
-          onClose={() => setSelectedDestino(null)}
+          onClose={() => {
+            setSelectedDestino(null);
+            setSelectedOrigem(null);
+            setSelectingOrigem(true);
+          }}
           onConfirm={calcularRota}
         />
       )}
 
-      {/* Painel de informações após confirmar o destino */}
+      {/* Info panel after confirming the route */}
       {confirmado && (
         <div className="info-panel">
-          <h2>{selectedDestino.destino_nome}</h2>
+          <h2>
+            Rota de {selectedOrigem.destino_nome} para {selectedDestino.destino_nome}
+          </h2>
           <p>Tempo estimado: {tempoEstimado}</p>
         </div>
       )}
 
-      {/* Botão para trocar a rota */}
+      {/* Button to change origin and destination */}
       {confirmado && (
         <div className="bottom-panel">
-          <button className="trocar-destino-button" onClick={handleTrocarDestino}>
-            Trocar destino
+          <button className="button-common trocar-destino-button" onClick={handleTrocarDestino}>
+            Trocar origem e destino
           </button>
         </div>
       )}
 
-      {/* Botão para selecionar origem */}
-      {!selectedOrigem && (
+      {/* Button to select origin or destination */}
+      {!confirmado && (
         <div className="bottom-panel">
           <button
-            className="origem-button"
+            className="button-common origem-destino-button"
             onClick={() => {
               setShowDestinos(true);
             }}
           >
-            Selecione sua origem
+            {selectingOrigem ? 'Selecione sua origem' : 'Selecione seu destino'}
           </button>
         </div>
       )}
 
-      {/* Exibe o botão de destino após selecionar a origem */}
-      {selectedOrigem && !selectedDestino && (
-        <div className="bottom-panel">
-          <button
-            className="destino-button"
-            onClick={() => {
-              setShowDestinos(true);
-            }}
-          >
-            Selecione seu destino
-          </button>
-        </div>
-      )}
-
-      {/* Exibição do componente DestinosList quando showDestinos for verdadeiro */}
+      {/* DestinosList component */}
       {showDestinos && (
         <div className="search-container">
           <input
             type="text"
             className="search-input"
-            placeholder="Digite o destino ou origem"
+            placeholder={`Digite o ${selectingOrigem ? 'origem' : 'destino'}`}
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          {/* Lista de destinos */}
           <DestinosList
             destinos={filteredDestinos}
-            onSelectOrigem={(origem) => {
-              setSelectedOrigem(origem);
-              setShowDestinos(false); // Esconder a lista após selecionar a origem
-            }}
             onSelectDestino={(destino) => {
-              setSelectedDestino(destino);
-              setShowDestinos(false); // Esconder a lista após selecionar o destino
+              if (selectingOrigem) {
+                setSelectedOrigem(destino);
+                setSelectingOrigem(false);
+              } else {
+                setSelectedDestino(destino);
+              }
+              setShowDestinos(false);
+              setSearchQuery('');
             }}
-            isSelectingOrigem={!selectedOrigem}
           />
         </div>
       )}

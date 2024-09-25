@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css'; // Certifique-se de que o CSS correto está sendo importado
+import '../App.css';
 
 const InstrucoesNavegacao = ({ instrucoes }) => {
   return (
@@ -15,4 +15,3 @@ const InstrucoesNavegacao = ({ instrucoes }) => {
 };
 
 export default InstrucoesNavegacao;
-

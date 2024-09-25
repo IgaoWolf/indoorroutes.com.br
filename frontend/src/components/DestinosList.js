@@ -3,7 +3,7 @@ import React from 'react';
 const DestinosList = ({ destinos, onSelectDestino }) => {
   // Agrupa os destinos por andar
   const destinosPorAndar = destinos.reduce((acc, destino) => {
-    const andar = destino.andar_nome || 'Desconhecido'; // Assume "Desconhecido" se o andar não for informado
+    const andar = destino.andar_nome || 'Desconhecido';
     if (!acc[andar]) {
       acc[andar] = [];
     }
@@ -19,11 +19,11 @@ const DestinosList = ({ destinos, onSelectDestino }) => {
           <ul className="destinos-list">
             {destinosPorAndar[andar].map((destino) => (
               <li
-                key={destino.destino_id} // Ajuste aqui
+                key={destino.destino_id}
                 className="destino-item"
                 onClick={() => onSelectDestino(destino)}
               >
-                {destino.destino_nome} {/* Ajuste aqui */}
+                {destino.destino_nome}
               </li>
             ))}
           </ul>
@@ -34,4 +34,3 @@ const DestinosList = ({ destinos, onSelectDestino }) => {
 };
 
 export default DestinosList;
-

@@ -2,84 +2,88 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Tooltip, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
-// Ícone de boneco para a posição do usuário
+// Ícones para o mapa
+
 const userIcon = new L.Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png', // Ícone de boneco
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
   iconSize: [38, 38],
   iconAnchor: [19, 38],
   popupAnchor: [0, -38],
 });
 
-// Ícone para o ponto de chegada (vermelho)
 const endIcon = new L.Icon({
-  iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // Ícone vermelho para o ponto de chegada
+  iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
 });
 
-// Ícone para escada
 const stairIcon = new L.Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/2927/2927067.png', // Ícone de escada
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/2927/2927067.png',
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
 });
 
-// Ícone para elevador
 const elevatorIcon = new L.Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/2927/2927066.png', // Ícone de elevador
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/2927/2927066.png',
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
 });
 
-// Componente para ajustar o mapa para caber a rota e a localização do usuário
-const AjustarMapaParaRota = ({ rota, userPosition }) => {
-  const map = useMap();
-
-  useEffect(() => {
-    if (rota.length > 0 && userPosition.lat && userPosition.lon) {
-      const pontos = rota.map(ponto => [ponto.latitude, ponto.longitude]);
-      pontos.push([userPosition.lat, userPosition.lon]); // Adiciona a posição do usuário
-      map.fitBounds(pontos); // Ajusta o mapa para caber todos os pontos
-    }
-  }, [rota, userPosition, map]);
-
-  return null;
-};
+// Coordenadas do waypoint_id 233 (Ponto 2 da Granvia)
+const defaultCenter = { lat: -24.982925, lon: -53.442845 };
 
 const MapView = ({ latitude, longitude, rota }) => {
-  const [userPosition, setUserPosition] = useState({ lat: latitude, lon: longitude });
-  const defaultZoom = 18; // Zoom padrão
+  const [userPosition, setUserPosition] = useState(null);
+  const defaultZoom = 18; // Nível de zoom padrão
   const pontoFinal = rota.length > 0 ? rota[rota.length - 1] : null; // Último ponto da rota
 
-  // Função para atualizar a localização do usuário em tempo real
+  // Atualiza a posição do usuário quando as props latitude e longitude mudam
   useEffect(() => {
-    const watchId = navigator.geolocation.watchPosition(
-      (position) => {
-        setUserPosition({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error('Erro ao obter localização:', error);
-      },
-      { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-    );
+    if (latitude != null && longitude != null) {
+      setUserPosition({ lat: latitude, lon: longitude });
+    } else {
+      setUserPosition({ lat: defaultCenter.lat, lon: defaultCenter.lon });
+    }
+  }, [latitude, longitude]);
 
-    // Limpa o watcher de geolocalização ao desmontar o componente
-    return () => navigator.geolocation.clearWatch(watchId);
-  }, []);
+  // Componente para ajustar o mapa para caber a rota e a localização do usuário
+  const AjustarMapaParaRota = ({ rota, userPosition }) => {
+    const map = useMap();
+
+    useEffect(() => {
+      const pontos = [];
+
+      if (rota.length > 0) {
+        const rotaPontos = rota.map((ponto) => [ponto.latitude, ponto.longitude]);
+        pontos.push(...rotaPontos);
+      }
+
+      if (userPosition && userPosition.lat && userPosition.lon) {
+        pontos.push([userPosition.lat, userPosition.lon]);
+      }
+
+      if (pontos.length > 0) {
+        map.fitBounds(pontos, { padding: [50, 50] });
+      }
+    }, [rota, userPosition, map]);
+
+    return null;
+  };
 
   return (
     <div className="map-container">
-      {latitude && longitude ? (
-        <MapContainer center={[latitude, longitude]} zoom={defaultZoom} style={{ height: '100%', width: '100%' }}>
+      {userPosition && (
+        <MapContainer
+          center={[userPosition.lat, userPosition.lon]}
+          zoom={defaultZoom}
+          style={{ height: '100%', width: '100%' }}
+        >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution="&copy; OpenStreetMap contributors"
           />
 
           {/* Linha da rota */}
@@ -93,7 +97,7 @@ const MapView = ({ latitude, longitude, rota }) => {
           {/* Ajusta o mapa para caber a rota e a posição do usuário */}
           <AjustarMapaParaRota rota={rota} userPosition={userPosition} />
 
-          {/* Marker para o ponto final com ícone vermelho e popup */}
+          {/* Marker para o ponto final */}
           {pontoFinal && (
             <Marker position={[pontoFinal.latitude, pontoFinal.longitude]} icon={endIcon}>
               <Tooltip direction="top" offset={[0, -20]} permanent>
@@ -102,8 +106,8 @@ const MapView = ({ latitude, longitude, rota }) => {
             </Marker>
           )}
 
-          {/* Marker para a localização do usuário em tempo real */}
-          {userPosition.lat && userPosition.lon && (
+          {/* Marker para a localização do usuário (se disponível) */}
+          {latitude != null && longitude != null && (
             <Marker position={[userPosition.lat, userPosition.lon]} icon={userIcon}>
               <Tooltip direction="top" offset={[0, -38]} permanent>
                 Você está aqui!
@@ -114,11 +118,8 @@ const MapView = ({ latitude, longitude, rota }) => {
           {/* Exibir ícones de escada ou elevador em pontos da rota */}
           {rota.map((ponto, index) => {
             const prevPonto = index > 0 ? rota[index - 1] : null;
-            const proximoPonto = index < rota.length - 1 ? rota[index + 1] : null;
 
-            // Verifica se o ponto atual é uma escada ou elevador e se houve mudança de andar
-            if (prevPonto && proximoPonto && ponto.andar_id !== prevPonto.andar_id) {
-              // Se o tipo do ponto anterior for escadaria, adiciona ícone de escada
+            if (prevPonto && ponto.andar_id !== prevPonto.andar_id) {
               if (prevPonto.tipo === 'Escadaria') {
                 return (
                   <Marker key={index} position={[ponto.latitude, ponto.longitude]} icon={stairIcon}>
@@ -129,7 +130,6 @@ const MapView = ({ latitude, longitude, rota }) => {
                 );
               }
 
-              // Se o tipo do ponto anterior for elevador, adiciona ícone de elevador
               if (prevPonto.tipo === 'Elevador') {
                 return (
                   <Marker key={index} position={[ponto.latitude, ponto.longitude]} icon={elevatorIcon}>
@@ -141,11 +141,9 @@ const MapView = ({ latitude, longitude, rota }) => {
               }
             }
 
-            return null; // Nenhum ícone se não houver mudança de andar
+            return null;
           })}
         </MapContainer>
-      ) : (
-        <p>Carregando mapa...</p>
       )}
     </div>
   );

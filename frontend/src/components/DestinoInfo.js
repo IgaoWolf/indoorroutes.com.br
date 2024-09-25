@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-const DestinoInfo = ({ destino, onClose, onConfirm }) => {
+const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {
   const [status, setStatus] = useState(''); // Estado para o status "Aberto" ou "Fechado"
   const [horariofuncionamento, sethorariofuncionamento] = useState(''); // Estado para exibir o horário de funcionamento
 
@@ -51,10 +51,19 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
   return (
     <div className="destino-info">
       <div className="header">
-        <h2>{destino.destino_nome}</h2> {/* Ajuste para refletir o nome correto do destino */}
-        <p>{destino.tipo}</p> {/* Ajuste para refletir o tipo do destino */}
-        <button className="close-button" onClick={onClose}>✕</button>
+        <h2>{destino.destino_nome}</h2>
+        <p>{destino.tipo}</p>
+        <button className="close-button" onClick={onClose}>
+          ✕
+        </button>
       </div>
+
+      {tempoEstimado && (
+        <p>
+          <strong>Tempo estimado: </strong>
+          {tempoEstimado}
+        </p>
+      )}
 
       <button className="confirm-button" onClick={onConfirm}>
         Iniciar Rota
@@ -62,7 +71,9 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
 
       {destino.horariofuncionamento ? (
         <div className="horario-info">
-          <p><strong>Horário de Funcionamento:</strong></p>
+          <p>
+            <strong>Horário de Funcionamento:</strong>
+          </p>
           <p>{horariofuncionamento}</p>
           <p className={status === 'Aberto' ? 'status-aberto' : 'status-fechado'}>
             {status === 'Aberto' ? 'Aberto agora' : 'Fechado agora'}
@@ -78,4 +89,3 @@ const DestinoInfo = ({ destino, onClose, onConfirm }) => {
 };
 
 export default DestinoInfo;
-
