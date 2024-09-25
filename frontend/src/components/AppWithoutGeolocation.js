@@ -128,7 +128,7 @@ const AppWithoutGeolocation = () => {
       )}
 
       {/* Button to select origin or destination */}
-      {!confirmado && (
+      {!confirmado && (!selectedOrigem || !selectedDestino) && (
         <div className="bottom-panel">
           <button
             className="button-common origem-destino-button"
