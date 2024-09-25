@@ -32,8 +32,8 @@ const elevatorIcon = new L.Icon({
   popupAnchor: [0, -32],
 });
 
-// Coordenadas do waypoint_id 233 (Ponto 2 da Granvia)
-const defaultCenter = { lat: -24.982925, lon: -53.442845 };
+// Coordenadas padrão quando a geolocalização não é permitida
+const defaultCenter = { lat: -24.94667548, lon: -53.50780993 };
 
 const MapView = ({ latitude, longitude, rota }) => {
   const [userPosition, setUserPosition] = useState(null);
