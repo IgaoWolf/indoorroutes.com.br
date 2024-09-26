@@ -10,7 +10,7 @@ const EventoForm = () => {
   const [destinos, setDestinos] = useState([]);
   const [destinoId, setDestinoId] = useState('');
   const { id } = useParams(); // Se o evento já existir
-  const history = useNavigate();
+  const navigate = useNavigate(); // Correção na navegação
 
   useEffect(() => {
     const fetchDestinos = async () => {
@@ -23,7 +23,7 @@ const EventoForm = () => {
     };
 
     if (id) {
-      // Fetch existing event details for edit
+      // Buscar detalhes do evento existente para edição
       const fetchEvento = async () => {
         try {
           const response = await axios.get(`/admin/eventos/${id}`);
@@ -49,13 +49,13 @@ const EventoForm = () => {
     
     try {
       if (id) {
-        // Update existing event
+        // Atualizar evento existente
         await axios.put(`/admin/eventos/${id}`, eventoData);
       } else {
-        // Create new event
+        // Criar novo evento
         await axios.post('/admin/eventos', eventoData);
       }
-      history.push('/admin/eventos');
+      navigate('/admin/eventos');
     } catch (error) {
       console.error('Erro ao salvar evento:', error);
     }
