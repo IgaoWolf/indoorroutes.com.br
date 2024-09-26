@@ -1,12 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppWithGeolocation from './components/AppWithGeolocation';
 import AppWithoutGeolocation from './components/AppWithoutGeolocation';
+import Admin from './components/admin/Admin';
+import './styles/App.css';
+
 
 const App = () => {
-  const [useGeolocation, setUseGeolocation] = useState(null);
+  return (
+    <Router>
+      <Routes>
+        {/* Rota para a interface administrativa */}
+        <Route path="/admin" element={<Admin />} />
 
-  useEffect(() => {
+        {/* Rota para a aplicação principal */}
+        <Route path="/" element={<Index />} />
+      </Routes>
+    </Router>
+  );
+};
+
+const Index = () => {
+  const [useGeolocation, setUseGeolocation] = React.useState(null);
+
+  React.useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         () => setUseGeolocation(true),
@@ -18,7 +35,7 @@ const App = () => {
   }, []);
 
   if (useGeolocation === null) {
-    return <div>Carregando...</div>; // Exibe um estado de carregamento
+    return <div>Carregando...</div>;
   }
 
   return useGeolocation ? <AppWithGeolocation /> : <AppWithoutGeolocation />;

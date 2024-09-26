@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EventoForm = () => {
   const [nome, setNome] = useState('');
@@ -10,7 +10,7 @@ const EventoForm = () => {
   const [destinos, setDestinos] = useState([]);
   const [destinoId, setDestinoId] = useState('');
   const { id } = useParams(); // Se o evento já existir
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     const fetchDestinos = async () => {
