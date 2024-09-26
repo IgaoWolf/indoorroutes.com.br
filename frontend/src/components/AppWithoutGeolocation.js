@@ -4,7 +4,8 @@ import MapView from './MapView';
 import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
-import '../App.css';
+import '../styles/App.css';
+
 
 const AppWithoutGeolocation = () => {
   const [searchQuery, setSearchQuery] = useState('');
