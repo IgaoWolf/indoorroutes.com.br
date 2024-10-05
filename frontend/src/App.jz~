@@ -12,7 +12,7 @@ const App = () => {
         {/* Rota para a interface administrativa */}
         <Route path="/admin" element={<Admin />} />
 
-        {/* Rota para a aplicaÃ§Ã£o principal */}
+        {/* Rota para a aplicação principal */}
         <Route path="/" element={<Index />} />
       </Routes>
     </Router>
@@ -23,7 +23,7 @@ const Index = () => {
   const [useGeolocation, setUseGeolocation] = React.useState(null);
   const [useGeolocationOpted, setUseGeolocationOpted] = React.useState(false);
 
-  // FunÃ§Ã£o para ativar a localizaÃ§Ã£o
+  // Função para ativar a localização
   const handleAtivarLocalizacao = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -32,7 +32,7 @@ const Index = () => {
           setUseGeolocationOpted(true);
         },
         (error) => {
-          console.error('Erro ao obter geolocalizaÃ§Ã£o:', error);
+          console.error('Erro ao obter geolocalização:', error);
           setUseGeolocation(false);
           setUseGeolocationOpted(true);
         }
@@ -43,28 +43,27 @@ const Index = () => {
     }
   };
 
-  // FunÃ§Ã£o para continuar sem localizaÃ§Ã£o
+  // Função para continuar sem localização
   const handleContinuarSemLocalizacao = () => {
     setUseGeolocation(false);
     setUseGeolocationOpted(true);
   };
 
-  // Quando o usuÃ¡rio ainda nÃ£o fez a escolha, mostramos os botÃµes
+  // Quando o usuário ainda não fez a escolha, mostramos os botões
   if (!useGeolocationOpted) {
     return (
-	    <div className="welcome-container">
-  <h1>Bem-vindo ao Indoor Routes</h1>
-  <p>Encontre a melhor rota interna em nossa plataforma. Voc&ecirc; pode optar por ativar sua localiza&ccedil;&atilde;o para uma navega&ccedil;&atilde;o mais precisa ou definir sua origem manualmente.</p>
-  <div className="button-group">
-    <button className="button-ativar" onClick={handleAtivarLocalizacao}>
-      <span role="img" aria-label="location">ğŸ“</span> Ativar Localiza&ccedil;&atilde;o
-    </button>
-    <button className="button-continuar" onClick={handleContinuarSemLocalizacao}>
-      <span role="img" aria-label="manual">ğŸš¶â€â™‚ï¸</span> Continuar Sem Localiza&ccedil;&atilde;o
-    </button>
-  </div>
-</div>
-
+      <div className="welcome-container">
+        <h1>Bem-vindo ao Indoor Routes</h1>
+        <p>Encontre a melhor rota interna em nossa plataforma. Você pode optar por ativar sua localização para uma navegação mais precisa ou definir sua origem manualmente.</p>
+        <div className="button-group">
+          <button className="button-ativar" onClick={handleAtivarLocalizacao}>
+            <span role="img" aria-label="location">¿</span> Ativar Localização
+          </button>
+          <button className="button-continuar" onClick={handleContinuarSemLocalizacao}>
+            <span role="img" aria-label="manual">¿¿¿¿</span> Continuar Sem Localização
+          </button>
+        </div>
+      </div>
     );
   }
 

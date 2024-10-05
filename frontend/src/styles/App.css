@@ -47,7 +47,7 @@ body {
   pointer-events: auto; /* Garante que o painel seja clicável */
 }
 
-/* Destaque para o botão "Qual seu destino?" */
+/* Destaque para o botão "Qual seu destino?" ou "Voltar" */
 .destino-button {
   width: 100%;
   padding: 15px;
@@ -60,12 +60,21 @@ body {
   display: block;
   font-weight: bold;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 2000; /* Certifica-se de que o botão fique acima de todos os outros elementos */
+  transition: background-color 0.3s ease;
   position: relative;
 }
 
 .destino-button:hover {
   background-color: #0056b3;
+}
+
+/* Estilo específico para o botão "Voltar" */
+.destino-button.voltar {
+  background-color: #dc3545; /* Vermelho para indicar ação de retorno */
+}
+
+.destino-button.voltar:hover {
+  background-color: #c82333; /* Cor mais escura ao passar o mouse */
 }
 
 /* Caixa de busca */
@@ -157,80 +166,34 @@ body {
   z-index: 1000;
 }
 
-.header {
-  display: flex;
-  flex-direction: column; /* Alinha o conteúdo em coluna */
-  justify-content: flex-start;
-  align-items: flex-start;
-  position: relative; /* Define o contexto de posicionamento relativo */
-  width: 100%;
-}
-
-h2 {
-  font-size: 20px;
-  margin: 0;
-  font-weight: bold;
-}
-
-p {
-  margin: 5px 0;
-  font-size: 14px;
-}
-
 .confirm-button {
   background-color: #007bff;
   color: #fff;
-  padding: 20px; /* Aumentei o padding para deixar o botão mais "grosso" */
+  padding: 20px;
   border: none;
-  border-radius: 12px; /* Aumentei o raio da borda para deixá-la mais suave */
+  border-radius: 12px;
   width: 100%;
-  font-size: 20px; /* Aumentei o tamanho da fonte */
-  font-weight: bold; /* Adicionando negrito para destacar ainda mais o botão */
+  font-size: 20px;
+  font-weight: bold;
   cursor: pointer;
   margin-top: 15px;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1); /* Adicionei uma sombra mais pronunciada */
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
 }
 
 .confirm-button:hover {
   background-color: #0056b3;
 }
 
-.horario-info {
-  margin-top: 10px;
-  font-size: 14px;
-  text-align: left;
-}
-
-.status-aberto {
-  color: green;
-  font-weight: bold;
-}
-
-.status-fechado {
-  color: red;
-  font-weight: bold;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  position: absolute; /* Posiciona o botão no canto superior direito */
-  top: 10px;
-  right: 10px;
-}
-
 .instrucoes-navegacao {
   position: fixed;
-  top: 20px; /* Posiciona no topo da tela */
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Certifique-se de que fique acima do mapa */
+  z-index: 1000;
   width: 90%;
   max-width: 600px;
 }
@@ -252,150 +215,6 @@ p {
   margin-bottom: 8px;
 }
 
-/* Ajustes para o ícone de usuário */
-.leaflet-marker-icon.user-icon {
-  border-radius: 50%; /* Deixa o ícone em formato circular */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adiciona uma leve sombra para destaque */
-}
-
-/* Ajustes para o ícone de ponto final */
-.leaflet-marker-icon.end-icon {
-  border-radius: 50%; /* Deixa o ícone de chegada também circular */
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Sombra vermelha para maior contraste */
-}
-
-/* Ajustes para o pop-up de localização do usuário */
-.user-popup {
-  text-align: center; /* Centraliza o texto */
-  font-size: 14px; /* Tamanho de fonte menor para uma interface mais limpa */
-  font-weight: bold; /* Deixa o texto em negrito */
-  color: #007bff; /* Azul para combinar com o ícone de localização */
-}
-
-/* Ajustes para o pop-up de ponto final */
-.leaflet-popup-content-wrapper {
-  background-color: #f9f9f9; /* Fundo mais claro para os pop-ups */
-  border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
-}
-
-.leaflet-popup-content {
-  margin: 5px; /* Margem interna para o conteúdo do pop-up */
-  font-size: 14px; /* Fonte um pouco menor */
-  font-weight: bold; /* Deixa o texto do pop-up em negrito */
-  text-align: center; /* Centraliza o texto */
-}
-
-.leaflet-popup-tip-container {
-  display: none; /* Remove a seta padrão do pop-up para uma aparência mais limpa */
-}
-
-/* Estilos para o botão "Trocar Destino" */
-.trocar-destino-button {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  color: #fff;
-  background-color: #007bff; /* Cor azul para destaque */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: block;
-  font-weight: bold;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 10px; /* Margem no topo para não colar nos outros elementos */
-  z-index: 2000; /* Certifica-se de que o botão fique acima de todos os outros elementos */
-}
-
-.trocar-destino-button:hover {
-  background-color: #0056b3; /* Cor mais escura ao passar o mouse */
-}
-
-/* Estilos para o botão de selecionar origem e destino */
-.origem-button,
-.destino-button {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  color: #fff;
-  background-color: #007bff; /* Cor azul */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-}
-
-.origem-button:hover,
-.destino-button:hover {
-  background-color: #0056b3;
-}
-
-/* Adicionado: Botão específico para seleção de origem e destino */
-.origem-destino-button {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  color: #fff;
-  background-color: #28a745; /* Cor verde para destacar */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  display: block;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.origem-destino-button:hover {
-  background-color: #218838; /* Verde mais escuro ao passar o mouse */
-}
-
-.bottom-panel {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 400px;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  z-index: 1000;
-}
-
-.search-container {
-  position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 400px;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.geolocation-error {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #f8d7da; /* Fundo vermelho claro */
-  color: #721c24; /* Texto vermelho escuro */
-  padding: 10px 20px;
-  border: 1px solid #f5c6cb; /* Borda vermelha clara */
-  border-radius: 5px;
-  z-index: 1000;
-}
-
-
 /* Melhorias de responsividade para telas menores */
 @media (max-width: 600px) {
   .bottom-panel {
@@ -410,7 +229,7 @@ p {
   }
 
   .destino-info {
-    bottom: 60px; /* Ajuste para telas menores */
+    bottom: 60px;
   }
 
   .destino-andar-group h3 {
@@ -438,3 +257,111 @@ p {
     max-width: 600px;
   }
 }
+
+/* Container principal para a tela de boas-vindas */
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: #fff;
+}
+
+/* Título de boas-vindas */
+.welcome-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/* Texto de explicação */
+.welcome-container p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+/* Grupo de botões */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Botões de ação */
+.button-ativar, .button-continuar {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Estilo do botão de ativar localização */
+.button-ativar {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.button-ativar:hover {
+  background-color: #218838;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do botão para continuar sem localização */
+.button-continuar {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.button-continuar:hover {
+  background-color: #5a6268;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Ícones dentro dos botões */
+.button-ativar span, .button-continuar span {
+  margin-right: 10px;
+  font-size: 1.5rem;
+}
+
+/* Estilo para o botão "Trocar Destino" */
+.trocar-destino-button {
+  width: 90%; /* Ajusta o tamanho do botão */
+  max-width: 400px;
+  padding: 15px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #28a745; /* Cor verde semelhante ao "Ativar Localização" */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin: 20px auto 0 auto; /* Centraliza o botão e ajusta a margem */
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+/* Estilo ao passar o mouse */
+.trocar-destino-button:hover {
+  background-color: #218838; /* Escurece o verde ao passar o mouse */
+  transform: translateY(-3px); /* Move o botão ligeiramente para cima ao passar o mouse */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada ao passar o mouse */
+}
+

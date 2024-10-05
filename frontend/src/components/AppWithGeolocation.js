@@ -6,11 +6,10 @@ import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
 import '../styles/App.css';
 
-
 const AppWithGeolocation = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(''); // Adicionado searchQuery e setSearchQuery
+  const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
   const [showDestinos, setShowDestinos] = useState(false);
   const [selectedDestino, setSelectedDestino] = useState(null);
@@ -51,10 +50,20 @@ const AppWithGeolocation = () => {
     }
   }, [showDestinos]);
 
-  // Função para calcular a rota e instruções
-  const calcularRota = async () => {
-    if (!selectedDestino || !latitude || !longitude) {
-      alert('Por favor, selecione um destino.');
+  // Função para alternar a exibição do painel de destinos
+  const toggleDestinos = () => {
+    setShowDestinos(!showDestinos);
+    if (showDestinos) {
+      // Se o painel estava visível, voltamos ao estado inicial
+      setSelectedDestino(null);
+      setConfirmado(false);
+    }
+  };
+
+  // Função para calcular a rota quando o destino é confirmado
+  const calcularRota = async (destino) => {
+    if (!latitude || !longitude || !destino) {
+      alert('Por favor, selecione um destino e garanta que a localização esteja disponível.');
       return;
     }
 
@@ -62,37 +71,22 @@ const AppWithGeolocation = () => {
       const response = await axios.post('/api/rota', {
         latitude,
         longitude,
-        destino: selectedDestino.destino_nome,
+        destino: destino.destino_nome,
       });
 
       setRota(response.data.rota);
       setDistanciaTotal(response.data.distanciaTotal);
       setInstrucoes(response.data.instrucoes);
 
+      // Estimativa de tempo baseada na distância total
       const tempoMin = (response.data.distanciaTotal * 0.72) / 60;
-      const tempoMax = (response.data.distanciaTotal * 0.90) / 60;
+      const tempoMax = (response.data.distanciaTotal * 0.9) / 60;
       setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
       setConfirmado(true);
     } catch (error) {
       console.error('Erro ao calcular a rota:', error);
     }
   };
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleTrocarDestino = () => {
-    setConfirmado(false);
-    setRota([]);
-    setSelectedDestino(null);
-    setInstrucoes([]);
-  };
-
-  // Filtragem dos destinos conforme a busca
-  const filteredDestinos = destinos.filter((destino) =>
-    destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="app-container">
@@ -102,13 +96,13 @@ const AppWithGeolocation = () => {
       {/* Exibe as instruções de navegação, se houver */}
       {instrucoes.length > 0 && <InstrucoesNavegacao instrucoes={instrucoes} />}
 
-      {/* Informações detalhadas do destino selecionado */}
+      {/* Painel de informações detalhadas do destino */}
       {selectedDestino && !confirmado && (
         <DestinoInfo
           destino={selectedDestino}
           tempoEstimado={tempoEstimado}
           onClose={() => setSelectedDestino(null)}
-          onConfirm={calcularRota}
+          onConfirm={() => calcularRota(selectedDestino)}
         />
       )}
 
@@ -123,17 +117,17 @@ const AppWithGeolocation = () => {
       {/* Botão para trocar a rota */}
       {confirmado && (
         <div className="bottom-panel">
-          <button className="trocar-destino-button" onClick={handleTrocarDestino}>
+          <button className="trocar-destino-button" onClick={toggleDestinos}>
             Trocar destino
           </button>
         </div>
       )}
 
-      {/* Botão de seleção de destino */}
-      {!selectedDestino && !confirmado && (
+      {/* Botão de seleção de destino / Voltar */}
+      {!confirmado && (
         <div className="bottom-panel">
-          <button className="destino-button" onClick={() => setShowDestinos(!showDestinos)}>
-            Qual seu destino?
+          <button className="destino-button" onClick={toggleDestinos}>
+            {showDestinos ? 'Voltar' : 'Qual seu destino?'}
           </button>
         </div>
       )}
@@ -146,15 +140,16 @@ const AppWithGeolocation = () => {
             className="search-input"
             placeholder="Digite o destino"
             value={searchQuery}
-            onChange={handleSearchChange}
+            onChange={(event) => setSearchQuery(event.target.value)}
           />
-          {/* Lista de destinos */}
           <DestinosList
-            destinos={filteredDestinos}
+            destinos={destinos.filter((destino) =>
+              destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
+            )}
             onSelectDestino={(destino) => {
               setSelectedDestino(destino);
-              setConfirmado(false);
-              setShowDestinos(false);
+              setShowDestinos(false); // Fechar o painel de seleção
+              setConfirmado(false); // Garantir que o destino será confirmado apenas após clicar no botão
             }}
           />
         </div>
@@ -164,3 +159,4 @@ const AppWithGeolocation = () => {
 };
 
 export default AppWithGeolocation;
+
