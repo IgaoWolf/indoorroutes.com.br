@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import MapView from './MapView';
 import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
 import '../styles/App.css';
+import * as turf from '@turf/turf';
 
 const AppWithGeolocation = () => {
   const [latitude, setLatitude] = useState(null);
@@ -15,22 +16,25 @@ const AppWithGeolocation = () => {
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
   const [rota, setRota] = useState([]);
-  const [distanciaTotal, setDistanciaTotal] = useState(0);
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
+  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]);
+  const [isRecalculating, setIsRecalculating] = useState(false);
 
-  // Obter a localização atual
+  // Obter a localização atual continuamente
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
+      const watchId = navigator.geolocation.watchPosition(
         (position) => {
           setLatitude(position.coords.latitude);
           setLongitude(position.coords.longitude);
         },
         (error) => {
           console.error('Erro ao obter geolocalização:', error);
-        }
+        },
+        { enableHighAccuracy: true, maximumAge: 1000, timeout: 5000 }
       );
+      return () => navigator.geolocation.clearWatch(watchId);
     }
   }, []);
 
@@ -61,32 +65,114 @@ const AppWithGeolocation = () => {
   };
 
   // Função para calcular a rota quando o destino é confirmado
-  const calcularRota = async (destino) => {
-    if (!latitude || !longitude || !destino) {
-      alert('Por favor, selecione um destino e garanta que a localização esteja disponível.');
-      return;
-    }
+  const calcularRota = useCallback(
+    async (destino) => {
+      if (!latitude || !longitude || !destino) {
+        alert('Por favor, selecione um destino e garanta que a localização esteja disponível.');
+        return;
+      }
 
-    try {
-      const response = await axios.post('/api/rota', {
-        latitude,
-        longitude,
-        destino: destino.destino_nome,
+      try {
+        const response = await axios.post('/api/rota', {
+          latitude,
+          longitude,
+          destino: destino.destino_nome,
+        });
+
+        setRota(response.data.rota);
+        setInstrucoes(response.data.instrucoes);
+        console.log('Instruções recebidas:', response.data.instrucoes);
+
+        // Estimativa de tempo baseada na distância total
+        const distanciaTotal = response.data.distanciaTotal;
+        const tempoMin = (distanciaTotal * 0.72) / 60;
+        const tempoMax = (distanciaTotal * 0.9) / 60;
+        setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
+        setConfirmado(true);
+        setIsRecalculating(false);
+        setInstrucoesConcluidas([]); // Reinicia as instruções concluídas
+      } catch (error) {
+        console.error('Erro ao calcular a rota:', error);
+        setIsRecalculating(false);
+      }
+    },
+    [latitude, longitude]
+  );
+
+  // Verificar se o usuário saiu da rota
+  useEffect(() => {
+    if (latitude && longitude && rota.length > 0 && confirmado) {
+      const isOffRoute = checkIfOffRoute(latitude, longitude, rota);
+      if (isOffRoute && !isRecalculating) {
+        setIsRecalculating(true);
+        calcularRota(selectedDestino);
+      }
+    }
+  }, [latitude, longitude, rota, confirmado, isRecalculating, calcularRota, selectedDestino]);
+
+  const checkIfOffRoute = (latitude, longitude, rota) => {
+    // Convert rota to GeoJSON LineString
+    const line = turf.lineString(
+      rota.map((coord) => [coord.longitude, coord.latitude])
+    );
+
+    // Posição do usuário como um Ponto
+    const point = turf.point([longitude, latitude]);
+
+    // Calcula a distância do usuário até a rota em metros
+    const distance = turf.pointToLineDistance(point, line, { units: 'meters' });
+
+    const threshold = 20; // Limiar em metros
+
+    return distance > threshold;
+  };
+
+  // Atualizar instruções concluídas com base na posição do usuário
+  useEffect(() => {
+    if (latitude && longitude && instrucoes.length > 0) {
+      const novasInstrucoesConcluidas = [];
+
+      instrucoes.forEach((instrucao) => {
+        console.log('Instrução:', instrucao);
+
+        let instrucaoLatitude, instrucaoLongitude;
+
+        // Verifique a estrutura real das instruções
+        if (
+          instrucao &&
+          instrucao.position &&
+          Number.isFinite(instrucao.position.latitude) &&
+          Number.isFinite(instrucao.position.longitude)
+        ) {
+          instrucaoLatitude = instrucao.position.latitude;
+          instrucaoLongitude = instrucao.position.longitude;
+        } else if (
+          Number.isFinite(instrucao.latitude) &&
+          Number.isFinite(instrucao.longitude)
+        ) {
+          instrucaoLatitude = instrucao.latitude;
+          instrucaoLongitude = instrucao.longitude;
+        } else {
+          console.warn('Instrução inválida ou propriedades faltando:', instrucao);
+          return; // pula para a próxima iteração
+        }
+
+        if (!instrucoesConcluidas.includes(instrucao.texto)) {
+          const instrucaoPoint = turf.point([instrucaoLongitude, instrucaoLatitude]);
+          const userPoint = turf.point([longitude, latitude]);
+          const distance = turf.distance(instrucaoPoint, userPoint, { units: 'meters' });
+
+          if (distance < 10) {
+            novasInstrucoesConcluidas.push(instrucao.texto);
+          }
+        }
       });
 
-      setRota(response.data.rota);
-      setDistanciaTotal(response.data.distanciaTotal);
-      setInstrucoes(response.data.instrucoes);
-
-      // Estimativa de tempo baseada na distância total
-      const tempoMin = (response.data.distanciaTotal * 0.72) / 60;
-      const tempoMax = (response.data.distanciaTotal * 0.9) / 60;
-      setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
-      setConfirmado(true);
-    } catch (error) {
-      console.error('Erro ao calcular a rota:', error);
+      if (novasInstrucoesConcluidas.length > 0) {
+        setInstrucoesConcluidas((prev) => [...prev, ...novasInstrucoesConcluidas]);
+      }
     }
-  };
+  }, [latitude, longitude, instrucoes, instrucoesConcluidas]);
 
   return (
     <div className="app-container">
@@ -94,7 +180,12 @@ const AppWithGeolocation = () => {
       <MapView latitude={latitude} longitude={longitude} rota={rota} />
 
       {/* Exibe as instruções de navegação, se houver */}
-      {instrucoes.length > 0 && <InstrucoesNavegacao instrucoes={instrucoes} />}
+      {instrucoes.length > 0 && (
+        <InstrucoesNavegacao
+          instrucoes={instrucoes}
+          instrucoesConcluidas={instrucoesConcluidas}
+        />
+      )}
 
       {/* Painel de informações detalhadas do destino */}
       {selectedDestino && !confirmado && (
@@ -159,4 +250,3 @@ const AppWithGeolocation = () => {
 };
 
 export default AppWithGeolocation;
-
