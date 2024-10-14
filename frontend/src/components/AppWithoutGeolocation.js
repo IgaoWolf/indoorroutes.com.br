@@ -6,7 +6,6 @@ import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
 import '../styles/App.css';
 
-
 const AppWithoutGeolocation = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
@@ -19,8 +18,9 @@ const AppWithoutGeolocation = () => {
   const [distanciaTotal, setDistanciaTotal] = useState(0);
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
+  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]); // Adicionado
 
-  // Fetch destinos
+  // Buscar destinos ao carregar o componente
   useEffect(() => {
     const fetchDestinos = async () => {
       try {
@@ -34,7 +34,7 @@ const AppWithoutGeolocation = () => {
     fetchDestinos();
   }, []);
 
-  // Calculate route
+  // Função para calcular a rota
   const calcularRota = async () => {
     if (!selectedOrigem || !selectedDestino) {
       alert('Por favor, selecione uma origem e um destino.');
@@ -55,6 +55,7 @@ const AppWithoutGeolocation = () => {
       const tempoMax = (response.data.distanciaTotal * 0.9) / 60;
       setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
       setConfirmado(true);
+      setInstrucoesConcluidas([]); // Reinicia as instruções concluídas
     } catch (error) {
       console.error(
         'Erro ao calcular a rota:',
@@ -79,22 +80,28 @@ const AppWithoutGeolocation = () => {
     setShowDestinos(false);
     setSearchQuery('');
     setSelectingOrigem(true);
+    setInstrucoesConcluidas([]); // Reinicia as instruções concluídas
   };
 
-  // Filter destinos based on search query
+  // Filtrar destinos com base na busca
   const filteredDestinos = destinos.filter((destino) =>
     destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="app-container">
-      {/* Map with the route */}
+      {/* Mapa com a rota */}
       <MapView latitude={null} longitude={null} rota={rota} />
 
-      {/* Navigation instructions */}
-      {instrucoes.length > 0 && <InstrucoesNavegacao instrucoes={instrucoes} />}
+      {/* Instruções de navegação */}
+      {instrucoes.length > 0 && (
+        <InstrucoesNavegacao
+          instrucoes={instrucoes}
+          instrucoesConcluidas={instrucoesConcluidas} // Adicionado
+        />
+      )}
 
-      {/* Destination info */}
+      {/* Informações detalhadas do destino */}
       {selectedDestino && selectedOrigem && !confirmado && (
         <DestinoInfo
           destino={selectedDestino}
@@ -109,7 +116,7 @@ const AppWithoutGeolocation = () => {
         />
       )}
 
-      {/* Info panel after confirming the route */}
+      {/* Painel de informações após confirmar a rota */}
       {confirmado && (
         <div className="info-panel">
           <h2>
@@ -119,20 +126,20 @@ const AppWithoutGeolocation = () => {
         </div>
       )}
 
-      {/* Button to change origin and destination */}
+      {/* Botão para trocar origem e destino */}
       {confirmado && (
         <div className="bottom-panel">
-          <button className="button-common trocar-destino-button" onClick={handleTrocarDestino}>
+          <button className="trocar-destino-button" onClick={handleTrocarDestino}>
             Trocar origem e destino
           </button>
         </div>
       )}
 
-      {/* Button to select origin or destination */}
+      {/* Botão para selecionar origem ou destino */}
       {!confirmado && (!selectedOrigem || !selectedDestino) && (
         <div className="bottom-panel">
           <button
-            className="button-common origem-destino-button"
+            className="destino-button"
             onClick={() => {
               setShowDestinos(true);
             }}
@@ -142,7 +149,7 @@ const AppWithoutGeolocation = () => {
         </div>
       )}
 
-      {/* DestinosList component */}
+      {/* Componente DestinosList */}
       {showDestinos && (
         <div className="search-container">
           <input

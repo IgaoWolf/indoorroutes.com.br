@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/App.css';
 
-const InstrucoesNavegacao = ({ instrucoes, instrucoesConcluidas }) => {
+const InstrucoesNavegacao = ({ instrucoes, instrucoesConcluidas = [] }) => {
   const [showAll, setShowAll] = useState(false);
   const [remainingInstructions, setRemainingInstructions] = useState([]);
 
@@ -24,7 +24,11 @@ const InstrucoesNavegacao = ({ instrucoes, instrucoesConcluidas }) => {
   return (
     <div className="instrucoes-navegacao">
       <h3>Instruções de Navegação</h3>
-      <div onClick={handleToggleInstructions} className="instructions-header" style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px' }}>
+      <div
+        onClick={handleToggleInstructions}
+        className="instructions-header"
+        style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '5px' }}
+      >
         {showAll ? 'Ocultar Instruções' : 'Mostrar Instruções'}
       </div>
       {showAll ? (
