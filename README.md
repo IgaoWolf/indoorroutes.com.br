@@ -14,7 +14,6 @@ Acesse em: [https://indoorroutes.com.br/](https://indoorroutes.com.br/)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [API](#api)
 - [Desafios e Dificuldades](#desafios-e-dificuldades)
-- [Como Contribuir](#como-contribuir)
 - [Protótipo](#prototipo)
 - [Arquitetura](#arquitetura)
 - [Licença](#licença)
@@ -227,18 +226,6 @@ O protótipo da aplicação foi desenvolvido no Figma e pode ser acessado [aqui]
 ### Arquitetura
 
 O Indoor Routes foi projetado seguindo os princípios de uma arquitetura modular. O backend é responsável pela lógica da aplicação e pelas rotas, enquanto o frontend serve como interface com o usuário. Para mais detalhes e diagramas, consulte a documentação, diagramas e fluxos de dados no [ClickUp](https://sharing.clickup.com/9013000327/l/h/6-901300010601-1/ee4db365f7af39a).
-
----
-
-### Como Contribuir
-
-Para contribuir com o projeto:
-
-1. Faça um fork do repositório.
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
-3. Commit suas alterações (`git commit -am 'Adiciona nova feature'`).
-4. Push para a branch (`git push origin feature/nova-feature`).
-5. Abra um Pull Request no GitHub.
 
 ---
 
