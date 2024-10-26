@@ -186,7 +186,9 @@ indoor-routes/
 │       │   └── MapView.js
 │       ├── index.js
 │       └── styles/
-│           └── Admin.css
+│           ├── Admin.css
+│           └──App.css
+
 ```
 
 ---
