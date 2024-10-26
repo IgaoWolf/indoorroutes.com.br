@@ -1,0 +1,127 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.14">
+  <diagram name="Page-1" id="W4dQ3-BmmAMh6O9K8xP4">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-1" value="Footer" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="245" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-2" value="Links do Rodapé" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-1">
+          <mxGeometry x="43" y="46" width="175" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-3" value="Main" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="315" y="70" width="478" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-4" value="Mapa Interativo" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-3">
+          <mxGeometry x="43" y="46" width="172" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-5" value="Instruções de Uso" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-3">
+          <mxGeometry x="265" y="46" width="185" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-6" value="Header" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="843" y="70" width="651" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-7" value="Logo" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-6">
+          <mxGeometry x="43" y="46" width="93" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-8" value="Barra de Pesquisa" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-6">
+          <mxGeometry x="186" y="46" width="186" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-9" value="Menu de Navegação" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-6">
+          <mxGeometry x="422" y="46" width="201" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-10" value="Footer" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="359" width="245" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-11" value="Links do Rodapé" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-10">
+          <mxGeometry x="43" y="46" width="175" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-12" value="Main" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="315" y="350" width="548" height="141" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-13" value="Resultados da Pesquisa" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-12">
+          <mxGeometry x="43" y="54" width="223" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-14" value="Informações sobre o Destino" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-12">
+          <mxGeometry x="316" y="46" width="204" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-15" value="Header" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="913" y="359" width="651" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-16" value="Logo" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-15">
+          <mxGeometry x="43" y="46" width="93" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-17" value="Barra de Pesquisa" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-15">
+          <mxGeometry x="186" y="46" width="186" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-18" value="Menu de Navegação" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-15">
+          <mxGeometry x="422" y="46" width="201" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-19" value="&lt;h3&gt;1. &lt;strong&gt;Tela Inicial (Home Page)&lt;/strong&gt;&lt;/h3&gt;&lt;pre class=&quot;!overflow-visible&quot;&gt;&lt;div class=&quot;dark bg-gray-950 contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative&quot;&gt;&lt;div class=&quot;flex items-center text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md h-9&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/pre&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-20" value="&lt;h3&gt;2. &lt;strong&gt;Tela de Resultados da Pesquisa&lt;/strong&gt;&lt;/h3&gt;&lt;pre class=&quot;!overflow-visible&quot;&gt;&lt;div class=&quot;dark bg-gray-950 contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative&quot;&gt;&lt;div class=&quot;flex items-center text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md h-9&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/pre&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="280" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-21" value="&lt;h3&gt;3. &lt;strong&gt;Tela de Navegação e Rota&lt;/strong&gt;&lt;/h3&gt;&lt;pre class=&quot;!overflow-visible&quot;&gt;&lt;div class=&quot;dark bg-gray-950 contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative&quot;&gt;&lt;div class=&quot;flex items-center text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md h-9&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/pre&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="580" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-22" value="&lt;h3&gt;4. &lt;strong&gt;Tela de Gerenciamento de Destinos (para Administrador)&lt;/strong&gt;&lt;/h3&gt;&lt;pre class=&quot;!overflow-visible&quot;&gt;&lt;div class=&quot;dark bg-gray-950 contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative&quot;&gt;&lt;div class=&quot;flex items-center text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md h-9&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/pre&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="880" width="430" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-23" value="Footer" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="679" width="245" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-24" value="Links do Rodapé" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-23">
+          <mxGeometry x="43" y="46" width="175" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-25" value="Main" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="315" y="670" width="599" height="141" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-26" value="Mapa com a Rota Traçada" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-25">
+          <mxGeometry x="43" y="54" width="242" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-27" value="Instruções de Navegação (ex.: vire à direita)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-25">
+          <mxGeometry x="335" y="46" width="237" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-28" value="Header" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="964" y="679" width="651" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-29" value="Logo" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-28">
+          <mxGeometry x="43" y="46" width="93" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-30" value="Barra de Pesquisa" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-28">
+          <mxGeometry x="186" y="46" width="186" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-31" value="Menu de Navegação" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-28">
+          <mxGeometry x="422" y="46" width="201" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-32" value="Footer" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="988" width="245" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-33" value="Links do Rodapé" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-32">
+          <mxGeometry x="43" y="46" width="175" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-34" value="Main" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="315" y="970" width="628" height="159" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-35" value="Lista de Destinos Existentes" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-34">
+          <mxGeometry x="43" y="63" width="259" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-36" value="Opções de Adicionar/Editar/Remover Destinos" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-34">
+          <mxGeometry x="352" y="46" width="249" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-37" value="Header" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="993" y="988" width="448" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-38" value="Logo" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-37">
+          <mxGeometry x="43" y="46" width="93" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="KFM3cuT5vUpWzd7s6Plk-39" value="Menu de Gerenciamento" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="KFM3cuT5vUpWzd7s6Plk-37">
+          <mxGeometry x="186" y="46" width="235" height="49" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

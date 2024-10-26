@@ -1,0 +1,74 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.14">
+  <diagram name="UseCaseDiagram" id="SlBTUES2oMgBHOzDTs2x">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-25" value="Usuário Comum" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="279" y="17" width="172" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-26" value="Selecionar Rota" style="rounded=1;arcSize=40;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="383" y="138" width="141" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-27" value="Visualizar Rota" style="rounded=1;arcSize=40;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="258" y="501" width="136" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-28" value="Sistema de Navegação" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="344" y="259" width="219" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-29" value="Calcular Rota Mais Curta" style="rounded=1;arcSize=40;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="223" y="380" width="205" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-30" value="Gerar Rotas Alternativas" style="rounded=1;arcSize=40;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="479" y="380" width="204" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-31" value="Seleciona" style="curved=1;startArrow=none;endArrow=block;exitX=0.7;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="Uk_6UbXTSEpVkoVqJEJB-25" target="Uk_6UbXTSEpVkoVqJEJB-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="453" y="102" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-32" value="Visualiza" style="curved=1;startArrow=none;endArrow=block;exitX=0.04;exitY=0.99;entryX=0.04;entryY=0;rounded=0;" edge="1" parent="1" source="Uk_6UbXTSEpVkoVqJEJB-25" target="Uk_6UbXTSEpVkoVqJEJB-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="168" y="102" />
+              <mxPoint x="168" y="465" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-33" value="Calcula" style="curved=1;startArrow=none;endArrow=block;exitX=0.27;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="Uk_6UbXTSEpVkoVqJEJB-28" target="Uk_6UbXTSEpVkoVqJEJB-29">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="326" y="344" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-34" value="Gera" style="curved=1;startArrow=none;endArrow=block;exitX=0.73;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="Uk_6UbXTSEpVkoVqJEJB-28" target="Uk_6UbXTSEpVkoVqJEJB-30">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="581" y="344" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-35" value="Envia dados" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="Uk_6UbXTSEpVkoVqJEJB-26" target="Uk_6UbXTSEpVkoVqJEJB-28">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-36" value="Retorna rota" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="Uk_6UbXTSEpVkoVqJEJB-29" target="Uk_6UbXTSEpVkoVqJEJB-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uk_6UbXTSEpVkoVqJEJB-37" value="Retorna rotas" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=1;entryY=0.17;rounded=0;" edge="1" parent="1" source="Uk_6UbXTSEpVkoVqJEJB-30" target="Uk_6UbXTSEpVkoVqJEJB-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="581" y="465" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

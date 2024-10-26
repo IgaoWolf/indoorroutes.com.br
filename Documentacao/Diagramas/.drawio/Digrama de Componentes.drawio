@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.14">
+  <diagram name="Page-1" id="RdhawHMbSCzWPg8tRrdh">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-1" value="Sistema de Navegação" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="424" y="405" width="511" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-2" value="Cálculo de Rotas" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-1">
+          <mxGeometry x="43" y="46" width="178" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-3" value="Algoritmo de Dijkstra" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-1">
+          <mxGeometry x="271" y="46" width="213" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-4" value="Banco de Dados - PostgreSQL" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="601" width="1042" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-5" value="Blocos" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry x="43" y="46" width="105" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-6" value="Andares" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry x="198" y="46" width="117" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-7" value="Waypoints" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry x="365" y="46" width="133" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-8" value="Conexões" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry x="548" y="46" width="127" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-9" value="Destinos" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry x="725" y="46" width="120" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-10" value="Usuários" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry x="895" y="46" width="120" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-11" value="Backend - Node.js com Express" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="25" y="209" width="1032" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-12" value="API RESTful" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry x="43" y="46" width="142" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-13" value="Autenticação e Sessões" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry x="235" y="46" width="226" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-14" value="Controle de Rotas" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry x="511" y="46" width="187" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-15" value="Gerenciamento de Destinos" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry x="748" y="46" width="257" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-16" value="Frontend - Next.js" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="56" y="20" width="828" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-17" value="Componente Mapa - OpenStreetMap" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="91" y="45" width="203" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-18" value="Componente Busca de Destinos" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="344" y="45" width="218" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-19" value="Componente Exibição de Rota" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="612" y="45" width="237" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-20" value="Chama API" style="curved=1;startArrow=none;endArrow=block;rounded=0;" edge="1" parent="1" source="hTGmPEW71y2U0Q-2rRc4-16" target="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-21" value="Consulta" style="curved=1;startArrow=none;endArrow=block;exitX=0.39;exitY=0.99;entryX=0.39;entryY=0;rounded=0;" edge="1" parent="1" source="hTGmPEW71y2U0Q-2rRc4-11" target="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="368" />
+              <mxPoint x="356" y="564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-22" value="Processa" style="curved=1;startArrow=none;endArrow=block;exitX=0.58;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="hTGmPEW71y2U0Q-2rRc4-11" target="hTGmPEW71y2U0Q-2rRc4-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="368" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-23" value="Consulta" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.58;entryY=0;rounded=0;" edge="1" parent="1" source="hTGmPEW71y2U0Q-2rRc4-1" target="hTGmPEW71y2U0Q-2rRc4-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-24" value="Solicita rotas" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.29;entryY=0;rounded=0;" edge="1" parent="1" source="hTGmPEW71y2U0Q-2rRc4-17" target="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="192" y="172" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-25" value="Busca destinos" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.45;entryY=0;rounded=0;" edge="1" parent="1" source="hTGmPEW71y2U0Q-2rRc4-18" target="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="453" y="172" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hTGmPEW71y2U0Q-2rRc4-26" value="Exibe rotas" style="curved=1;startArrow=none;endArrow=block;exitX=0.66;exitY=1;entryX=0.66;entryY=0;rounded=0;" edge="1" parent="1" source="hTGmPEW71y2U0Q-2rRc4-19" target="hTGmPEW71y2U0Q-2rRc4-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="797" y="136" />
+              <mxPoint x="797" y="172" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

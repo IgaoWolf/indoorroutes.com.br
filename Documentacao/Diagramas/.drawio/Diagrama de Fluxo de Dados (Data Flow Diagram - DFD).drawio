@@ -1,0 +1,63 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0" version="24.7.14">
+  <diagram name="Page-1" id="qnLjHV4zaLxpGzkiKa8Q">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-1" value="&amp;nbsp;Usuário (Cliente)&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1680" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-2" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="XjTPM9IVOtn2eZtV5F2l-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-1490" y="360" as="sourcePoint" />
+            <mxPoint x="-1400" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-6" value="&lt;span style=&quot;font-size: 12px; text-wrap: wrap; background-color: rgb(251, 251, 251);&quot;&gt;(Solicitações: Destinos, Rotas)&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="XjTPM9IVOtn2eZtV5F2l-2">
+          <mxGeometry x="0.0709" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="XjTPM9IVOtn2eZtV5F2l-3" target="XjTPM9IVOtn2eZtV5F2l-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-9" value="HTTP Requests" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="XjTPM9IVOtn2eZtV5F2l-8">
+          <mxGeometry x="-0.1231" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-3" value=" Frontend (Next.js)&lt;div&gt;&lt;br&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;- Recebe e envia dados&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Envia requisições ao Backend&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1400" y="70" width="170" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="XjTPM9IVOtn2eZtV5F2l-7" target="XjTPM9IVOtn2eZtV5F2l-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-13" value="Proxy para /api/* Requests" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="XjTPM9IVOtn2eZtV5F2l-12">
+          <mxGeometry x="-0.1135" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-7" value="Servidor Web (NGINX)&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Proxy Reverso&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Servidor de Arquivos Estáticos&amp;nbsp;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1420" y="230" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="XjTPM9IVOtn2eZtV5F2l-10" target="XjTPM9IVOtn2eZtV5F2l-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-16" value="Consultas SQL" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="XjTPM9IVOtn2eZtV5F2l-15">
+          <mxGeometry x="-0.0135" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-10" value="&lt;div&gt;Backend (Node.js/Express)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Processa lógica de negócios&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- Conecta ao Banco de Dados&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;-&amp;nbsp;Interage com Serviços Externos&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1425" y="380" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-14" value="&lt;div&gt;Banco de Dados (PostgreSQL)&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Armazena dados persistentes&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- Processa consultas SQL&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1425" y="560" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="XjTPM9IVOtn2eZtV5F2l-17" value="&lt;div&gt;Serviços Externos (APIs de Mapas)&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Prover dados de localização&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Serviços de Autenticação&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-1425" y="730" width="220" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

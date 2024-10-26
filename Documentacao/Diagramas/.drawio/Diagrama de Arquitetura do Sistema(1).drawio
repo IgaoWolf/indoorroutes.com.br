@@ -1,0 +1,65 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.14">
+  <diagram name="Page-1" id="Ksv3b_dW3Xo8wCbVGqUy">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-1" value="Usuário" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="72" y="20" width="113" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-2" value="Browser" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="119" width="117" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-3" value="Frontend - Next.js" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="33" y="217" width="192" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-4" value="API Backend - Node.js" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="316" width="218" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-5" value="Banco de Dados - PostgreSQL" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="37" y="513" width="183" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-6" value="Sistema de Navegação" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="91" y="414" width="219" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-7" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=-0.01;rounded=0;" edge="1" parent="1" source="ENHGOkpVPatCSaXhVAhT-1" target="ENHGOkpVPatCSaXhVAhT-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-8" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.98;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="ENHGOkpVPatCSaXhVAhT-2" target="ENHGOkpVPatCSaXhVAhT-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-9" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=-0.01;rounded=0;" edge="1" parent="1" source="ENHGOkpVPatCSaXhVAhT-3" target="ENHGOkpVPatCSaXhVAhT-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-10" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.34;exitY=0.98;entryX=0.28;entryY=-0.01;rounded=0;" edge="1" parent="1" source="ENHGOkpVPatCSaXhVAhT-4" target="ENHGOkpVPatCSaXhVAhT-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="56" y="389" />
+              <mxPoint x="56" y="488" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-11" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.66;exitY=0.98;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="ENHGOkpVPatCSaXhVAhT-4" target="ENHGOkpVPatCSaXhVAhT-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="201" y="389" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ENHGOkpVPatCSaXhVAhT-12" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.73;entryY=-0.01;rounded=0;" edge="1" parent="1" source="ENHGOkpVPatCSaXhVAhT-6" target="ENHGOkpVPatCSaXhVAhT-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="201" y="488" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
