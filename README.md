@@ -7,13 +7,14 @@ Indoor Routes é uma aplicação de navegação interna desenvolvida para ambien
 - [Recursos](#recursos)
 - [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
-- [Configuração](#configuração)
 - [Configuração do Nginx](#configuração-do-nginx)
 - [Execução](#execução)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [API](#api)
 - [Desafios e Dificuldades](#desafios-e-dificuldades)
 - [Como Contribuir](#como-contribuir)
+- [Prototipo](#prototipo)
+- [Arquitetura](#arquitetura)
 - [Licença](#licença)
 
 ---
@@ -65,52 +66,13 @@ Antes de começar, você precisará ter as seguintes ferramentas instaladas:
    npm install
    ```
 
----
-
-### Configuração
-
-1. **Configuração do banco de dados:**
-
-   - Crie um banco de dados PostgreSQL e habilite as extensões **PostGIS** e **PGRouting**:
-     ```sql
-     CREATE DATABASE indoorroutes;
-     \c indoorroutes;
-     CREATE EXTENSION postgis;
-     CREATE EXTENSION pgrouting;
-     ```
-
-   - Importe o esquema SQL inicial para criar as tabelas necessárias:
-     ```bash
-     \i path/to/your/schema.sql
-     ```
-
-2. **Configuração do arquivo `.env`:**
-
-   Crie um arquivo `.env` na pasta `backend` com as seguintes variáveis:
-
-   ```
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_NAME=indoorroutes
-   DB_USER=*****
-   DB_PASSWORD="****"
-   PORT=5000
-   ```
-
-  Caso queira contribuir, no projeto, posso fornecer o banco de dados.
-
-3. Certifique-se de que o backend está configurado corretamente para se conectar ao banco de dados.
-
----
-
 ### Configuração do Nginx
 
 A aplicação Indoor Routes utiliza **Nginx** como servidor proxy reverso, servindo o frontend estático do React e redirecionando chamadas da API para o backend em Node.js.
 
 1. **Configuração básica do Nginx com suporte para SSL e proxy para backend:**
 
-   No arquivo de configuração do Nginx (geralmente em `/etc/nginx/sites-available/default` ou `/etc/nginx/conf.d/indoorroutes.conf`), adicione as seguintes configurações:
-
+   
    ```nginx
    server {
        listen 80;
@@ -147,7 +109,8 @@ A aplicação Indoor Routes utiliza **Nginx** como servidor proxy reverso, servi
            proxy_cache_bypass $http_upgrade;
        }
    }
-   ```
+   ```No arquivo de configuração do Nginx (geralmente em `/etc/nginx/sites-available/default` ou `/etc/nginx/conf.d/indoorroutes.conf`), adicione as seguintes configurações:
+
 
 2. **Gerar certificados SSL com Certbot:**
 
@@ -170,38 +133,59 @@ A aplicação Indoor Routes utiliza **Nginx** como servidor proxy reverso, servi
 2. Inicie o servidor frontend:
    ```bash
    cd ../frontend
-   npm start
+   npm run build
    ```
 
 3. Acesse a aplicação:
-   Abra o navegador e vá para `http://localhost`.
+   Abra o navegador e vá para `https://indoorroutes.com.br`.
 
 ---
 
 ### Estrutura do Projeto
 
-A estrutura básica do projeto é a seguinte:
-
 ```
 indoor-routes/
+├── README.md
 ├── backend/
 │   ├── config/
-│   │   └── db.js              # Configuração de conexão com o banco de dados
-│   ├── src/
-│   │   ├── app.js             # Arquivo principal do servidor Express
-│   │   ├── routes/
-│   │   │   └── routes.js      # Definições de rotas da API
-│   │   └── ...                # Outros diretórios (controllers, services, etc.)
-│   └── package.json
+│   ├── node_modules/
+│   ├── package-lock.json
+│   ├── package.json
+│   └── src/
+│       ├── app.js
+│       ├── controllers/
+│       │   └── routesController.js
+│       ├── models/
+│       ├── routes/
+│       │   ├── adminRoutes.js
+│       │   └── routes.js
+│       ├── services/
+│       └── utils/
 ├── frontend/
-│   ├── public/                # Arquivos públicos (index.html, etc.)
-│   ├── src/
-│   │   ├── components/        # Componentes React (MapView, DestinosList, InstrucoesNavegacao, etc.)
-│   │   ├── App.js             # Componente principal do React
-│   │   └── ...                # Outros componentes e arquivos de estilo
-│   └── package.json
-└── README.md
+│   ├── .env
+│   ├── .gitignore
+│   ├── README.md
+│   ├── build/
+│   ├── node_modules/
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public/
+│   └── src/
+│       ├── App.css
+│       ├── App.js
+│       ├── components/
+│       │   ├── AppWithGeolocation.js
+│       │   ├── AppWithoutGeolocation.js
+│       │   ├── DestinoInfo.js
+│       │   ├── DestinosList.js
+│       │   ├── InstrucoesNavegacao.js
+│       │   └── MapView.js
+│       ├── index.js
+│       └── styles/
+│           └── Admin.css
 ```
+
+---
 
 ### API
 
@@ -209,89 +193,28 @@ indoor-routes/
 
 ##### 1. **GET /api/destinos**
 
-Este endpoint retorna todos os destinos disponíveis para navegação no ambiente.
-
-- **Exemplo de requisição:**
-
-  ```bash
-  curl -X GET http://localhost:5000/api/destinos
-  ```
-
-- **Resposta de Sucesso**:
-  ```json
-  [
-    {
-      "destino_id": 1,
-      "destino_nome": "Sala 1201",
-      "descricao": "Sala de aula",
-      "tipo": "Sala",
-      "andar_nome": "Segundo Andar",
-      "horariofuncionamento": "07:00 - 18:00"
-    },
-    {
-      "destino_id": 2,
-      "destino_nome": "Biblioteca",
-      "descricao": "Biblioteca central",
-      "tipo": "Sala",
-      "andar_nome": "Primeiro Andar",
-      "horariofuncionamento": "08:00 - 20:00"
-    }
-  ]
-  ```
+Retorna todos os destinos disponíveis para navegação no ambiente.
 
 ##### 2. **POST /api/rota**
 
-Este endpoint calcula a rota mais curta até o destino fornecido, incluindo mudanças de andar (escada ou elevador). Usa a extensão **PGRouting** para calcular rotas otimizadas com o algoritmo de Dijkstra.
+Calcula a rota mais curta até o destino fornecido, incluindo mudanças de andar (escada ou elevador).
 
-- **Exemplo de requisição**:
-  ```bash
-  curl -X POST http://localhost:5000/api/rota -H "Content-Type: application/json" -d '{
-    "latitude": -23.561,
-    "longitude": -46.656,
-    "destino": "Sala 1201"
-  }'
-  ```
-
-- **Resposta de Sucesso**:
-  ```json
-  {
-    "rota": [
-      { "id": 1, "latitude": -23.561, "longitude": -46.656 },
-      { "id": 2, "latitude": -23.562, "longitude": -46.657 }
-    ],
-    "distanciaTotal": 150.5,
-    "instrucoes": [
-      "Siga em frente por 50 metros",
-      "Suba a escada para o andar 2",
-      "Pegue o elevador até o andar 3"
-    ]
-  }
-  ```
 ---
 
 ### Desafios e Dificuldades
 
-Durante o desenvolvimento da aplicação, enfrentamos os seguintes desafios:
-
-1. **Integração com PGRouting e PostGIS**: 
-   O uso do **PGRouting** para calcular rotas otimizadas dentro de ambientes internos foi um desafio. A modelagem dos caminhos (edges) e dos pontos de interesse (nodes) exigiu um profundo entendimento de sistemas geoespaciais e do PostgreSQL.
-
-2. **Mudança entre andares**:
-   Implementar a funcionalidade de navegação por múltiplos andares, usando escadas e elevadores, foi outro ponto complexo. Exigiu ajustes para garantir que a troca de andar fosse representada corretamente na interface do usuário e nas instruções de navegação.
-
-3. **Geolocalização em ambientes fechados**:
-   A precisão da geolocalização em ambientes internos é limitada, e essa foi uma dificuldade significativa. Trabalhamos com a possibilidade de fornecer uma origem manual caso a geolocalização não esteja disponível ou precise de ajustes manuais.
+- Integração com PGRouting e PostGIS.
+- Mudança entre andares.
+- Geolocalização em ambientes fechados.
 
 ---
 
-### Como Contribuir
+### Protótipo
 
-Se você deseja contribuir para este projeto, siga as etapas abaixo:
+Acesse o protótipo em [Figma](https://www.figma.com/design/yS966JddAsEW2WHw1iUEjn/Indoor-Routes?node-id=1648-1618&node-type=canvas).
 
-1. Faça um fork do repositório.
-2. Crie um branch para sua feature (git checkout -b feature/nova-feature).
-3. Commit suas alterações (git commit -m 'Adiciona nova feature').
-4. Envie para o branch (git push origin feature/nova-feature).
-5. Abra um Pull Request.
+### Arquitetura
+
+Para mais detalhes, acesse a [documentação e diagramas do ClickUp](https://sharing.clickup.com/9013000327/l/h/6-901300010601-1/ee4db365f7af39a).
 
 ---
