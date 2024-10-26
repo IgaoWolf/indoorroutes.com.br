@@ -152,20 +152,41 @@ indoor-routes/
 ├── README.md
 ├── backend/
 │   ├── config/
-│   ├── src/
-│   │   ├── app.js
-│   │   ├── controllers/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   └── utils/
+│   ├── node_modules/
+│   ├── package-lock.json
+│   ├── package.json
+│   └── src/
+│       ├── app.js
+│       ├── controllers/
+│       │   └── routesController.js
+│       ├── models/
+│       ├── routes/
+│       │   ├── adminRoutes.js
+│       │   └── routes.js
+│       ├── services/
+│       └── utils/
 ├── frontend/
+│   ├── .env
+│   ├── .gitignore
+│   ├── README.md
+│   ├── build/
+│   ├── node_modules/
+│   ├── package-lock.json
+│   ├── package.json
 │   ├── public/
-│   ├── src/
-│   │   ├── App.js
-│   │   ├── components/
-│   │   ├── index.js
-│   │   └── styles/
+│   └── src/
+│       ├── App.css
+│       ├── App.js
+│       ├── components/
+│       │   ├── AppWithGeolocation.js
+│       │   ├── AppWithoutGeolocation.js
+│       │   ├── DestinoInfo.js
+│       │   ├── DestinosList.js
+│       │   ├── InstrucoesNavegacao.js
+│       │   └── MapView.js
+│       ├── index.js
+│       └── styles/
+│           └── Admin.css
 ```
 
 ---
