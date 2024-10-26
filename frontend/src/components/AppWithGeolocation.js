@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import MapView from './MapView';
 import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
 import '../styles/App.css';
-import * as turf from '@turf/turf';
 
 const AppWithGeolocation = () => {
   const [latitude, setLatitude] = useState(null);
@@ -20,6 +19,17 @@ const AppWithGeolocation = () => {
   const [instrucoes, setInstrucoes] = useState([]);
   const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]);
   const [isRecalculating, setIsRecalculating] = useState(false);
+
+  const mapRef = useRef(null); // Cria a referência do mapa
+
+  // Função para centralizar o mapa na posição atual do usuário
+  const handleCenterMap = () => {
+    if (latitude && longitude && mapRef.current) {
+      mapRef.current.setView([latitude, longitude], 18);
+    } else {
+      alert('Localização não disponível para centralizar no mapa.');
+    }
+  };
 
   // Obter a localização atual continuamente
   useEffect(() => {
@@ -54,16 +64,6 @@ const AppWithGeolocation = () => {
     }
   }, [showDestinos]);
 
-  // Função para alternar a exibição do painel de destinos
-  const toggleDestinos = () => {
-    setShowDestinos(!showDestinos);
-    if (showDestinos) {
-      // Se o painel estava visível, voltamos ao estado inicial
-      setSelectedDestino(null);
-      setConfirmado(false);
-    }
-  };
-
   // Função para calcular a rota quando o destino é confirmado
   const calcularRota = useCallback(
     async (destino) => {
@@ -81,7 +81,6 @@ const AppWithGeolocation = () => {
 
         setRota(response.data.rota);
         setInstrucoes(response.data.instrucoes);
-        console.log('Instruções recebidas:', response.data.instrucoes);
 
         // Estimativa de tempo baseada na distância total
         const distanciaTotal = response.data.distanciaTotal;
@@ -90,7 +89,7 @@ const AppWithGeolocation = () => {
         setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
         setConfirmado(true);
         setIsRecalculating(false);
-        setInstrucoesConcluidas([]); // Reinicia as instruções concluídas
+        setInstrucoesConcluidas([]);
       } catch (error) {
         console.error('Erro ao calcular a rota:', error);
         setIsRecalculating(false);
@@ -99,18 +98,20 @@ const AppWithGeolocation = () => {
     [latitude, longitude]
   );
 
-  // Função para centralizar o mapa na posição atual do usuário
-  const handleCenterMap = () => {
-    if (latitude && longitude) {
-      setLatitude(latitude);
-      setLongitude(longitude);
+  // Função para alternar a exibição do painel de destinos
+  const toggleDestinos = () => {
+    setShowDestinos(!showDestinos);
+    if (showDestinos) {
+      // Se o painel estava visível, volta ao estado inicial
+      setSelectedDestino(null);
+      setConfirmado(false);
     }
   };
 
   return (
     <div className="app-container">
       {/* Mapa com a rota desenhada */}
-      <MapView latitude={latitude} longitude={longitude} rota={rota} />
+      <MapView latitude={latitude} longitude={longitude} rota={rota} mapRef={mapRef} />
 
       {/* Botão para centralizar o mapa */}
       <button className="center-button" onClick={handleCenterMap}>
@@ -143,16 +144,7 @@ const AppWithGeolocation = () => {
         </div>
       )}
 
-      {/* Botão para trocar a rota */}
-      {confirmado && (
-        <div className="bottom-panel">
-          <button className="trocar-destino-button" onClick={toggleDestinos}>
-            Trocar destino
-          </button>
-        </div>
-      )}
-
-      {/* Botão de seleção de destino / Voltar */}
+      {/* Botão para selecionar o destino / Voltar */}
       {!confirmado && (
         <div className="bottom-panel">
           <button className="destino-button" onClick={toggleDestinos}>
