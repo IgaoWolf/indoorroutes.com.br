@@ -99,85 +99,23 @@ const AppWithGeolocation = () => {
     [latitude, longitude]
   );
 
-  // Verificar se o usuário saiu da rota
-  useEffect(() => {
-    if (latitude && longitude && rota.length > 0 && confirmado) {
-      const isOffRoute = checkIfOffRoute(latitude, longitude, rota);
-      if (isOffRoute && !isRecalculating) {
-        setIsRecalculating(true);
-        calcularRota(selectedDestino);
-      }
+  // Função para centralizar o mapa na posição atual do usuário
+  const handleCenterMap = () => {
+    if (latitude && longitude) {
+      setLatitude(latitude);
+      setLongitude(longitude);
     }
-  }, [latitude, longitude, rota, confirmado, isRecalculating, calcularRota, selectedDestino]);
-
-  const checkIfOffRoute = (latitude, longitude, rota) => {
-    // Convert rota to GeoJSON LineString
-    const line = turf.lineString(
-      rota.map((coord) => [coord.longitude, coord.latitude])
-    );
-
-    // Posição do usuário como um Ponto
-    const point = turf.point([longitude, latitude]);
-
-    // Calcula a distância do usuário até a rota em metros
-    const distance = turf.pointToLineDistance(point, line, { units: 'meters' });
-
-    const threshold = 20; // Limiar em metros
-
-    return distance > threshold;
   };
-
-  // Atualizar instruções concluídas com base na posição do usuário
-  useEffect(() => {
-    if (latitude && longitude && instrucoes.length > 0) {
-      const novasInstrucoesConcluidas = [];
-
-      instrucoes.forEach((instrucao) => {
-        console.log('Instrução:', instrucao);
-
-        let instrucaoLatitude, instrucaoLongitude;
-
-        // Verifique a estrutura real das instruções
-        if (
-          instrucao &&
-          instrucao.position &&
-          Number.isFinite(instrucao.position.latitude) &&
-          Number.isFinite(instrucao.position.longitude)
-        ) {
-          instrucaoLatitude = instrucao.position.latitude;
-          instrucaoLongitude = instrucao.position.longitude;
-        } else if (
-          Number.isFinite(instrucao.latitude) &&
-          Number.isFinite(instrucao.longitude)
-        ) {
-          instrucaoLatitude = instrucao.latitude;
-          instrucaoLongitude = instrucao.longitude;
-        } else {
-          console.warn('Instrução inválida ou propriedades faltando:', instrucao);
-          return; // pula para a próxima iteração
-        }
-
-        if (!instrucoesConcluidas.includes(instrucao.texto)) {
-          const instrucaoPoint = turf.point([instrucaoLongitude, instrucaoLatitude]);
-          const userPoint = turf.point([longitude, latitude]);
-          const distance = turf.distance(instrucaoPoint, userPoint, { units: 'meters' });
-
-          if (distance < 10) {
-            novasInstrucoesConcluidas.push(instrucao.texto);
-          }
-        }
-      });
-
-      if (novasInstrucoesConcluidas.length > 0) {
-        setInstrucoesConcluidas((prev) => [...prev, ...novasInstrucoesConcluidas]);
-      }
-    }
-  }, [latitude, longitude, instrucoes, instrucoesConcluidas]);
 
   return (
     <div className="app-container">
       {/* Mapa com a rota desenhada */}
       <MapView latitude={latitude} longitude={longitude} rota={rota} />
+
+      {/* Botão para centralizar o mapa */}
+      <button className="center-button" onClick={handleCenterMap}>
+        📍
+      </button>
 
       {/* Exibe as instruções de navegação, se houver */}
       {instrucoes.length > 0 && (
@@ -239,8 +177,8 @@ const AppWithGeolocation = () => {
             )}
             onSelectDestino={(destino) => {
               setSelectedDestino(destino);
-              setShowDestinos(false); // Fechar o painel de seleção
-              setConfirmado(false); // Garantir que o destino será confirmado apenas após clicar no botão
+              setShowDestinos(false);
+              setConfirmado(false);
             }}
           />
         </div>
@@ -250,3 +188,4 @@ const AppWithGeolocation = () => {
 };
 
 export default AppWithGeolocation;
+
