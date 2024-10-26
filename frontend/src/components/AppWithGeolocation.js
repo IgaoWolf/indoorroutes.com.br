@@ -20,7 +20,7 @@ const AppWithGeolocation = () => {
   const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]);
   const [isRecalculating, setIsRecalculating] = useState(false);
 
-  const mapRef = useRef(null); // Cria a referência do mapa
+  const mapRef = useRef(null);
 
   // Função para centralizar o mapa na posição atual do usuário
   const handleCenterMap = () => {
@@ -102,77 +102,94 @@ const AppWithGeolocation = () => {
   const toggleDestinos = () => {
     setShowDestinos(!showDestinos);
     if (showDestinos) {
-      // Se o painel estava visível, volta ao estado inicial
       setSelectedDestino(null);
       setConfirmado(false);
     }
   };
 
+  // Função para selecionar um destino
+  const handleSelectDestino = (destino) => {
+    setSelectedDestino(destino);
+    setShowDestinos(false);
+    calcularRota(destino);
+  };
+
   return (
     <div className="app-container">
-      {/* Mapa com a rota desenhada */}
-      <MapView latitude={latitude} longitude={longitude} rota={rota} mapRef={mapRef} />
+      {/* Seção do mapa */}
+      <div className="map-section">
+        <MapView latitude={latitude} longitude={longitude} rota={rota} mapRef={mapRef} />
 
-      {/* Botão para centralizar o mapa */}
-      <button className="center-button" onClick={handleCenterMap}>
-        📍
-      </button>
+        {/* Botão para centralizar o mapa */}
+        <button className="center-button" onClick={handleCenterMap}>
+          📍
+        </button>
+      </div>
 
-      {/* Exibe as instruções de navegação, se houver */}
-      {instrucoes.length > 0 && (
-        <InstrucoesNavegacao
-          instrucoes={instrucoes}
-          instrucoesConcluidas={instrucoesConcluidas}
-        />
-      )}
-
-      {/* Painel de informações detalhadas do destino */}
-      {selectedDestino && !confirmado && (
-        <DestinoInfo
-          destino={selectedDestino}
-          tempoEstimado={tempoEstimado}
-          onClose={() => setSelectedDestino(null)}
-          onConfirm={() => calcularRota(selectedDestino)}
-        />
-      )}
-
-      {/* Painel de informações após confirmar o destino */}
-      {confirmado && (
-        <div className="info-panel">
-          <h2>{selectedDestino.destino_nome}</h2>
-          <p>Tempo estimado: {tempoEstimado}</p>
+      {/* Seção da lista de destinos */}
+      {showDestinos && (
+        <div className="destinos-section">
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Digite o destino"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+            <div className="destinos-list-container">
+              <DestinosList
+                destinos={destinos.filter((destino) =>
+                  destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
+                )}
+                onSelectDestino={handleSelectDestino}
+              />
+            </div>
+          </div>
+          <div className="voltar-container">
+            <button className="destino-button voltar" onClick={toggleDestinos}>
+              Voltar
+            </button>
+          </div>
         </div>
       )}
 
-      {/* Botão para selecionar o destino / Voltar */}
-      {!confirmado && (
-        <div className="bottom-panel">
-          <button className="destino-button" onClick={toggleDestinos}>
-            {showDestinos ? 'Voltar' : 'Qual seu destino?'}
+      {/* Informações do destino selecionado */}
+      {confirmado && selectedDestino && (
+        <div className="destino-info-container">
+          <DestinoInfo
+            destino={selectedDestino}
+            tempoEstimado={tempoEstimado}
+            instrucoes={instrucoes}
+            instrucoesConcluidas={instrucoesConcluidas}
+          />
+          <button
+            className="destino-button"
+            onClick={() => {
+              setConfirmado(false);
+              setSelectedDestino(null);
+            }}
+          >
+            Voltar
           </button>
         </div>
       )}
 
-      {/* Exibição do componente DestinosList quando showDestinos for verdadeiro */}
-      {showDestinos && (
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Digite o destino"
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-          />
-          <DestinosList
-            destinos={destinos.filter((destino) =>
-              destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
-            )}
-            onSelectDestino={(destino) => {
-              setSelectedDestino(destino);
-              setShowDestinos(false);
-              setConfirmado(false);
-            }}
-          />
+      {/* Instruções de navegação */}
+      {confirmado && (
+        <InstrucoesNavegacao
+          instrucoes={instrucoes}
+          instrucoesConcluidas={instrucoesConcluidas}
+          setInstrucoesConcluidas={setInstrucoesConcluidas}
+        />
+      )}
+
+      {/* Botão para selecionar o destino */}
+      {!confirmado && !showDestinos && (
+        <div className="bottom-panel">
+          <button className="destino-button" onClick={toggleDestinos}>
+            Qual seu destino?
+          </button>
         </div>
       )}
     </div>

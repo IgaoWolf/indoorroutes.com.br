@@ -17,14 +17,19 @@ const endIcon = new L.Icon({
   popupAnchor: [0, -32],
 });
 
+// Coordenadas padrão quando a geolocalização não é permitida
+const defaultCenter = { lat: -24.94667548, lon: -53.50780993 };
+
 const MapView = ({ latitude, longitude, rota, mapRef }) => {
   const [userPosition, setUserPosition] = useState(null);
   const defaultZoom = 18;
 
-  // Atualiza a posição do usuário quando latitude e longitude mudam
+  // Atualiza a posição do usuário ou usa o centro padrão
   useEffect(() => {
     if (latitude != null && longitude != null) {
       setUserPosition({ lat: latitude, lon: longitude });
+    } else {
+      setUserPosition(defaultCenter); // Usa as coordenadas padrão
     }
   }, [latitude, longitude]);
 
@@ -56,7 +61,7 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
     <div className="map-container">
       {userPosition && (
         <MapContainer
-          ref={mapRef} // Adiciona a referência ao MapContainer
+          ref={mapRef}
           center={[userPosition.lat, userPosition.lon]}
           zoom={defaultZoom}
           style={{ height: '100%', width: '100%' }}
@@ -77,11 +82,11 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
           {/* Ajusta o mapa para caber a rota e a posição do usuário */}
           <AjustarMapaParaRota rota={rota} userPosition={userPosition} />
 
-          {/* Marker para a localização do usuário */}
-          {latitude != null && longitude != null && (
-            <Marker position={[latitude, longitude]} icon={userIcon}>
+          {/* Marker para a localização do usuário ou centro padrão */}
+          {userPosition && (
+            <Marker position={[userPosition.lat, userPosition.lon]} icon={userIcon}>
               <Tooltip direction="top" offset={[0, -38]} permanent>
-                Você está aqui!
+                {latitude && longitude ? 'Você está aqui!' : 'Localização padrão'}
               </Tooltip>
             </Marker>
           )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react'; // Importa useRef
 import axios from 'axios';
 import MapView from './MapView';
 import DestinosList from './DestinosList';
@@ -18,9 +18,10 @@ const AppWithoutGeolocation = () => {
   const [distanciaTotal, setDistanciaTotal] = useState(0);
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
-  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]); // Adicionado
+  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]);
 
-  // Buscar destinos ao carregar o componente
+  const mapRef = useRef(null); // Cria a referência para o mapa
+
   useEffect(() => {
     const fetchDestinos = async () => {
       try {
@@ -34,7 +35,6 @@ const AppWithoutGeolocation = () => {
     fetchDestinos();
   }, []);
 
-  // Função para calcular a rota
   const calcularRota = async () => {
     if (!selectedOrigem || !selectedDestino) {
       alert('Por favor, selecione uma origem e um destino.');
@@ -55,7 +55,7 @@ const AppWithoutGeolocation = () => {
       const tempoMax = (response.data.distanciaTotal * 0.9) / 60;
       setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
       setConfirmado(true);
-      setInstrucoesConcluidas([]); // Reinicia as instruções concluídas
+      setInstrucoesConcluidas([]);
     } catch (error) {
       console.error(
         'Erro ao calcular a rota:',
@@ -80,10 +80,9 @@ const AppWithoutGeolocation = () => {
     setShowDestinos(false);
     setSearchQuery('');
     setSelectingOrigem(true);
-    setInstrucoesConcluidas([]); // Reinicia as instruções concluídas
+    setInstrucoesConcluidas([]);
   };
 
-  // Filtrar destinos com base na busca
   const filteredDestinos = destinos.filter((destino) =>
     destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -91,13 +90,13 @@ const AppWithoutGeolocation = () => {
   return (
     <div className="app-container">
       {/* Mapa com a rota */}
-      <MapView latitude={null} longitude={null} rota={rota} />
+      <MapView latitude={null} longitude={null} rota={rota} mapRef={mapRef} /> {/* Passa mapRef */}
 
       {/* Instruções de navegação */}
       {instrucoes.length > 0 && (
         <InstrucoesNavegacao
           instrucoes={instrucoes}
-          instrucoesConcluidas={instrucoesConcluidas} // Adicionado
+          instrucoesConcluidas={instrucoesConcluidas}
         />
       )}
 
@@ -179,3 +178,4 @@ const AppWithoutGeolocation = () => {
 };
 
 export default AppWithoutGeolocation;
+
