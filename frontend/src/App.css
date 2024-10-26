@@ -79,3 +79,67 @@
   font-size: 1.5rem;
 }
 
+/* Container do botão inferior */
+.bottom-panel {
+  position: fixed;
+  bottom: 0; /* Define a posição na parte inferior da tela */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px 10px 0 0; /* Bordas arredondadas apenas no topo */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1000; /* Garante que o painel esteja acima do mapa */
+}
+
+/* Botão "Qual seu destino?" ou "Voltar" */
+.destino-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff; /* Cor azul para destaque */
+  border: none;
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin: 0 auto; /* Centraliza o botão horizontalmente */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s;
+}
+
+.destino-button:hover {
+  background-color: #0056b3; /* Cor mais escura ao passar o mouse */
+  transform: translateY(-3px); /* Leve movimento ao passar o mouse */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra mais intensa ao passar o mouse */
+}
+
+/* Botão "Trocar destino" */
+.trocar-destino-button {
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #28a745; /* Cor verde semelhante ao "Ativar Localização" */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin: 20px auto 0 auto; /* Centraliza o botão e ajusta a margem */
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+}
+
+.trocar-destino-button:hover {
+  background-color: #218838; /* Cor mais escura ao passar o mouse */
+  transform: translateY(-3px); /* Leve movimento ao passar o mouse */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra mais intensa ao passar o mouse */
+}
+

@@ -420,12 +420,13 @@ body {
   font-size: 1.5rem;
 }
 
-/* Estilo para o botão "Trocar Destino" */
+
+/* Botão "Trocar destino" */
 .trocar-destino-button {
-  width: 90%; /* Ajusta o tamanho do botão */
+  width: 90%;
   max-width: 400px;
   padding: 15px;
-  font-size: 1.2rem;
+  font-size: 18px;
   color: #fff;
   background-color: #28a745; /* Cor verde semelhante ao "Ativar Localização" */
   border: none;
@@ -436,12 +437,52 @@ body {
   margin: 20px auto 0 auto; /* Centraliza o botão e ajusta a margem */
   text-align: center;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
 }
 
-/* Estilo ao passar o mouse */
 .trocar-destino-button:hover {
-  background-color: #218838; /* Escurece o verde ao passar o mouse */
-  transform: translateY(-3px); /* Move o botão ligeiramente para cima ao passar o mouse */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada ao passar o mouse */
+  background-color: #218838; /* Cor mais escura ao passar o mouse */
+  transform: translateY(-3px); /* Leve movimento ao passar o mouse */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra mais intensa ao passar o mouse */
 }
+
+/* Ajuste para o container do botão inferior */
+.bottom-panel {
+  position: fixed;
+  bottom: 0; /* Posiciona o botão no limite inferior */
+  left: 50%; /* Centraliza o contêiner horizontalmente */
+  transform: translateX(-50%); /* Move o contêiner para o centro da tela */
+  width: 100%; /* Ocupa toda a largura da tela */
+  max-width: 500px; /* Define uma largura máxima para telas grandes */
+  background-color: #fff; /* Fundo branco do contêiner */
+  padding: 10px 0; /* Padding vertical */
+  border-top-left-radius: 10px; /* Bordas arredondadas no topo esquerdo */
+  border-top-right-radius: 10px; /* Bordas arredondadas no topo direito */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Mantém o painel acima do mapa */
+  text-align: center; /* Centraliza o conteúdo do painel */
+}
+
+/* Botão "Qual seu destino?" ou "Voltar" */
+.destino-button {
+  width: 90%; /* Ocupa 90% da largura do container */
+  padding: 15px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff; /* Cor azul do botão */
+  border: none;
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin: 0 auto; /* Centraliza o botão */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s;
+}
+
+.destino-button:hover {
+  background-color: #0056b3; /* Cor mais escura ao passar o mouse */
+  transform: translateY(-3px); /* Leve movimento ao passar o mouse */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra mais intensa ao passar o mouse */
+}
+
