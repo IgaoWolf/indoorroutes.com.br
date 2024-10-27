@@ -87,7 +87,6 @@ const AppWithGeolocation = () => {
         const tempoMin = (distanciaTotal * 0.72) / 60;
         const tempoMax = (distanciaTotal * 0.9) / 60;
         setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
-        setConfirmado(true);
         setIsRecalculating(false);
         setInstrucoesConcluidas([]);
       } catch (error) {
@@ -111,7 +110,14 @@ const AppWithGeolocation = () => {
   const handleSelectDestino = (destino) => {
     setSelectedDestino(destino);
     setShowDestinos(false);
-    calcularRota(destino);
+  };
+
+  // Função para confirmar o destino e iniciar a rota
+  const handleConfirmarDestino = () => {
+    if (selectedDestino) {
+      calcularRota(selectedDestino);
+      setConfirmado(true);
+    }
   };
 
   return (
@@ -155,22 +161,11 @@ const AppWithGeolocation = () => {
       )}
 
       {/* Informações do destino selecionado */}
-      {confirmado && selectedDestino && (
+      {selectedDestino && !confirmado && (
         <div className="destino-info-container">
-          <DestinoInfo
-            destino={selectedDestino}
-            tempoEstimado={tempoEstimado}
-            instrucoes={instrucoes}
-            instrucoesConcluidas={instrucoesConcluidas}
-          />
-          <button
-            className="destino-button"
-            onClick={() => {
-              setConfirmado(false);
-              setSelectedDestino(null);
-            }}
-          >
-            Voltar
+          <DestinoInfo destino={selectedDestino} tempoEstimado={tempoEstimado} />
+          <button className="destino-button" onClick={handleConfirmarDestino}>
+            Iniciar Rota
           </button>
         </div>
       )}
@@ -189,6 +184,23 @@ const AppWithGeolocation = () => {
         <div className="bottom-panel">
           <button className="destino-button" onClick={toggleDestinos}>
             Qual seu destino?
+          </button>
+        </div>
+      )}
+
+      {/* Painel de informações após confirmar a rota */}
+      {confirmado && (
+        <div className="info-panel">
+          <h2>{selectedDestino?.destino_nome}</h2>
+          <p>Tempo estimado: {tempoEstimado}</p>
+        </div>
+      )}
+
+      {/* Botão para trocar a rota */}
+      {confirmado && (
+        <div className="bottom-panel">
+          <button className="trocar-destino-button" onClick={toggleDestinos}>
+            Trocar destino
           </button>
         </div>
       )}
