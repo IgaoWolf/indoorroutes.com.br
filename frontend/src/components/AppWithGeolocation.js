@@ -5,6 +5,7 @@ import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
 import '../styles/App.css';
+import * as turf from '@turf/turf';
 
 const AppWithGeolocation = () => {
   const [latitude, setLatitude] = useState(null);
@@ -64,6 +65,16 @@ const AppWithGeolocation = () => {
     }
   }, [showDestinos]);
 
+  // Função para alternar a exibição do painel de destinos
+  const toggleDestinos = () => {
+    setShowDestinos(!showDestinos);
+    if (showDestinos) {
+      // Se o painel estava visível, voltamos ao estado inicial
+      setSelectedDestino(null);
+      setConfirmado(false);
+    }
+  };
+
   // Função para calcular a rota quando o destino é confirmado
   const calcularRota = useCallback(
     async (destino) => {
@@ -81,14 +92,16 @@ const AppWithGeolocation = () => {
 
         setRota(response.data.rota);
         setInstrucoes(response.data.instrucoes);
+        console.log('Instruções recebidas:', response.data.instrucoes);
 
         // Estimativa de tempo baseada na distância total
         const distanciaTotal = response.data.distanciaTotal;
         const tempoMin = (distanciaTotal * 0.72) / 60;
         const tempoMax = (distanciaTotal * 0.9) / 60;
         setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
+        setConfirmado(true);
         setIsRecalculating(false);
-        setInstrucoesConcluidas([]);
+        setInstrucoesConcluidas([]); // Reinicia as instruções concluídas
       } catch (error) {
         console.error('Erro ao calcular a rota:', error);
         setIsRecalculating(false);
@@ -97,33 +110,83 @@ const AppWithGeolocation = () => {
     [latitude, longitude]
   );
 
-  // Função para alternar a exibição do painel de destinos
-  const toggleDestinos = () => {
-    setShowDestinos(!showDestinos);
-    if (showDestinos) {
-      setSelectedDestino(null);
-      setConfirmado(false);
+  // Verificar se o usuário saiu da rota
+  useEffect(() => {
+    if (latitude && longitude && rota.length > 0 && confirmado) {
+      const isOffRoute = checkIfOffRoute(latitude, longitude, rota);
+      if (isOffRoute && !isRecalculating) {
+        setIsRecalculating(true);
+        calcularRota(selectedDestino);
+      }
     }
+  }, [latitude, longitude, rota, confirmado, isRecalculating, calcularRota, selectedDestino]);
+
+  const checkIfOffRoute = (latitude, longitude, rota) => {
+    // Convert rota to GeoJSON LineString
+    const line = turf.lineString(
+      rota.map((coord) => [coord.longitude, coord.latitude])
+    );
+
+    // Posição do usuário como um Ponto
+    const point = turf.point([longitude, latitude]);
+
+    // Calcula a distância do usuário até a rota em metros
+    const distance = turf.pointToLineDistance(point, line, { units: 'meters' });
+
+    const threshold = 20; // Limiar em metros
+
+    return distance > threshold;
   };
 
-  // Função para selecionar um destino
-  const handleSelectDestino = (destino) => {
-    setSelectedDestino(destino);
-    setShowDestinos(false);
-  };
+  // Atualizar instruções concluídas com base na posição do usuário
+  useEffect(() => {
+    if (latitude && longitude && instrucoes.length > 0) {
+      const novasInstrucoesConcluidas = [];
 
-  // Função para confirmar o destino e iniciar a rota
-  const handleConfirmarDestino = () => {
-    if (selectedDestino) {
-      calcularRota(selectedDestino);
-      setConfirmado(true);
+      instrucoes.forEach((instrucao) => {
+        let instrucaoLatitude, instrucaoLongitude;
+
+        // Verifique a estrutura real das instruções
+        if (
+          instrucao &&
+          instrucao.position &&
+          Number.isFinite(instrucao.position.latitude) &&
+          Number.isFinite(instrucao.position.longitude)
+        ) {
+          instrucaoLatitude = instrucao.position.latitude;
+          instrucaoLongitude = instrucao.position.longitude;
+        } else if (
+          Number.isFinite(instrucao.latitude) &&
+          Number.isFinite(instrucao.longitude)
+        ) {
+          instrucaoLatitude = instrucao.latitude;
+          instrucaoLongitude = instrucao.longitude;
+        } else {
+          console.warn('Instrução inválida ou propriedades faltando:', instrucao);
+          return; // pula para a próxima iteração
+        }
+
+        if (!instrucoesConcluidas.includes(instrucao.texto)) {
+          const instrucaoPoint = turf.point([instrucaoLongitude, instrucaoLatitude]);
+          const userPoint = turf.point([longitude, latitude]);
+          const distance = turf.distance(instrucaoPoint, userPoint, { units: 'meters' });
+
+          if (distance < 10) {
+            novasInstrucoesConcluidas.push(instrucao.texto);
+          }
+        }
+      });
+
+      if (novasInstrucoesConcluidas.length > 0) {
+        setInstrucoesConcluidas((prev) => [...prev, ...novasInstrucoesConcluidas]);
+      }
     }
-  };
+  }, [latitude, longitude, instrucoes, instrucoesConcluidas]);
 
   return (
-    <div className="app-container">
-      {/* Seção do mapa */}
-      <div className="map-section">
+    <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Mapa com a rota desenhada */}
+      <div className="map-section" style={{ flex: 1, position: 'relative' }}>
         <MapView latitude={latitude} longitude={longitude} rota={rota} mapRef={mapRef} />
 
         {/* Botão para centralizar o mapa */}
@@ -132,66 +195,28 @@ const AppWithGeolocation = () => {
         </button>
       </div>
 
-      {/* Seção da lista de destinos */}
-      {showDestinos && (
-        <div className="destinos-section">
-          <div className="search-container">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Digite o destino"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-            />
-            <div className="destinos-list-container">
-              <DestinosList
-                destinos={destinos.filter((destino) =>
-                  destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
-                )}
-                onSelectDestino={handleSelectDestino}
-              />
-            </div>
-          </div>
-          <div className="voltar-container">
-            <button className="destino-button voltar" onClick={toggleDestinos}>
-              Voltar
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Informações do destino selecionado */}
-      {selectedDestino && !confirmado && (
-        <div className="destino-info-container">
-          <DestinoInfo destino={selectedDestino} tempoEstimado={tempoEstimado} />
-          <button className="destino-button" onClick={handleConfirmarDestino}>
-            Iniciar Rota
-          </button>
-        </div>
-      )}
-
-      {/* Instruções de navegação */}
-      {confirmado && (
+      {/* Exibe as instruções de navegação, se houver */}
+      {instrucoes.length > 0 && (
         <InstrucoesNavegacao
           instrucoes={instrucoes}
           instrucoesConcluidas={instrucoesConcluidas}
-          setInstrucoesConcluidas={setInstrucoesConcluidas}
         />
       )}
 
-      {/* Botão para selecionar o destino */}
-      {!confirmado && !showDestinos && (
-        <div className="bottom-panel">
-          <button className="destino-button" onClick={toggleDestinos}>
-            Qual seu destino?
-          </button>
-        </div>
+      {/* Painel de informações detalhadas do destino */}
+      {selectedDestino && !confirmado && (
+        <DestinoInfo
+          destino={selectedDestino}
+          tempoEstimado={tempoEstimado}
+          onClose={() => setSelectedDestino(null)}
+          onConfirm={() => calcularRota(selectedDestino)}
+        />
       )}
 
-      {/* Painel de informações após confirmar a rota */}
+      {/* Painel de informações após confirmar o destino */}
       {confirmado && (
         <div className="info-panel">
-          <h2>{selectedDestino?.destino_nome}</h2>
+          <h2>{selectedDestino.destino_nome}</h2>
           <p>Tempo estimado: {tempoEstimado}</p>
         </div>
       )}
@@ -202,6 +227,38 @@ const AppWithGeolocation = () => {
           <button className="trocar-destino-button" onClick={toggleDestinos}>
             Trocar destino
           </button>
+        </div>
+      )}
+
+      {/* Botão de seleção de destino / Voltar */}
+      {!confirmado && (
+        <div className="bottom-panel">
+          <button className="destino-button" onClick={toggleDestinos}>
+            {showDestinos ? 'Voltar' : 'Qual seu destino?'}
+          </button>
+        </div>
+      )}
+
+      {/* Exibição do componente DestinosList quando showDestinos for verdadeiro */}
+      {showDestinos && (
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Digite o destino"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+          />
+          <DestinosList
+            destinos={destinos.filter((destino) =>
+              destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
+            )}
+            onSelectDestino={(destino) => {
+              setSelectedDestino(destino);
+              setShowDestinos(false); // Fechar o painel de seleção
+              setConfirmado(false); // Garantir que o destino será confirmado apenas após clicar no botão
+            }}
+          />
         </div>
       )}
     </div>

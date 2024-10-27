@@ -87,43 +87,49 @@ body {
   background-color: #f0f0f0; /* Adiciona um fundo suave para quando o mapa está carregando */
 }
 
-/* Painel inferior para o botão e o campo de busca */
+
+
+
+
+
+
 .bottom-panel {
-  position: fixed; /* Usa position fixed para garantir que o botão fique sempre visível */
-  bottom: 20px; /* Mantém o painel 20px acima do limite inferior da tela */
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
   background-color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  z-index: 1000; /* Garante que o painel esteja acima do mapa */
-  width: 90%;
-  max-width: 400px;
-  pointer-events: auto; /* Garante que o painel seja clicável */
+  position: fixed; /* Fixa no rodapé */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin: 0;
 }
 
-/* Destaque para o botão "Qual seu destino?" ou "Voltar" */
 .destino-button {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  color: #fff;
-  background-color: #007bff; /* Cor azul para destaque */
+  background-color: #e63946;
+  color: white;
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: block;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-  position: relative;
+  cursor: pointer;
+  margin: 0; /* Remove margens */
+  width: 90%; /* Deixa 5% de cada lado */
+  max-width: 500px;
+  transition: background-color 0.3s;
 }
 
 .destino-button:hover {
-  background-color: #0056b3;
+  background-color: #d62828;
 }
+
+
+
+
+
 
 /* Estilo específico para o botão "Voltar" */
 .destino-button.voltar {
@@ -397,21 +403,12 @@ body {
 
 /* Ajuste para o container do botão inferior */
 .bottom-panel {
-  position: fixed;
-  bottom: 0; /* Posiciona o botão no limite inferior */
-  left: 50%; /* Centraliza o contêiner horizontalmente */
-  transform: translateX(-50%); /* Move o contêiner para o centro da tela */
-  width: 100%; /* Ocupa toda a largura da tela */
-  max-width: 500px; /* Define uma largura máxima para telas grandes */
-  background-color: #fff; /* Fundo branco do contêiner */
-  padding: 10px 0; /* Padding vertical */
-  border-top-left-radius: 10px; /* Bordas arredondadas no topo esquerdo */
-  border-top-right-radius: 10px; /* Bordas arredondadas no topo direito */
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Mantém o painel acima do mapa */
-  text-align: center; /* Centraliza o conteúdo do painel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Ajusta o padding geral para dar mais espaço */
+  background-color: #fff; /* Garante que o fundo seja branco */
 }
-
 
 .destino-button:hover {
   background-color: #0056b3; /* Cor mais escura ao passar o mouse */
@@ -522,19 +519,15 @@ body {
 
 /* Ajuste para o container de informações do destino */
 .destino-info-container {
-  position: fixed;
-  bottom: 70px; /* Espaço para o botão "Voltar" */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 400px;
-  background-color: #fff;
+  position: absolute;
+  bottom: 60px; /* Ajusta para ficar acima do botão de iniciar rota */
+  left: 5%;
+  right: 5%;
+  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semitransparente */
   padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 2000;
-  max-height: 50vh; /* Limita a altura */
-  overflow-y: auto; /* Scroll interno */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Garante que o conteúdo fique sobre o mapa */
 }
 
 /* Ajuste para o botão "Voltar" na seção de destino */
