@@ -2,10 +2,10 @@ import React, { useEffect, useState, useCallback } from 'react';
 
 const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {
   const [status, setStatus] = useState(''); // Estado para o status "Aberto" ou "Fechado"
-  const [horariofuncionamento, sethorariofuncionamento] = useState(''); // Estado para exibir o horário de funcionamento
+  const [horariofuncionamento, setHorarioFuncionamento] = useState(''); // Estado para exibir o horário de funcionamento
 
   // Função para verificar o horário de funcionamento
-  const verificarhorariofuncionamento = useCallback(() => {
+  const verificarHorarioFuncionamento = useCallback(() => {
     if (!destino || !destino.horariofuncionamento) {
       setStatus('Horário de funcionamento não disponível');
       return;
@@ -32,14 +32,14 @@ const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {
       setStatus('Fechado');
     }
 
-    sethorariofuncionamento(`${horarioAbertura} - ${horarioFechamento}`);
+    setHorarioFuncionamento(`${horarioAbertura} - ${horarioFechamento}`);
   }, [destino]);
 
   useEffect(() => {
     if (destino && destino.horariofuncionamento) {
-      verificarhorariofuncionamento();
+      verificarHorarioFuncionamento();
     }
-  }, [destino, verificarhorariofuncionamento]);
+  }, [destino, verificarHorarioFuncionamento]);
 
   const criarDataComHorario = (horario) => {
     const [horas, minutos] = horario.split(':');
@@ -52,7 +52,7 @@ const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {
     <div className="destino-info">
       <div className="header">
         <h2>{destino.destino_nome}</h2>
-        <p>{destino.tipo}</p>
+        {/* Removemos o <p>{destino.tipo}</p> para não exibir "sala" ou o tipo do destino */}
         <button className="close-button" onClick={onClose}>
           ✕
         </button>
@@ -89,3 +89,4 @@ const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {
 };
 
 export default DestinoInfo;
+

@@ -1,26 +1,80 @@
-.loading-message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.9);
+/* Estilos para DestinoInfo */
+.destino-info {
+  position: relative;
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
   text-align: center;
-  z-index: 2000;
 }
 
-.map-container {
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+.destino-info .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
+.destino-info h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.confirm-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.confirm-button:hover {
+  background-color: #0056b3;
+}
+
+/* Botão de fechar no canto superior direito */
+.close-button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-button:hover {
+  color: #555;
+}
+
+/* Estilos para horário de funcionamento e status */
+.horario-info {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.status-aberto {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-fechado {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Estilos para o center-button (botão de centralização) */
 .center-button {
   position: fixed;
   top: 50%;
@@ -28,33 +82,30 @@
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-  background-color: rgba(0, 119, 182, 0.8); /* Fundo translúcido */
-  border: 2px solid #0077b6; /* Borda azul */
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  border: none;
   border-radius: 50%;
   color: #fff;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: box-shadow 0.3s, transform 0.2s;
 }
 
 .center-button:hover {
-  background-color: rgba(0, 95, 142, 0.9); /* Fundo mais escuro no hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   transform: translateY(-50%) scale(1.1);
 }
 
-.center-button span {
-  font-size: 20px;
-}
-
+/* Estilos para o bottom-panel */
 .bottom-panel {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh; /* Define uma altura fixa para o painel */
+  height: 8vh;
   background-color: #fff;
   position: fixed;
   bottom: 0;
@@ -85,6 +136,7 @@
   background-color: #d62828;
 }
 
+/* Estilos para o search-container */
 .search-container {
   position: fixed;
   bottom: 70px;
@@ -117,26 +169,5 @@
   margin: 15px auto;
   max-width: 400px;
   z-index: 1000;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 24px;
-  height: 24px;
-  background-color: #e63946;
-  border: none;
-  border-radius: 50%; /* Botão circular */
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.close-button:hover {
-  background-color: #d62828; /* Tom mais escuro ao passar o mouse */
 }
 
