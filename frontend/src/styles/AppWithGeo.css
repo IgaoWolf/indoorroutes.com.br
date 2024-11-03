@@ -102,8 +102,8 @@
 
 .bottom-panel {
   display: flex;
-  justify-content: center; /* Centraliza o botão horizontalmente */
-  align-items: center; /* Centraliza o botão verticalmente */
+  justify-content: center;
+  align-items: center;
   height: 8vh;
   background-color: #fff;
   position: fixed;
@@ -114,13 +114,12 @@
   max-width: 100vw;
   z-index: 1000;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-  padding: 0; /* Remove qualquer padding extra */
 }
 
 .destino-button {
-  background-color: #e63946;
+  background-color: #28a745;
   color: white;
-  padding: 12px 20px;
+  padding: 0.8em 1em; /* Ajuste do padding para centralizar verticalmente */
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -130,10 +129,13 @@
   max-width: 500px;
   text-align: center;
   transition: background-color 0.3s;
+  display: flex;
+  align-items: center; /* Centraliza o texto verticalmente dentro do botão */
+  justify-content: center;
 }
 
 .destino-button:hover {
-  background-color: #d62828;
+  background-color: #218838;
 }
 
 /* Estilos para o search-container */

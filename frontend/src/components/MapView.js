@@ -4,7 +4,7 @@ import L from 'leaflet';
 
 // Ícones para o mapa
 const userIcon = new L.Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+  iconUrl: 'https://cdn-icons-png.flaticon.com/128/3237/3237472.png',
   iconSize: [38, 38],
   iconAnchor: [19, 38],
   popupAnchor: [0, -38],
