@@ -100,11 +100,10 @@
   transform: translateY(-50%) scale(1.1);
 }
 
-/* Estilos para o bottom-panel */
 .bottom-panel {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Centraliza o botão horizontalmente */
+  align-items: center; /* Centraliza o botão verticalmente */
   height: 8vh;
   background-color: #fff;
   position: fixed;
@@ -115,6 +114,7 @@
   max-width: 100vw;
   z-index: 1000;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0; /* Remove qualquer padding extra */
 }
 
 .destino-button {
@@ -126,9 +126,9 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  margin: 0;
   width: 90%;
   max-width: 500px;
+  text-align: center;
   transition: background-color 0.3s;
 }
 
@@ -161,13 +161,26 @@
 }
 
 .info-panel {
+  position: fixed;
+  bottom: 8vh; /* Posiciona logo acima do bottom-panel */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /* Aumenta a largura horizontalmente */
+  max-width: 500px; /* Limita a largura máxima para telas maiores */
+  padding: 15px; /* Aumenta o espaçamento interno */
   text-align: center;
-  padding: 10px;
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 15px auto;
-  max-width: 400px;
-  z-index: 1000;
+  border: 1px solid #333; /* Borda sutil para destaque */
+  border-radius: 12px; /* Bordas arredondadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+}
+
+.info-panel h2 {
+  font-size: 1.4rem; /* Ajusta o tamanho do texto */
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
