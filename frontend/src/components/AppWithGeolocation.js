@@ -4,7 +4,8 @@ import MapView from './MapView';
 import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
-import '../styles/App.css';
+import '../styles/AppWithGeo.css';
+//import '../styles/App.css';
 import * as turf from '@turf/turf';
 
 const AppWithGeolocation = () => {
