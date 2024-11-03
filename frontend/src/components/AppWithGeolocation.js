@@ -204,15 +204,16 @@ const AppWithGeolocation = () => {
         />
       )}
 
-      {/* Painel de informações detalhadas do destino */}
-      {selectedDestino && !confirmado && (
-        <DestinoInfo
-          destino={selectedDestino}
-          tempoEstimado={tempoEstimado}
-          onClose={() => setSelectedDestino(null)}
-          onConfirm={() => calcularRota(selectedDestino)}
-        />
-      )}
+{selectedDestino && !confirmado && (
+  <DestinoInfo
+    destino={selectedDestino}
+    tempoEstimado={tempoEstimado}
+    onClose={() => setSelectedDestino(null)} // Função de fechar
+    onConfirm={() => calcularRota(selectedDestino)}
+  >
+    <button className="close-button" onClick={() => setSelectedDestino(null)}>✕</button>
+  </DestinoInfo>
+)}
 
       {/* Painel de informações após confirmar o destino */}
       {confirmado && (

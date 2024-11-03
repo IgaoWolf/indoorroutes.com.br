@@ -26,23 +26,23 @@
   top: 50%;
   right: 15px;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 119, 182, 0.8); /* Fundo translúcido */
+  border: 2px solid #0077b6; /* Borda azul */
   border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .center-button:hover {
-  background-color: #0056b3;
+  background-color: rgba(0, 95, 142, 0.9); /* Fundo mais escuro no hover */
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -117,5 +117,26 @@
   margin: 15px auto;
   max-width: 400px;
   z-index: 1000;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  background-color: #e63946;
+  border: none;
+  border-radius: 50%; /* Botão circular */
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background-color: #d62828; /* Tom mais escuro ao passar o mouse */
 }
 
