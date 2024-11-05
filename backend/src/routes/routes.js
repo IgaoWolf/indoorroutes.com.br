@@ -11,10 +11,13 @@ router.get('/api/destinos', async (req, res) => {
              d.descricao,
              w.tipo,
              a.nome AS andar_nome,
+             b.id AS bloco_id,         -- Inclui o bloco_id
+             b.nome AS bloco_nome,      -- Inclui o nome do bloco
              d.horariofuncionamento
       FROM destinos d
       JOIN waypoints w ON d.waypoint_id = w.id
-      JOIN andares a ON w.andar_id = a.id;
+      JOIN andares a ON w.andar_id = a.id
+      JOIN blocos b ON w.bloco_id = b.id;  -- Junção com a tabela de blocos
     `);
     res.json(destinos);
   } catch (error) {

@@ -551,3 +551,172 @@ body {
   max-width: 400px;
   width: 90%;
 }
+/* Contêiner principal */
+.destinos-list-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* Botões principais para seleção de bloco e andar */
+.blocos-disponiveis,
+.andares-disponiveis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
+/* Botão de bloco e andar com estilo elegante */
+.bloco-button,
+.andar-button {
+  padding: 15px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0077b6; /* Azul elegante */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  flex: 1 1 45%; /* 2 botões por linha em telas médias */
+  max-width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra suave */
+}
+
+.bloco-button:hover,
+.andar-button:hover {
+  background-color: #005f87; /* Tom mais escuro ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação no hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Botão "Voltar" */
+.voltar-button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #ef476f; /* Rosa/avermelhado moderno */
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.voltar-button:hover {
+  background-color: #d64060;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos dos blocos e andares */
+.destino-bloco-group h2,
+.destino-andar-group h3 {
+  color: #023047;
+  text-align: center;
+  margin: 25px 0 15px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-bottom: 2px solid #0077b6;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+/* Lista de destinos com estilização moderna */
+.destinos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Itens de destino com estilo de cartão */
+.destino-item {
+  padding: 15px;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.destino-item:hover {
+  background-color: #e1e8ed;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsividade para tablets e telas menores */
+@media (max-width: 768px) {
+  .destinos-list-container {
+    padding: 15px;
+  }
+
+  .bloco-button,
+  .andar-button {
+    flex: 1 1 100%; /* Botões ocupam 100% da linha em telas menores */
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .voltar-button {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .destino-bloco-group h2,
+  .destino-andar-group h3 {
+    font-size: 1.5rem;
+  }
+
+  .destino-item {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+/* Responsividade para smartphones */
+@media (max-width: 480px) {
+  .blocos-disponiveis,
+  .andares-disponiveis {
+    gap: 10px;
+  }
+
+  .bloco-button,
+  .andar-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .destino-bloco-group h2,
+  .destino-andar-group h3 {
+    font-size: 1.3rem;
+  }
+
+  .destino-item {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .voltar-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
