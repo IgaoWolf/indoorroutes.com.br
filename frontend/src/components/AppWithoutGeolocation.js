@@ -21,7 +21,7 @@ const AppWithoutGeolocation = () => {
   const [instrucoes, setInstrucoes] = useState([]);
   const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]);
 
-  const mapRef = useRef(null); // Cria a referência para o mapa
+  const mapRef = useRef(null); // Cria a refer?ncia para o mapa
 
   useEffect(() => {
     const fetchDestinos = async () => {
@@ -93,7 +93,7 @@ const AppWithoutGeolocation = () => {
       {/* Mapa com a rota */}
       <MapView latitude={null} longitude={null} rota={rota} mapRef={mapRef} /> {/* Passa mapRef */}
 
-      {/* Instruções de navegação */}
+      {/* Instru??es de navega??o */}
       {instrucoes.length > 0 && (
         <InstrucoesNavegacao
           instrucoes={instrucoes}
@@ -101,7 +101,7 @@ const AppWithoutGeolocation = () => {
         />
       )}
 
-      {/* Informações detalhadas do destino */}
+      {/* Informa??es detalhadas do destino */}
       {selectedDestino && selectedOrigem && !confirmado && (
         <DestinoInfo
           destino={selectedDestino}
@@ -116,7 +116,7 @@ const AppWithoutGeolocation = () => {
         />
       )}
 
-      {/* Painel de informações após confirmar a rota */}
+      {/* Painel de informa??es ap?s confirmar a rota */}
       {confirmado && (
         <div className="info-panel">
           <h2>
@@ -126,7 +126,7 @@ const AppWithoutGeolocation = () => {
         </div>
       )}
 
-      {/* Botão para trocar origem e destino */}
+      {/* Bot?o para trocar origem e destino */}
       {confirmado && (
         <div className="bottom-panel">
           <button className="trocar-destino-button" onClick={handleTrocarDestino}>
@@ -135,7 +135,7 @@ const AppWithoutGeolocation = () => {
         </div>
       )}
 
-      {/* Botão para selecionar origem ou destino */}
+      {/* Bot?o para selecionar origem ou destino */}
       {!confirmado && (!selectedOrigem || !selectedDestino) && (
         <div className="bottom-panel">
           <button
@@ -179,4 +179,3 @@ const AppWithoutGeolocation = () => {
 };
 
 export default AppWithoutGeolocation;
-

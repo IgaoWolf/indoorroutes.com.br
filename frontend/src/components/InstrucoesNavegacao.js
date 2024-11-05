@@ -17,8 +17,9 @@ const InstrucoesNavegacao = ({ instrucoes, instrucoesConcluidas = [] }) => {
     setShowAll(!showAll);
   };
 
+  // Se não houver instruções restantes, não renderiza nada
   if (!remainingInstructions || remainingInstructions.length === 0) {
-    return null; // Não renderiza nada se não houver instruções restantes
+    return null;
   }
 
   return (

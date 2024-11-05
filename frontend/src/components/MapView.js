@@ -23,6 +23,7 @@ const defaultCenter = { lat: -24.94667548, lon: -53.50780993 };
 const MapView = ({ latitude, longitude, rota, mapRef }) => {
   const [userPosition, setUserPosition] = useState(null);
   const defaultZoom = 18;
+  const initialFitDone = useRef(false); // Flag para controlar ajuste inicial
 
   // Atualiza a posição do usuário ou usa o centro padrão
   useEffect(() => {
@@ -33,24 +34,28 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
     }
   }, [latitude, longitude]);
 
-  // Componente para ajustar o mapa para caber a rota e a localização do usuário
+  // Componente para ajustar o mapa para caber a rota e a localização do usuário apenas no início
   const AjustarMapaParaRota = ({ rota, userPosition }) => {
     const map = useMap();
 
     useEffect(() => {
-      const pontos = [];
+      if (!initialFitDone.current) { // Ajusta o mapa apenas uma vez
+        const pontos = [];
 
-      if (rota.length > 0) {
-        const rotaPontos = rota.map((ponto) => [ponto.latitude, ponto.longitude]);
-        pontos.push(...rotaPontos);
-      }
+        if (rota.length > 0) {
+          const rotaPontos = rota.map((ponto) => [ponto.latitude, ponto.longitude]);
+          pontos.push(...rotaPontos);
+        }
 
-      if (userPosition && userPosition.lat && userPosition.lon) {
-        pontos.push([userPosition.lat, userPosition.lon]);
-      }
+        if (userPosition && userPosition.lat && userPosition.lon) {
+          pontos.push([userPosition.lat, userPosition.lon]);
+        }
 
-      if (pontos.length > 0) {
-        map.fitBounds(pontos, { padding: [50, 50] });
+        if (pontos.length > 0) {
+          map.fitBounds(pontos, { padding: [50, 50] });
+        }
+
+        initialFitDone.current = true; // Marca que o ajuste inicial foi feito
       }
     }, [rota, userPosition, map]);
 
@@ -79,7 +84,7 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
             />
           )}
 
-          {/* Ajusta o mapa para caber a rota e a posição do usuário */}
+          {/* Ajusta o mapa para caber a rota e a posição do usuário uma única vez */}
           <AjustarMapaParaRota rota={rota} userPosition={userPosition} />
 
           {/* Marker para a localização do usuário ou centro padrão */}
@@ -109,4 +114,3 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
 };
 
 export default MapView;
-
