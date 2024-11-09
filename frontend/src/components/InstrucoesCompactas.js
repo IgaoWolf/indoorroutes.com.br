@@ -19,16 +19,22 @@ const InstrucoesCompactas = ({ instrucoes, onBack }) => {
         <p className="trajeto-titulo">Ver trajeto</p>
       </div>
       <div className="linha-separadora"></div>
-      <div className="instrucao-texto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+      {/* Primeira instrução */}
+      <div className="instrucao-texto-principal">
         <span>{instrucoes[0]}</span>
-        <button className="toggle-expand" onClick={toggleExpand}>
+        <span className="seta-expandir" onClick={toggleExpand}>
           {isExpanded ? "▲" : "▼"}
-        </button>
+        </span>
       </div>
+
+      {/* Instruções extras */}
       {isExpanded && (
         <div className="instrucao-extra">
           {instrucoes.slice(1).map((instrucao, index) => (
-            <p key={index} className="instrucao-item">{instrucao}</p>
+            <p key={index} className="instrucao-item">
+              {instrucao}
+            </p>
           ))}
         </div>
       )}

@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  justify-content: space-between;
 }
 
 .back-arrow {
@@ -28,7 +29,6 @@
   color: #333;
   cursor: pointer;
   padding: 5px;
-  margin-right: 10px;
 }
 
 .trajeto-titulo {
@@ -47,23 +47,23 @@
   margin: 8px 0;
 }
 
-.instrucao-texto {
+.instrucao-texto-principal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   color: #333;
   text-align: center;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
 }
 
-.toggle-expand {
-  background: none;
-  border: none;
-  font-size: 16px;
+.seta-expandir {
+  position: absolute;
+  right: 10px;
+  font-size: 14px;
   color: #333;
   cursor: pointer;
-  margin-left: 10px;
 }
 
 .instrucao-extra {
@@ -71,6 +71,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
 }
 
 .instrucao-item {
@@ -78,5 +79,6 @@
   color: #333;
   text-align: center;
   margin: 4px 0;
-  width: 90%; /* Ajuste para manter alinhamento central */
+  width: 90%;
 }
+
