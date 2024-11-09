@@ -128,4 +128,3 @@ const AppWithoutGeolocation = () => {
 };
 
 export default AppWithoutGeolocation;
-

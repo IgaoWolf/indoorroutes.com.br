@@ -4,7 +4,8 @@ import axios from 'axios';
 import MapView from './MapView';
 import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
-import InstrucoesNavegacao from './InstrucoesNavegacao';
+import InstrucoesCompactas from './InstrucoesCompactas'; // Novo componente
+import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/AppWithGeo.css';
 import * as turf from '@turf/turf';
 
@@ -125,19 +126,18 @@ const AppWithGeolocation = () => {
 
   return (
     <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      {/* Seta de voltar à tela inicial */}
       <button className="back-arrow" onClick={() => navigate('/')}>
-        ←
+        <FaArrowLeft />
       </button>
 
-      {/* Mapa com a rota desenhada */}
       <div className="map-section" style={{ flex: 1, position: 'relative' }}>
         <MapView latitude={latitude} longitude={longitude} rota={rota} mapRef={mapRef} />
         <button className="center-button" onClick={handleCenterMap}>📍</button>
       </div>
 
+      {/* Painel compacto de instruções */}
       {instrucoes.length > 0 && (
-        <InstrucoesNavegacao instrucoes={instrucoes} instrucoesConcluidas={instrucoesConcluidas} />
+        <InstrucoesCompactas instrucao={instrucoes[0]} />
       )}
 
       {selectedDestino && !confirmado && (

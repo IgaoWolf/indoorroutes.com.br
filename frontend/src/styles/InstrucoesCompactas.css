@@ -1,0 +1,31 @@
+.instruction-panel {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+}
+
+.instruction-arrow {
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.instruction-text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

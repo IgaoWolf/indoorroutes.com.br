@@ -69,6 +69,7 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
           ref={mapRef}
           center={[userPosition.lat, userPosition.lon]}
           zoom={defaultZoom}
+          zoomControl={false} // Desativa o controle de zoom padrão
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
@@ -114,3 +115,4 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
 };
 
 export default MapView;
+
