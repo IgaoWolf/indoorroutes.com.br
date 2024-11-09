@@ -12,14 +12,12 @@ const AppWithoutGeolocation = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
   const [showDestinos, setShowDestinos] = useState(false);
-  const [selectingOrigem, setSelectingOrigem] = useState(true);
   const [selectedOrigem, setSelectedOrigem] = useState(null);
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
   const [rota, setRota] = useState([]);
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
-  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]);
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -50,7 +48,6 @@ const AppWithoutGeolocation = () => {
       setTempoEstimado(`${((response.data.distanciaTotal * 0.72) / 60).toFixed(1)} - ${((response.data.distanciaTotal * 0.9) / 60).toFixed(1)} minutos`);
       setInstrucoes(response.data.instrucoes);
       setConfirmado(true);
-      setInstrucoesConcluidas([]);
     } catch (error) {
       console.error('Erro ao calcular a rota:', error);
       alert('Erro ao calcular a rota. Por favor, tente novamente.');
@@ -66,21 +63,15 @@ const AppWithoutGeolocation = () => {
     setTempoEstimado('');
     setShowDestinos(false);
     setSearchQuery('');
-    setSelectingOrigem(true);
-    setInstrucoesConcluidas([]);
   };
 
   return (
-    <div className="app-container">
-      {/* Seta de voltar à tela inicial */}
-<button className="back-arrow-button" onClick={() => navigate('/')}>
-  ←
-</button>
-
+    <div className="app-without-geolocation">
+      <button className="back-arrow-button" onClick={() => navigate('/')}>←</button>
       <MapView latitude={null} longitude={null} rota={rota} mapRef={mapRef} />
 
       {instrucoes.length > 0 && (
-        <InstrucoesNavegacao instrucoes={instrucoes} instrucoesConcluidas={instrucoesConcluidas} />
+        <InstrucoesNavegacao instrucoes={instrucoes} />
       )}
 
       {selectedDestino && selectedOrigem && !confirmado && (
@@ -94,32 +85,18 @@ const AppWithoutGeolocation = () => {
         </div>
       )}
 
-      {confirmado && (
-        <div className="bottom-panel">
-          <button className="trocar-destino-button" onClick={handleTrocarDestino}>Trocar origem e destino</button>
-        </div>
-      )}
-
-      {!confirmado && (!selectedOrigem || !selectedDestino) && (
-        <div className="bottom-panel">
-          <button className="destino-button" onClick={() => setShowDestinos(true)}>
-            {selectingOrigem ? 'Selecione sua origem' : 'Selecione seu destino'}
-          </button>
-        </div>
-      )}
+      <div className="bottom-panel">
+        <button className="destino-button" onClick={() => setShowDestinos(true)}>
+          {showDestinos ? 'Voltar' : 'Selecione seu destino'}
+        </button>
+      </div>
 
       {showDestinos && (
         <div className="search-container">
-          <input type="text" className="search-input" placeholder={`Digite o ${selectingOrigem ? 'origem' : 'destino'}`} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-          <DestinosList destinos={destinos.filter((destino) => destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase()))} onSelectDestino={(destino) => {
-            if (selectingOrigem) {
-              setSelectedOrigem(destino);
-              setSelectingOrigem(false);
-            } else {
-              setSelectedDestino(destino);
-            }
+          <input type="text" className="search-input" placeholder="Digite o destino" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+          <DestinosList destinos={destinos} onSelectDestino={(destino) => {
+            setSelectedDestino(destino);
             setShowDestinos(false);
-            setSearchQuery('');
           }} />
         </div>
       )}
@@ -128,3 +105,4 @@ const AppWithoutGeolocation = () => {
 };
 
 export default AppWithoutGeolocation;
+

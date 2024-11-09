@@ -1,4 +1,4 @@
-.bottom-panel {
+.app-without-geolocation .bottom-panel {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   margin: 0;
 }
 
-.destino-button {
+.app-without-geolocation .destino-button {
   background-color: #e63946;
   color: white;
   padding: 12px 20px;
@@ -27,20 +27,19 @@
   transition: background-color 0.3s;
 }
 
-.destino-button:hover {
+.app-without-geolocation .destino-button:hover {
   background-color: #d62828;
 }
 
-/* Estilo específico para o botão "Voltar" */
-.destino-button.voltar {
+.app-without-geolocation .destino-button.voltar {
   background-color: #dc3545;
 }
 
-.destino-button.voltar:hover {
+.app-without-geolocation .destino-button.voltar:hover {
   background-color: #c82333;
 }
 
-.trocar-destino-button {
+.app-without-geolocation .trocar-destino-button {
   width: 90%;
   max-width: 400px;
   padding: 15px;
@@ -58,13 +57,13 @@
   transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
 }
 
-.trocar-destino-button:hover {
+.app-without-geolocation .trocar-destino-button:hover {
   background-color: #218838;
   transform: translateY(-3px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-.search-container {
+.app-without-geolocation .search-container {
   position: fixed;
   bottom: 70px;
   left: 50%;
@@ -78,7 +77,7 @@
   padding: 10px;
 }
 
-.search-input {
+.app-without-geolocation .search-input {
   width: 100%;
   padding: 12px;
   border: none;
@@ -87,7 +86,7 @@
   margin-bottom: 10px;
 }
 
-.info-panel {
+.app-without-geolocation .info-panel {
   text-align: center;
   padding: 10px;
   background-color: #fff;
@@ -98,44 +97,27 @@
   z-index: 1000;
 }
 
-.back-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.back-button:hover {
-  background-color: #0056b3;
-}
-
-.back-arrow-button {
+.app-without-geolocation .back-arrow-button {
   position: fixed;
   top: 15px;
   left: 15px;
-  background-color: #003366; /* Cor de fundo (azul escuro da paleta) */
-  color: #ffffff; /* Cor do texto */
-  border: 2px solid #00509E; /* Borda azul um pouco mais clara */
-  border-radius: 50%; /* Forma circular */
-  width: 40px; /* Largura do botão */
-  height: 40px; /* Altura do botão */
+  background-color: #003366;
+  color: #ffffff;
+  border: 2px solid #00509E;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, transform 0.2s;
 }
 
-.back-arrow-button:hover {
-  background-color: #00509E; /* Tom de azul mais claro no hover */
-  transform: scale(1.1); /* Leve aumento no hover */
+.app-without-geolocation .back-arrow-button:hover {
+  background-color: #00509E;
+  transform: scale(1.1);
 }
 
