@@ -580,7 +580,7 @@ body {
   padding: 15px 20px;
   font-size: 16px;
   color: #fff;
-  background-color: #0077b6; /* Azul elegante */
+  background-color: #062D3D; /* Azul elegante */
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -593,7 +593,7 @@ body {
 
 .bloco-button:hover,
 .andar-button:hover {
-  background-color: #005f87; /* Tom mais escuro ao passar o mouse */
+  background-color: #062D3D; /* Tom mais escuro ao passar o mouse */
   transform: translateY(-2px); /* Leve elevação no hover */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
@@ -628,7 +628,7 @@ body {
   margin: 25px 0 15px;
   font-size: 1.8rem;
   font-weight: bold;
-  border-bottom: 2px solid #0077b6;
+  border-bottom: 2px solid #062D3D;
   padding-bottom: 5px;
   width: 100%;
 }

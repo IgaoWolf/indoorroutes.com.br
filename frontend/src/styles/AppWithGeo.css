@@ -117,7 +117,7 @@
 }
 
 .destino-button {
-  background-color: #28a745;
+  background-color: #f4bb26;
   color: white;
   padding: 0.8em 1em; /* Ajuste do padding para centralizar verticalmente */
   border: none;
@@ -135,7 +135,7 @@
 }
 
 .destino-button:hover {
-  background-color: #218838;
+  background-color: #f4bb26;
 }
 
 /* Estilos para o search-container */
