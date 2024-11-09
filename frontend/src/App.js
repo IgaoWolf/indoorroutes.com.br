@@ -5,6 +5,8 @@ import AppWithoutGeolocation from './components/AppWithoutGeolocation';
 import './styles/Welcome.css';
 import indoorRoutesLogo from './styles/img/indoor-routes.png';
 import studentWalking from './styles/img/estudante-andando.png';
+import comGeolocalizacaoIcon from './styles/img/com-geolocalizao.png';
+import semGeolocalizacaoIcon from './styles/img/sem-geolocalizacao.png';
 
 const App = () => {
   return (
@@ -26,37 +28,34 @@ const Index = () => {
   const [useGeolocation, setUseGeolocation] = React.useState(null);
   const [useGeolocationOpted, setUseGeolocationOpted] = React.useState(false);
 
-  // Função para ativar a localização e navegar para a rota correspondente
   const handleAtivarLocalizacao = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setUseGeolocation(true);
           setUseGeolocationOpted(true);
-          navigate('/com-geolocalizacao'); // Redireciona para a rota com geolocalização
+          navigate('/com-geolocalizacao');
         },
         (error) => {
           console.error('Erro ao obter geolocalização:', error);
           setUseGeolocation(false);
           setUseGeolocationOpted(true);
-          navigate('/sem-geolocalizacao'); // Redireciona para a rota sem geolocalização em caso de erro
+          navigate('/sem-geolocalizacao');
         }
       );
     } else {
       setUseGeolocation(false);
       setUseGeolocationOpted(true);
-      navigate('/sem-geolocalizacao'); // Redireciona para a rota sem geolocalização caso o navegador não suporte geolocalização
+      navigate('/sem-geolocalizacao');
     }
   };
 
-  // Função para continuar sem localização e navegar para a rota correspondente
   const handleContinuarSemLocalizacao = () => {
     setUseGeolocation(false);
     setUseGeolocationOpted(true);
-    navigate('/sem-geolocalizacao'); // Redireciona para a rota sem geolocalização
+    navigate('/sem-geolocalizacao');
   };
 
-  // Quando o usuário ainda não fez a escolha, mostramos os botões
   if (!useGeolocationOpted) {
     return (
       <div className="welcome-container">
@@ -66,10 +65,12 @@ const Index = () => {
         <img src={studentWalking} alt="Estudante Andando" className="student-walking" />
         <div className="button-group">
           <button className="button-ativar" onClick={handleAtivarLocalizacao}>
-            <span role="img" aria-label="location">¿</span> Ativar Localização
+            <img src={comGeolocalizacaoIcon} alt="Ativar Localização" className="button-icon" />
+            Ativar Localização
           </button>
           <button className="button-continuar" onClick={handleContinuarSemLocalizacao}>
-            <span role="img" aria-label="manual">¿¿¿¿</span> Continuar Sem Localização
+            <img src={semGeolocalizacaoIcon} alt="Continuar sem Localização" className="button-icon" />
+            Continuar Sem Localização
           </button>
         </div>
         <p className="info-text">
@@ -79,9 +80,7 @@ const Index = () => {
     );
   }
 
-  // Tela de carregamento temporária, caso seja necessário (pode ser removida se não for usada)
   return null;
 };
 
 export default App;
-

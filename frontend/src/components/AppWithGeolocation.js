@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // Hook de navegação
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MapView from './MapView';
 import DestinosList from './DestinosList';
@@ -9,7 +9,7 @@ import '../styles/AppWithGeo.css';
 import * as turf from '@turf/turf';
 
 const AppWithGeolocation = () => {
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate(); 
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -124,7 +124,7 @@ const AppWithGeolocation = () => {
   };
 
   return (
-    <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       {/* Seta de voltar à tela inicial */}
       <button className="back-arrow" onClick={() => navigate('/')}>
         ←
@@ -136,7 +136,6 @@ const AppWithGeolocation = () => {
         <button className="center-button" onClick={handleCenterMap}>📍</button>
       </div>
 
-      {/* Outras seções da interface, como Instruções de Navegação */}
       {instrucoes.length > 0 && (
         <InstrucoesNavegacao instrucoes={instrucoes} instrucoesConcluidas={instrucoesConcluidas} />
       )}

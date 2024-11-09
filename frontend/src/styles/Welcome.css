@@ -7,6 +7,8 @@
   text-align: center;
   padding: 20px;
   background-color: #f9f6f2;
+  max-width: 600px;
+  margin: auto;
 }
 
 .logo {
@@ -46,6 +48,15 @@ p {
   border: none;
   cursor: pointer;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .button-ativar {
@@ -64,4 +75,53 @@ p {
   color: #7d7d7d;
   max-width: 280px;
   margin-top: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .logo {
+    width: 150px;
+  }
+
+  .student-walking {
+    width: 120px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+
+  .button-group {
+    max-width: 100%;
+  }
+
+  .button-ativar, .button-continuar {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 120px;
+  }
+
+  .student-walking {
+    width: 100px;
+  }
+
+  h1 {
+    font-size: 1.2em;
+  }
+
+  p {
+    font-size: 0.9em;
+  }
+
+  .info-text {
+    font-size: 0.8em;
+  }
 }

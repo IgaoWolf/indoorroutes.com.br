@@ -73,9 +73,9 @@ const AppWithoutGeolocation = () => {
   return (
     <div className="app-container">
       {/* Seta de voltar à tela inicial */}
-      <button className="back-arrow" onClick={() => navigate('/')}>
-        ←
-      </button>
+<button className="back-arrow-button" onClick={() => navigate('/')}>
+  ←
+</button>
 
       <MapView latitude={null} longitude={null} rota={rota} mapRef={mapRef} />
 
