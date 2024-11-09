@@ -1,31 +1,55 @@
-.instruction-panel {
+.instrucoes-compactas {
   position: fixed;
-  top: 15px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #fff;
+  width: 90%;
+  max-width: 500px;
+  background: white;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px 15px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
   z-index: 1000;
-  width: 90%;
-  max-width: 400px;
 }
 
-.instruction-arrow {
-  font-size: 1.5rem;
-  color: #007bff;
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
 }
 
-.instruction-text {
-  font-size: 1rem;
+.back-arrow {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.trajeto-titulo {
+  font-size: 16px;
   font-weight: bold;
   color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.linha-separadora {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd; /* Linha fina e cinza */
+  margin: 8px 0; /* Espaçamento entre o título e a instrução */
+}
+
+.instrucao-texto {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
 }
 

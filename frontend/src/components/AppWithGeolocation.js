@@ -21,6 +21,7 @@ const AppWithGeolocation = () => {
   const [rota, setRota] = useState([]);
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
+  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]); // Declaração de instrucoesConcluidas
   const [isRecalculating, setIsRecalculating] = useState(false);
 
   const mapRef = useRef(null);
@@ -87,6 +88,7 @@ const AppWithGeolocation = () => {
         setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
         setConfirmado(true);
         setIsRecalculating(false);
+        setInstrucoesConcluidas([]); // Reinicia instrucoesConcluidas ao calcular nova rota
       } catch (error) {
         console.error('Erro ao calcular a rota:', error);
         setIsRecalculating(false);
@@ -115,7 +117,7 @@ const AppWithGeolocation = () => {
       </div>
 
       {instrucoes.length > 0 && (
-        <InstrucoesCompactas instrucao={instrucoes[0]} />
+	<InstrucoesCompactas instrucoes={instrucoes} onVoltar={() => navigate('/')} />
       )}
 
       {selectedDestino && !confirmado && (
