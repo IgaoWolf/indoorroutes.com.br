@@ -1,0 +1,67 @@
+/* src/styles/Welcome.css */
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f6f2;
+}
+
+.logo {
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.student-walking {
+  width: 150px;
+  margin: 20px 0;
+}
+
+h1 {
+  font-size: 2em;
+  color: #002642;
+  margin: 10px 0;
+}
+
+p {
+  font-size: 1.2em;
+  color: #4a4a4a;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px 0;
+}
+
+.button-ativar, .button-continuar {
+  font-size: 1.1em;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button-ativar {
+  background-color: #002642;
+  color: #ffffff;
+}
+
+.button-continuar {
+  background-color: transparent;
+  color: #002642;
+  border: 2px solid #002642;
+}
+
+.info-text {
+  font-size: 0.9em;
+  color: #7d7d7d;
+  max-width: 280px;
+  margin-top: 20px;
+}

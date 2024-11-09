@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppWithGeolocation from './components/AppWithGeolocation';
 import AppWithoutGeolocation from './components/AppWithoutGeolocation';
 import './styles/Welcome.css';
@@ -10,50 +10,41 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Rota para a tela inicial */}
+        {/* Rota para a aplicação principal */}
         <Route path="/" element={<Index />} />
-
-        {/* Rotas para navegação com e sem geolocalização */}
-        <Route path="/com-geolocalizacao" element={<AppWithGeolocation />} />
-        <Route path="/sem-geolocalizacao" element={<AppWithoutGeolocation />} />
       </Routes>
     </Router>
   );
 };
 
 const Index = () => {
-  const navigate = useNavigate();
   const [useGeolocation, setUseGeolocation] = React.useState(null);
   const [useGeolocationOpted, setUseGeolocationOpted] = React.useState(false);
 
-  // Função para ativar a localização e navegar para a rota correspondente
+  // Função para ativar a localização
   const handleAtivarLocalizacao = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setUseGeolocation(true);
           setUseGeolocationOpted(true);
-          navigate('/com-geolocalizacao'); // Redireciona para a rota com geolocalização
         },
         (error) => {
           console.error('Erro ao obter geolocalização:', error);
           setUseGeolocation(false);
           setUseGeolocationOpted(true);
-          navigate('/sem-geolocalizacao'); // Redireciona para a rota sem geolocalização em caso de erro
         }
       );
     } else {
       setUseGeolocation(false);
       setUseGeolocationOpted(true);
-      navigate('/sem-geolocalizacao'); // Redireciona para a rota sem geolocalização caso o navegador não suporte geolocalização
     }
   };
 
-  // Função para continuar sem localização e navegar para a rota correspondente
+  // Função para continuar sem localização
   const handleContinuarSemLocalizacao = () => {
     setUseGeolocation(false);
     setUseGeolocationOpted(true);
-    navigate('/sem-geolocalizacao'); // Redireciona para a rota sem geolocalização
   };
 
   // Quando o usuário ainda não fez a escolha, mostramos os botões
@@ -66,10 +57,10 @@ const Index = () => {
         <img src={studentWalking} alt="Estudante Andando" className="student-walking" />
         <div className="button-group">
           <button className="button-ativar" onClick={handleAtivarLocalizacao}>
-            <span role="img" aria-label="location">¿</span> Ativar Localização
+            <span role="img" aria-label="location">??</span> Ativar Localização
           </button>
           <button className="button-continuar" onClick={handleContinuarSemLocalizacao}>
-            <span role="img" aria-label="manual">¿¿¿¿</span> Continuar Sem Localização
+            <span role="img" aria-label="manual">?????</span> Continuar Sem Localização
           </button>
         </div>
         <p className="info-text">
@@ -79,9 +70,12 @@ const Index = () => {
     );
   }
 
-  // Tela de carregamento temporária, caso seja necessário (pode ser removida se não for usada)
-  return null;
+  // Quando a escolha foi feita, mostramos a interface correta
+  if (useGeolocation === null) {
+    return <div>Carregando...</div>;
+  }
+
+  return useGeolocation ? <AppWithGeolocation /> : <AppWithoutGeolocation />;
 };
 
 export default App;
-
