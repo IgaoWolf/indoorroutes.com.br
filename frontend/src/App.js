@@ -15,7 +15,7 @@ const App = () => {
         {/* Rota para a tela inicial */}
         <Route path="/" element={<Index />} />
 
-        {/* Rotas para navegação com e sem geolocalização */}
+        {/* Rotas para navegaÃ§Ã£o com e sem geolocalizaÃ§Ã£o */}
         <Route path="/com-geolocalizacao" element={<AppWithGeolocation />} />
         <Route path="/sem-geolocalizacao" element={<AppWithoutGeolocation />} />
       </Routes>
@@ -37,7 +37,7 @@ const Index = () => {
           navigate('/com-geolocalizacao');
         },
         (error) => {
-          console.error('Erro ao obter geolocalização:', error);
+          console.error('Erro ao obter geolocalizaÃ§Ã£o:', error);
           setUseGeolocation(false);
           setUseGeolocationOpted(true);
           navigate('/sem-geolocalizacao');
@@ -65,16 +65,16 @@ const Index = () => {
         <img src={studentWalking} alt="Estudante Andando" className="student-walking" />
         <div className="button-group">
           <button className="button-ativar" onClick={handleAtivarLocalizacao}>
-            <img src={comGeolocalizacaoIcon} alt="Ativar Localização" className="button-icon" />
-            Ativar Localização
+            <img src={comGeolocalizacaoIcon} alt="Ativar LocalizaÃ§Ã£o" className="button-icon" />
+            Ativar LocalizaÃ§Ã£o
           </button>
           <button className="button-continuar" onClick={handleContinuarSemLocalizacao}>
-            <img src={semGeolocalizacaoIcon} alt="Continuar sem Localização" className="button-icon" />
-            Continuar Sem Localização
+            <img src={semGeolocalizacaoIcon} alt="Continuar sem LocalizaÃ§Ã£o" className="button-icon" />
+            Continuar Sem LocalizaÃ§Ã£o
           </button>
         </div>
         <p className="info-text">
-          Você pode optar por ativar sua localização para uma navegação mais precisa ou definir sua origem manualmente.
+          VocÃª pode optar por ativar sua LocalizaÃ§Ã£o para uma navegaÃ§Ã£o mais precisa ou definir sua origem manualmente.
         </p>
       </div>
     );
