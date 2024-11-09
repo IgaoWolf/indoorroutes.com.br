@@ -19,7 +19,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: space-between;
 }
 
 .back-arrow {
@@ -29,6 +28,7 @@
   color: #333;
   cursor: pointer;
   padding: 5px;
+  margin-right: 10px;
 }
 
 .trajeto-titulo {
@@ -43,13 +43,40 @@
 .linha-separadora {
   width: 100%;
   height: 1px;
-  background-color: #ddd; /* Linha fina e cinza */
-  margin: 8px 0; /* Espaçamento entre o título e a instrução */
+  background-color: #ddd;
+  margin: 8px 0;
 }
 
 .instrucao-texto {
   font-size: 16px;
   color: #333;
   text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.toggle-expand {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.instrucao-extra {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.instrucao-item {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  margin: 4px 0;
+  width: 90%; /* Ajuste para manter alinhamento central */
+}
