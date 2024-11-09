@@ -1,20 +1,32 @@
-import React from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import '../styles/InstrucoesCompactas.css';
 
-const InstrucoesCompactas = ({ instrucoes, onVoltar }) => {
+const InstrucoesCompactas = ({ instrucoes }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <div className="instrucoes-compactas">
-      <div className="header">
-        <button className="back-arrow" onClick={onVoltar}>
-          <FaArrowLeft />
+      <div className="instrucao-principal">
+        <span>{instrucoes[0]}</span>
+        <button className="toggle-expand" onClick={toggleExpand}>
+          {isExpanded ? <FaArrowUp /> : <FaArrowDown />}
         </button>
-        <h2 className="trajeto-titulo">Ver trajeto</h2>
       </div>
-      <div className="linha-separadora" />
-      <p className="instrucao-texto">
-        {instrucoes.length > 0 ? instrucoes[0] : 'Instruções de navegação'}
-      </p>
+      
+      {isExpanded && (
+        <div className="instrucao-extra">
+          {instrucoes.slice(1).map((instrucao, index) => (
+            <div key={index} className="instrucao-item">
+              {instrucao}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
