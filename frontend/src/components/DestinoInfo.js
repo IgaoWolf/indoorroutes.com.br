@@ -1,3 +1,5 @@
+import '../styles/DestinoInfo.css';
+
 import React, { useEffect, useState, useCallback } from 'react';
 
 const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {

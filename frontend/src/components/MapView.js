@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Tooltip, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
+import '../styles/mapview.css';
+
 
 // Ícones para o mapa
 const userIcon = new L.Icon({

@@ -1,0 +1,163 @@
+/* Contêiner principal de DestinosList */
+.destinos-list-container {
+  max-height: 45vh; /* Altura máxima ajustada para ser compacta */
+  overflow-y: auto;
+  padding: 10px 15px; /* Reduz o padding para diminuir o espaço interno */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Barra de pesquisa */
+.search-input {
+  width: calc(100% - 20px); /* Mantém a barra de pesquisa dentro do contêiner */
+  padding: 10px; /* Ajusta o padding para ficar mais compacto */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 10px; /* Reduz o espaçamento abaixo da barra */
+  box-sizing: border-box; /* Garante que padding e border fiquem dentro do width */
+}
+
+/* Contêiner de blocos disponíveis */
+.blocos-disponiveis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* Espaço entre os botões */
+  margin-top: 5px; /* Reduz o espaço entre o título e os blocos */
+}
+
+/* Botão de bloco */
+.bloco-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0; /* Reduz o padding */
+  margin: 5px 0; /* Reduz a margem */
+  background-color: #003366;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.bloco-button:hover {
+  background-color: #00509E;
+  transform: translateY(-2px);
+}
+
+/* Contêiner de andares disponíveis */
+.andares-disponiveis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px; /* Reduz o espaço entre o título e os andares */
+}
+
+/* Botão de andar */
+.andar-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  background-color: #002b5c;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.andar-button:hover {
+  background-color: #004080;
+  transform: translateY(-2px);
+}
+
+/* Grupo de destinos por bloco e andar */
+.destino-bloco-group {
+  text-align: center;
+  margin-top: 10px; /* Reduz o espaço superior */
+}
+
+/* Lista de destinos */
+.destinos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* Item de destino */
+.destino-item {
+  background-color: #f4bb26;
+  color: #333;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.destino-item:hover {
+  background-color: #ffd700;
+  transform: translateY(-2px);
+}
+
+/* Botão de voltar */
+.voltar-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  background-color: #dc3545;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.voltar-button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Botão de destino para pesquisa filtrada */
+.destino-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  background-color: #ffb800;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.destino-button:hover {
+  background-color: #ffc107;
+  transform: translateY(-2px);
+}

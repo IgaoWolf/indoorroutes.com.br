@@ -7,7 +7,6 @@ import DestinoInfo from './DestinoInfo';
 import InstrucoesCompactas from './InstrucoesCompactas';
 import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/AppWithGeo.css';
-import * as turf from '@turf/turf';
 import CenterIcon from '../styles/img/com-geolocalizao.png';
 
 const AppWithGeolocation = () => {
@@ -56,7 +55,6 @@ const AppWithGeolocation = () => {
       const response = await axios.get('/api/destinos');
       let destinosFiltrados = response.data;
 
-      // Filtrar os destinos por nome ou outros campos relevantes
       if (query) {
         destinosFiltrados = destinosFiltrados.filter((destino) =>
           destino.destino_nome.toLowerCase().includes(query.toLowerCase()) ||
@@ -66,7 +64,7 @@ const AppWithGeolocation = () => {
       }
 
       setDestinos(destinosFiltrados);
-      console.log("Destinos filtrados:", destinosFiltrados); // Debug para ver destinos filtrados
+      console.log("Destinos filtrados:", destinosFiltrados);
     } catch (error) {
       console.error('Erro ao buscar destinos:', error);
     }
@@ -74,7 +72,7 @@ const AppWithGeolocation = () => {
 
   useEffect(() => {
     if (showDestinos) {
-      fetchDestinos(searchQuery); // Passa o searchQuery como parâmetro para a função de busca
+      fetchDestinos(searchQuery);
     }
   }, [showDestinos, searchQuery]);
 
@@ -118,9 +116,31 @@ const AppWithGeolocation = () => {
     }
   };
 
+  // Função para resetar o estado e navegar para a página inicial
+  const handleBack = () => {
+    console.log("Botão de voltar clicado. Resetando estado e navegando para /");
+    setShowDestinos(false);
+    setSelectedDestino(null);
+    setConfirmado(false);
+    setRota([]);
+    setTempoEstimado('');
+    setInstrucoes([]);
+    navigate('/');
+  };
+
+  // Adiciona um useEffect para monitorar alterações de 'confirmado' e redefinir o estado
+  useEffect(() => {
+    if (!confirmado) {
+      setRota([]);
+      setTempoEstimado('');
+      setInstrucoes([]);
+      setSelectedDestino(null);
+    }
+  }, [confirmado]);
+
   return (
     <div className="app-with-geolocation">
-      <button className="back-arrow" onClick={() => navigate('/')}>
+      <button className="back-arrow" onClick={handleBack}>
         <FaArrowLeft />
       </button>
 
@@ -132,7 +152,7 @@ const AppWithGeolocation = () => {
       </div>
 
       {instrucoes.length > 0 && (
-	    <InstrucoesCompactas instrucoes={instrucoes} onVoltar={() => navigate('/')} />
+        <InstrucoesCompactas instrucoes={instrucoes} onVoltar={handleBack} />
       )}
 
       {selectedDestino && !confirmado && (
@@ -163,7 +183,7 @@ const AppWithGeolocation = () => {
           />
           <DestinosList
             destinos={destinos}
-            searchQuery={searchQuery} // Passa o searchQuery para DestinosList
+            searchQuery={searchQuery}
             onSelectDestino={(destino) => {
               console.log("Destino selecionado:", destino);
               setSelectedDestino(destino);

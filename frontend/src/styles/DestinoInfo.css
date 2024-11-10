@@ -1,0 +1,82 @@
+/* DestinoInfo.css */
+
+/* Contêiner principal de informações do destino */
+.destino-info {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  z-index: 1000;
+}
+
+/* Cabeçalho para o título e o botão de fechar */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* Botão de fechar no canto superior direito */
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Botão de confirmação (Iniciar Rota) */
+.confirm-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.confirm-button:hover {
+  background-color: #0056b3;
+}
+
+/* Contêiner para informações do horário */
+.horario-info {
+  margin-top: 15px;
+}
+
+.horario-info p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+/* Status aberto e fechado com cores diferentes */
+.status-aberto {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-fechado {
+  color: #dc3545;
+  font-weight: bold;
+}

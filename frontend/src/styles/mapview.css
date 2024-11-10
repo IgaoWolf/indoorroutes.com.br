@@ -1,0 +1,40 @@
+/* Estilos para o contêiner principal do mapa */
+.map-container {
+  height: 100vh; /* O mapa preenche a tela inteira */
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Coloca o mapa no plano de fundo */
+}
+
+/* Estilos para a centralização no mapa */
+.center-button {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.center-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.center-button img {
+  width: 24px;
+  height: 24px;
+}

@@ -1,6 +1,7 @@
 // DestinosList.js
 
 import React, { useState } from 'react';
+import '../styles/DestinosList.css'; // Importa o CSS personalizado
 
 const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
   const [blocoSelecionado, setBlocoSelecionado] = useState(null);
@@ -26,15 +27,17 @@ const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
   if (searchQuery) {
     return (
       <div className="destinos-list-container">
-        {destinos.filter(destino => destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())).map((destino) => (
-          <button
-            key={destino.destino_id}
-            onClick={() => onSelectDestino(destino)}
-            className="destino-button"
-          >
-            {destino.destino_nome}
-          </button>
-        ))}
+        {destinos
+          .filter((destino) => destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase()))
+          .map((destino) => (
+            <button
+              key={destino.destino_id}
+              onClick={() => onSelectDestino(destino)}
+              className="destino-button"
+            >
+              {destino.destino_nome}
+            </button>
+          ))}
       </div>
     );
   }
