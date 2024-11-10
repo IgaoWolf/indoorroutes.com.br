@@ -8,6 +8,7 @@ import InstrucoesCompactas from './InstrucoesCompactas';
 import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/AppWithGeo.css';
 import * as turf from '@turf/turf';
+import CenterIcon from '../styles/img/com-geolocalizao.png';
 
 const AppWithGeolocation = () => {
   const navigate = useNavigate();
@@ -125,7 +126,9 @@ const AppWithGeolocation = () => {
 
       <div className="map-section">
         <MapView latitude={latitude} longitude={longitude} rota={rota} mapRef={mapRef} />
-        <button className="center-button" onClick={handleCenterMap}>??</button>
+        <button className="center-button" onClick={handleCenterMap}>
+          <img src={CenterIcon} alt="Center Map" style={{ width: '24px', height: '24px' }} />
+        </button>
       </div>
 
       {instrucoes.length > 0 && (

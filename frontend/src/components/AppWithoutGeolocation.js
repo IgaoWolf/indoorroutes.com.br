@@ -6,6 +6,7 @@ import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesNavegacao from './InstrucoesNavegacao';
 import '../styles/AppWithoutGeo.css';
+import CenterIcon from '../styles/img/com-geolocalizao.png';
 
 const AppWithoutGeolocation = () => {
   const navigate = useNavigate();
