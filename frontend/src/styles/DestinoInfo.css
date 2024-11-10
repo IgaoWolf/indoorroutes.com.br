@@ -9,15 +9,17 @@ body {
 /* Contêiner principal de informações do destino */
 .destino-info {
   position: fixed;
-  bottom: 12vh; /* Aumenta a distância do contêiner em relação ao rodapé */
+  bottom: 5%; /* Ajustado para posicionar mais próximo ao bottom-panel */
   left: 50%;
   transform: translateX(-50%);
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 400px;
+  max-height: 60%; /* Reduz a altura para não ocupar muito espaço */
+  background-color: #fff;
+  padding: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   z-index: 1000;
 }
@@ -35,7 +37,7 @@ body {
   font-weight: bold;
   color: #333;
   margin: 0;
-  font-family: 'Montserrat', sans-serif; /* Garantia da fonte Montserrat */
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Botão de fechar no canto superior direito */
@@ -72,24 +74,30 @@ body {
 /* Contêiner para informações do horário */
 .horario-info {
   margin-top: 15px;
-  font-family: 'Montserrat', sans-serif;
+  text-align: center;
 }
 
+.horario-info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.horario-info-content p,
 .horario-info p {
   margin: 5px 0;
   font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  text-align: center;
 }
 
 /* Status aberto e fechado com cores diferentes */
 .status-aberto {
   color: #28a745;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .status-fechado {
   color: #dc3545;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
 }
+

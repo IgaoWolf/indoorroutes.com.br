@@ -1,6 +1,5 @@
-// DestinosList.js
-
 import React, { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/DestinosList.css'; // Importa o CSS personalizado
 
 const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
@@ -59,6 +58,9 @@ const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
       ) : !andarSelecionado ? (
         <div className="andares-disponiveis">
           <h2>{blocoSelecionado}</h2>
+          <button onClick={() => setBlocoSelecionado(null)} className="voltar-seta">
+            <FaArrowLeft /> {/* Ícone de seta para voltar */}
+          </button>
           {Object.keys(destinosPorBlocoEAndar[blocoSelecionado] || {}).map((andar) => (
             <button
               key={andar}
@@ -68,13 +70,13 @@ const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
               {andar}
             </button>
           ))}
-          <button onClick={() => setBlocoSelecionado(null)} className="voltar-button">
-            Voltar
-          </button>
         </div>
       ) : (
         <div className="destino-bloco-group">
           <h2>{blocoSelecionado} - {andarSelecionado}</h2>
+          <button onClick={() => setAndarSelecionado(null)} className="voltar-seta">
+            <FaArrowLeft /> {/* Ícone de seta para voltar */}
+          </button>
           <ul className="destinos-list">
             {(destinosPorBlocoEAndar[blocoSelecionado][andarSelecionado] || []).map((destino) => (
               <li
@@ -86,9 +88,6 @@ const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
               </li>
             ))}
           </ul>
-          <button onClick={() => setAndarSelecionado(null)} className="voltar-button">
-            Voltar
-          </button>
         </div>
       )}
     </div>
@@ -96,3 +95,4 @@ const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
 };
 
 export default DestinosList;
+

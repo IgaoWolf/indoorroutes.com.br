@@ -54,7 +54,6 @@ const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {
     <div className="destino-info">
       <div className="header">
         <h2>{destino.destino_nome}</h2>
-        {/* Removemos o <p>{destino.tipo}</p> para não exibir "sala" ou o tipo do destino */}
         <button className="close-button" onClick={onClose}>
           ✕
         </button>
@@ -73,13 +72,15 @@ const DestinoInfo = ({ destino, onClose, onConfirm, tempoEstimado }) => {
 
       {destino.horariofuncionamento ? (
         <div className="horario-info">
-          <p>
-            <strong>Horário de Funcionamento:</strong>
-          </p>
-          <p>{horariofuncionamento}</p>
-          <p className={status === 'Aberto' ? 'status-aberto' : 'status-fechado'}>
-            {status === 'Aberto' ? 'Aberto agora' : 'Fechado agora'}
-          </p>
+          <div className="horario-info-content">
+            <p>
+              <strong>Horário de Funcionamento:</strong>
+            </p>
+            <p>{horariofuncionamento}</p>
+            <p className={status === 'Aberto' ? 'status-aberto' : 'status-fechado'}>
+              {status === 'Aberto' ? 'Aberto agora' : 'Fechado agora'}
+            </p>
+          </div>
         </div>
       ) : (
         <div className="horario-info">
