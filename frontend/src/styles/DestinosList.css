@@ -1,3 +1,11 @@
+/* Importa a fonte Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Define Montserrat como fonte padrão para todo o conteúdo */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /* Contêiner principal de DestinosList */
 .destinos-list-container {
   max-height: 45vh; /* Altura máxima ajustada para ser compacta */
@@ -10,17 +18,19 @@
   margin: 0 auto;
   width: 90%;
   max-width: 400px;
+  font-family: 'Montserrat', sans-serif; /* Garante que a fonte Montserrat seja aplicada */
 }
 
 /* Barra de pesquisa */
 .search-input {
-  width: calc(100% - 20px); /* Mantém a barra de pesquisa dentro do contêiner */
-  padding: 10px; /* Ajusta o padding para ficar mais compacto */
+  width: calc(100% - 20px);
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
-  margin-bottom: 10px; /* Reduz o espaçamento abaixo da barra */
-  box-sizing: border-box; /* Garante que padding e border fiquem dentro do width */
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Contêiner de blocos disponíveis */
@@ -28,16 +38,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px; /* Espaço entre os botões */
-  margin-top: 5px; /* Reduz o espaço entre o título e os blocos */
+  gap: 8px;
+  margin-top: 5px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Botão de bloco */
 .bloco-button {
   display: block;
   width: 100%;
-  padding: 10px 0; /* Reduz o padding */
-  margin: 5px 0; /* Reduz a margem */
+  padding: 10px 0;
+  margin: 5px 0;
   background-color: #003366;
   color: #ffffff;
   font-size: 1rem;
@@ -47,6 +58,7 @@
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .bloco-button:hover {
@@ -60,7 +72,8 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  margin-top: 5px; /* Reduz o espaço entre o título e os andares */
+  margin-top: 5px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Botão de andar */
@@ -78,6 +91,7 @@
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .andar-button:hover {
@@ -88,7 +102,8 @@
 /* Grupo de destinos por bloco e andar */
 .destino-bloco-group {
   text-align: center;
-  margin-top: 10px; /* Reduz o espaço superior */
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Lista de destinos */
@@ -98,6 +113,7 @@
   margin: 0;
   max-height: 180px;
   overflow-y: auto;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Item de destino */
@@ -111,6 +127,7 @@
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .destino-item:hover {
@@ -133,6 +150,7 @@
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .voltar-button:hover {
@@ -155,6 +173,7 @@
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .destino-button:hover {

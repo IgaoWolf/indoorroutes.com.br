@@ -1,3 +1,11 @@
+/* Importa a fonte Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Define Montserrat como fonte padrão para todo o conteúdo */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .app-without-geolocation .bottom-panel {
   display: flex;
   justify-content: center;

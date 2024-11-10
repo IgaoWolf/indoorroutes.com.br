@@ -1,3 +1,12 @@
+/* Importa a fonte Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Define Montserrat como fonte padrão para todo o conteúdo */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Contêiner principal das instruções compactas */
 .instrucoes-compactas {
   position: fixed;
   top: 10px;
@@ -13,6 +22,7 @@
   flex-direction: column;
   align-items: center;
   z-index: 1000;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .header {
@@ -20,6 +30,7 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .back-arrow {
@@ -29,6 +40,7 @@
   color: #333;
   cursor: pointer;
   padding: 5px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .trajeto-titulo {
@@ -38,6 +50,7 @@
   flex: 1;
   text-align: center;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .linha-separadora {
@@ -45,6 +58,7 @@
   height: 1px;
   background-color: #ddd;
   margin: 8px 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .instrucao-texto-principal {
@@ -56,6 +70,7 @@
   text-align: center;
   width: 100%;
   position: relative;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .seta-expandir {
@@ -64,6 +79,7 @@
   font-size: 14px;
   color: #333;
   cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .instrucao-extra {
@@ -72,6 +88,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .instrucao-item {
@@ -80,5 +97,5 @@
   text-align: center;
   margin: 4px 0;
   width: 90%;
+  font-family: 'Montserrat', sans-serif;
 }
-
