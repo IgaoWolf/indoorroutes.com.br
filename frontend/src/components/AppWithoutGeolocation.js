@@ -5,6 +5,7 @@ import MapView from './MapView';
 import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesCompactas from './InstrucoesCompactas';
+import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/AppWithoutGeo.css';
 import CenterIcon from '../styles/img/com-geolocalizao.png';
 
@@ -13,7 +14,7 @@ const AppWithoutGeolocation = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
   const [showDestinos, setShowDestinos] = useState(false);
-  const [selectingOrigem, setSelectingOrigem] = useState(true); // Controla se estamos selecionando a origem ou o destino
+  const [selectingOrigem, setSelectingOrigem] = useState(true);
   const [selectedOrigem, setSelectedOrigem] = useState(null);
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
@@ -22,7 +23,6 @@ const AppWithoutGeolocation = () => {
   const [instrucoes, setInstrucoes] = useState([]);
   const mapRef = useRef(null);
 
-  // Função para centralizar o mapa na origem selecionada
   const handleCenterMap = () => {
     if (mapRef.current && selectedOrigem) {
       mapRef.current.setView([selectedOrigem.latitude, selectedOrigem.longitude], 18);
@@ -31,7 +31,6 @@ const AppWithoutGeolocation = () => {
     }
   };
 
-  // Busca os destinos na API
   useEffect(() => {
     const fetchDestinos = async () => {
       try {
@@ -45,7 +44,6 @@ const AppWithoutGeolocation = () => {
     fetchDestinos();
   }, []);
 
-  // Calcula a rota com base nas seleções de origem e destino
   const calcularRota = useCallback(async () => {
     if (!selectedOrigem || !selectedDestino) {
       alert('Por favor, selecione uma origem e um destino.');
@@ -80,19 +78,30 @@ const AppWithoutGeolocation = () => {
     setRota([]);
     setTempoEstimado('');
     setInstrucoes([]);
-    setSelectingOrigem(true); // Volta para o estado inicial de seleção de origem
+    setSelectingOrigem(true);
     navigate('/');
   };
 
-  // Alterna entre selecionar origem e destino
   const toggleDestinos = () => {
     setShowDestinos(true);
-    console.log("Exibindo destinos para seleção de", selectingOrigem ? "origem" : "destino");
+  };
+
+  const handleSelectDestino = (selecionado) => {
+    if (selectingOrigem) {
+      setSelectedOrigem(selecionado);
+      setSelectingOrigem(false);
+    } else {
+      setSelectedDestino(selecionado);
+      setShowDestinos(false);
+    }
+    setSearchQuery('');
   };
 
   return (
     <div className="app-without-geolocation">
-      <button className="back-arrow-button" onClick={handleBack}>←</button>
+      <button className="back-arrow" onClick={handleBack}>
+        <FaArrowLeft />
+      </button>
 
       <div className="map-section">
         <MapView latitude={null} longitude={null} rota={rota} mapRef={mapRef} />
@@ -102,7 +111,7 @@ const AppWithoutGeolocation = () => {
       </div>
 
       {instrucoes.length > 0 && (
-        <InstrucoesCompactas instrucoes={instrucoes} onVoltar={handleBack} />
+        <InstrucoesCompactas instrucoes={instrucoes} onBack={handleBack} />
       )}
 
       {selectedOrigem && selectedDestino && !confirmado && (
@@ -116,14 +125,12 @@ const AppWithoutGeolocation = () => {
         </div>
       )}
 
-      {/* Botão para selecionar origem ou destino */}
       <div className="bottom-panel">
         <button className="destino-button" onClick={toggleDestinos}>
-          {showDestinos ? 'Voltar' : selectingOrigem ? 'Selecione sua origem' : 'Selecione seu destino'}
+          {showDestinos ? 'Voltar' : selectingOrigem ? 'Selecione sua origem' : 'Agora escolha seu destino'}
         </button>
       </div>
 
-      {/* Lista de destinos para seleção de origem ou destino */}
       {showDestinos && (
         <div className="search-container">
           <input
@@ -137,17 +144,7 @@ const AppWithoutGeolocation = () => {
             destinos={destinos.filter(destino =>
               destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
             )}
-            onSelectDestino={(selecionado) => {
-              if (selectingOrigem) {
-                setSelectedOrigem(selecionado);
-                setSelectingOrigem(false); // Após selecionar origem, passa para selecionar destino
-              } else {
-                setSelectedDestino(selecionado);
-                setShowDestinos(false); // Esconde a lista após selecionar o destino
-              }
-              setSearchQuery(''); // Limpa o campo de busca
-              console.log(`${selectingOrigem ? 'Origem' : 'Destino'} selecionado:`, selecionado);
-            }}
+            onSelectDestino={handleSelectDestino}
           />
         </div>
       )}
@@ -156,3 +153,4 @@ const AppWithoutGeolocation = () => {
 };
 
 export default AppWithoutGeolocation;
+
