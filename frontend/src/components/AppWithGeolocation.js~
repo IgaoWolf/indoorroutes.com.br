@@ -116,6 +116,7 @@ const AppWithGeolocation = () => {
     }
   };
 
+  // Função para resetar o estado e navegar para a página inicial
   const handleBack = () => {
     console.log("Botão de voltar clicado. Resetando estado e navegando para /");
     setShowDestinos(false);
@@ -127,6 +128,7 @@ const AppWithGeolocation = () => {
     navigate('/');
   };
 
+  // Adiciona um useEffect para monitorar alterações de 'confirmado' e redefinir o estado
   useEffect(() => {
     if (!confirmado) {
       setRota([]);
@@ -150,7 +152,7 @@ const AppWithGeolocation = () => {
       </div>
 
       {instrucoes.length > 0 && (
-        <InstrucoesCompactas instrucoes={instrucoes} onBack={handleBack} />
+        <InstrucoesCompactas instrucoes={instrucoes} onVoltar={handleBack} />
       )}
 
       {selectedDestino && !confirmado && (
@@ -196,4 +198,3 @@ const AppWithGeolocation = () => {
 };
 
 export default AppWithGeolocation;
-
