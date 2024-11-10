@@ -6,39 +6,46 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Painel inferior */
 .app-without-geolocation .bottom-panel {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  height: 5vh;
   background-color: #fff;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  margin: 0;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
 }
 
+/* Botão principal "Selecione seu destino" */
 .app-without-geolocation .destino-button {
-  background-color: #e63946;
-  color: white;
+  background-color: #FFB800; /* Mesma cor do app-with-geolocation */
+  color: #ffffff;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  margin: 0;
   width: 90%;
   max-width: 500px;
+  text-align: center;
   transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .app-without-geolocation .destino-button:hover {
-  background-color: #d62828;
+  background-color: #FFC107;
 }
 
+/* Botão "Voltar" */
 .app-without-geolocation .destino-button.voltar {
   background-color: #dc3545;
 }
@@ -47,6 +54,7 @@ body {
   background-color: #c82333;
 }
 
+/* Botão "Trocar Destino" */
 .app-without-geolocation .trocar-destino-button {
   width: 90%;
   max-width: 400px;
@@ -71,29 +79,7 @@ body {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-.app-without-geolocation .search-container {
-  position: fixed;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  width: 90%;
-  max-width: 400px;
-  padding: 10px;
-}
-
-.app-without-geolocation .search-input {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
+/* Painel de informações */
 .app-without-geolocation .info-panel {
   text-align: center;
   padding: 10px;
@@ -105,6 +91,30 @@ body {
   z-index: 1000;
 }
 
+/* Botão de centralização no mapa */
+.app-without-geolocation .center-button {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.app-without-geolocation .center-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Botão de retorno (seta para voltar) */
 .app-without-geolocation .back-arrow-button {
   position: fixed;
   top: 15px;

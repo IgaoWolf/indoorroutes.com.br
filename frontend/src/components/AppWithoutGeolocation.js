@@ -13,6 +13,7 @@ const AppWithoutGeolocation = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
   const [showDestinos, setShowDestinos] = useState(false);
+  const [selectingOrigem, setSelectingOrigem] = useState(true); // Controla se estamos selecionando a origem ou o destino
   const [selectedOrigem, setSelectedOrigem] = useState(null);
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
@@ -21,9 +22,9 @@ const AppWithoutGeolocation = () => {
   const [instrucoes, setInstrucoes] = useState([]);
   const mapRef = useRef(null);
 
+  // Função para centralizar o mapa na origem selecionada
   const handleCenterMap = () => {
     if (mapRef.current && selectedOrigem) {
-      // Centraliza o mapa na origem selecionada
       mapRef.current.setView([selectedOrigem.latitude, selectedOrigem.longitude], 18);
     } else {
       alert('Origem não selecionada para centralizar no mapa.');
@@ -36,6 +37,7 @@ const AppWithoutGeolocation = () => {
       try {
         const response = await axios.get('/api/destinos');
         setDestinos(response.data);
+        console.log("Destinos carregados:", response.data);
       } catch (error) {
         console.error('Erro ao buscar destinos:', error);
       }
@@ -78,25 +80,14 @@ const AppWithoutGeolocation = () => {
     setRota([]);
     setTempoEstimado('');
     setInstrucoes([]);
+    setSelectingOrigem(true); // Volta para o estado inicial de seleção de origem
     navigate('/');
   };
 
-  useEffect(() => {
-    if (!confirmado) {
-      setRota([]);
-      setTempoEstimado('');
-      setInstrucoes([]);
-      setSelectedDestino(null);
-    }
-  }, [confirmado]);
-
+  // Alterna entre selecionar origem e destino
   const toggleDestinos = () => {
-    setShowDestinos(!showDestinos);
-    if (showDestinos) {
-      setSelectedOrigem(null);
-      setSelectedDestino(null);
-      setConfirmado(false);
-    }
+    setShowDestinos(true);
+    console.log("Exibindo destinos para seleção de", selectingOrigem ? "origem" : "destino");
   };
 
   return (
@@ -125,43 +116,37 @@ const AppWithoutGeolocation = () => {
         </div>
       )}
 
+      {/* Botão para selecionar origem ou destino */}
       <div className="bottom-panel">
         <button className="destino-button" onClick={toggleDestinos}>
-          {showDestinos ? 'Voltar' : 'Selecione origem e destino'}
+          {showDestinos ? 'Voltar' : selectingOrigem ? 'Selecione sua origem' : 'Selecione seu destino'}
         </button>
       </div>
 
+      {/* Lista de destinos para seleção de origem ou destino */}
       {showDestinos && (
         <div className="search-container">
           <input
             type="text"
             className="search-input"
-            placeholder="Digite a origem"
+            placeholder={`Digite o ${selectingOrigem ? 'origem' : 'destino'}`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <DestinosList
-            destinos={destinos}
-            searchQuery={searchQuery}
-            onSelectDestino={(origem) => {
-              setSelectedOrigem(origem);
-              setSearchQuery(''); // Limpa a query após selecionar a origem
-            }}
-          />
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Digite o destino"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <DestinosList
-            destinos={destinos}
-            searchQuery={searchQuery}
-            onSelectDestino={(destino) => {
-              setSelectedDestino(destino);
-              setShowDestinos(false);
-              setConfirmado(false);
+            destinos={destinos.filter(destino =>
+              destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
+            )}
+            onSelectDestino={(selecionado) => {
+              if (selectingOrigem) {
+                setSelectedOrigem(selecionado);
+                setSelectingOrigem(false); // Após selecionar origem, passa para selecionar destino
+              } else {
+                setSelectedDestino(selecionado);
+                setShowDestinos(false); // Esconde a lista após selecionar o destino
+              }
+              setSearchQuery(''); // Limpa o campo de busca
+              console.log(`${selectingOrigem ? 'Origem' : 'Destino'} selecionado:`, selecionado);
             }}
           />
         </div>
