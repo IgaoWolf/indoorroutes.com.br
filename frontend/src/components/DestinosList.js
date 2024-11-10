@@ -1,11 +1,11 @@
+// DestinosList.js
+
 import React, { useState } from 'react';
 
-const DestinosList = ({ destinos, onSelectDestino }) => {
-  // Estado para controlar o bloco e o andar selecionados
+const DestinosList = ({ destinos, searchQuery, onSelectDestino }) => {
   const [blocoSelecionado, setBlocoSelecionado] = useState(null);
   const [andarSelecionado, setAndarSelecionado] = useState(null);
 
-  // Agrupa os destinos por bloco e andar
   const destinosPorBlocoEAndar = destinos.reduce((acc, destino) => {
     const bloco = destino.bloco_nome || 'Bloco Desconhecido';
     const andar = destino.andar_nome || 'Andar Desconhecido';
@@ -21,12 +21,26 @@ const DestinosList = ({ destinos, onSelectDestino }) => {
     return acc;
   }, {});
 
-  // Lista dos blocos disponíveis (exibirá os botões "Bloco 1" e "Bloco 4" inicialmente)
   const blocosDisponiveis = ['Bloco 1', 'Bloco 4'];
+
+  if (searchQuery) {
+    return (
+      <div className="destinos-list-container">
+        {destinos.filter(destino => destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())).map((destino) => (
+          <button
+            key={destino.destino_id}
+            onClick={() => onSelectDestino(destino)}
+            className="destino-button"
+          >
+            {destino.destino_nome}
+          </button>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="destinos-list-container">
-      {/* Etapa 1: Seleção de bloco */}
       {!blocoSelecionado ? (
         <div className="blocos-disponiveis">
           {blocosDisponiveis.map((bloco) => (
@@ -40,7 +54,6 @@ const DestinosList = ({ destinos, onSelectDestino }) => {
           ))}
         </div>
       ) : !andarSelecionado ? (
-        // Etapa 2: Seleção de andar para o bloco selecionado
         <div className="andares-disponiveis">
           <h2>{blocoSelecionado}</h2>
           {Object.keys(destinosPorBlocoEAndar[blocoSelecionado] || {}).map((andar) => (
@@ -52,13 +65,11 @@ const DestinosList = ({ destinos, onSelectDestino }) => {
               {andar}
             </button>
           ))}
-          {/* Botão para voltar à seleção de blocos */}
           <button onClick={() => setBlocoSelecionado(null)} className="voltar-button">
             Voltar
           </button>
         </div>
       ) : (
-        // Etapa 3: Exibição dos destinos para o bloco e andar selecionados
         <div className="destino-bloco-group">
           <h2>{blocoSelecionado} - {andarSelecionado}</h2>
           <ul className="destinos-list">
@@ -72,7 +83,6 @@ const DestinosList = ({ destinos, onSelectDestino }) => {
               </li>
             ))}
           </ul>
-          {/* Botão para voltar à seleção de andares */}
           <button onClick={() => setAndarSelecionado(null)} className="voltar-button">
             Voltar
           </button>

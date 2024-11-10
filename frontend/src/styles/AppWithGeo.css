@@ -1,156 +1,11 @@
-.app-with-geolocation .destino-info {
-  position: relative;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.app-with-geolocation .destino-info .header {
+/* Contêiner principal */
+.app-with-geolocation {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
 }
 
-.app-with-geolocation .destino-info h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-}
-
-.app-with-geolocation .confirm-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 15px;
-  width: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s;
-}
-
-.app-with-geolocation .confirm-button:hover {
-  background-color: #0056b3;
-}
-
-.app-with-geolocation .center-button {
-  position: fixed;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #0077b6, #00b4d8);
-  border: none;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s, transform 0.2s;
-}
-
-.app-with-geolocation .center-button:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.app-with-geolocation .bottom-panel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 5vh; /* Reduz a altura para metade */
-  background-color: #fff;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  max-width: 100vw;
-  z-index: 1000;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-  padding: 8px 0; /* Adiciona um leve padding para manter o conteúdo centralizado */
-}
-
-.app-with-geolocation .destino-button {
-  background-color: #f4bb26;
-  color: white;
-  padding: 0.6em 1em; /* Ajuste de padding para centralizar melhor */
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 80%; /* Mantém a largura em 80% para centralização */
-  max-width: 400px; /* Ajusta a largura máxima */
-  text-align: center;
-  transition: background-color 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.app-with-geolocation .destino-button:hover {
-  background-color: #f4bb26;
-}
-
-.app-with-geolocation .search-container {
-  position: fixed;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  width: 90%;
-  max-width: 400px;
-  padding: 10px;
-}
-
-.app-with-geolocation .search-input {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.app-with-geolocation .info-panel {
-  position: fixed;
-  bottom: 8vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 500px;
-  padding: 15px;
-  text-align: center;
-  background-color: #fff;
-  border: 1px solid #333;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 2000;
-}
-
-.app-with-geolocation .info-panel h2 {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
+/* Botão de retorno (seta para voltar) */
 .app-with-geolocation .back-arrow {
   position: fixed;
   top: 15px;
@@ -176,3 +31,181 @@
   transform: scale(1.1);
 }
 
+/* Painel de informações */
+.app-with-geolocation .info-panel {
+  position: fixed;
+  bottom: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  padding: 15px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+}
+
+.app-with-geolocation .info-panel h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contêiner de pesquisa */
+.app-with-geolocation .search-container {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+  padding: 10px;
+}
+
+/* Campo de entrada de pesquisa */
+.app-with-geolocation .search-input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Lista de destinos com rolagem */
+.destinos-list-container {
+  max-height: 30vh; /* Limita a altura a 50% da altura da tela */
+  overflow-y: auto; /* Habilita a rolagem vertical quando necessário */
+  padding: 10px;
+  background-color: white; /* Fundo branco para destacar a lista */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+}
+
+/* Botão de destino */
+.app-with-geolocation .destino-button {
+  background-color: #FFB800; /* Cor padronizada para todos os botões */
+  color: #ffffff;
+  padding: 0.6em 1em; /* Ajuste de padding para centralização */
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 80%; /* Largura em 80% para centralização */
+  max-width: 400px; /* Ajusta a largura máxima */
+  text-align: center;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px auto;
+}
+
+.app-with-geolocation .destino-button:hover {
+  background-color: #FFC107;
+}
+
+/* Botão "Voltar" */
+.app-with-geolocation .destino-button.voltar {
+  background-color: #dc3545;
+}
+
+.app-with-geolocation .destino-button.voltar:hover {
+  background-color: #c82333;
+}
+
+/* Botão de confirmação */
+.app-with-geolocation .confirm-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.app-with-geolocation .confirm-button:hover {
+  background-color: #0056b3;
+}
+
+/* Botão "Trocar Destino" */
+.app-with-geolocation .trocar-destino-button {
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin: 20px auto 0 auto;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+}
+
+.app-with-geolocation .trocar-destino-button:hover {
+  background-color: #218838;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Painel inferior fixo */
+.app-with-geolocation .bottom-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh; /* Reduz a altura para metade */
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  max-width: 100vw;
+  z-index: 1000;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  padding: 8px 0; /* Leve padding para centralização */
+}
+
+/* Botão de centralização no mapa */
+.app-with-geolocation .center-button {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.app-with-geolocation .center-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}

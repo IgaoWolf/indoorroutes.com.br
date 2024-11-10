@@ -21,7 +21,7 @@ const AppWithGeolocation = () => {
   const [rota, setRota] = useState([]);
   const [tempoEstimado, setTempoEstimado] = useState('');
   const [instrucoes, setInstrucoes] = useState([]);
-  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]); // Declara√ß√£o de instrucoesConcluidas
+  const [instrucoesConcluidas, setInstrucoesConcluidas] = useState([]);
   const [isRecalculating, setIsRecalculating] = useState(false);
 
   const mapRef = useRef(null);
@@ -30,7 +30,7 @@ const AppWithGeolocation = () => {
     if (latitude && longitude && mapRef.current) {
       mapRef.current.setView([latitude, longitude], 18);
     } else {
-      alert('Localiza√ß√£o n√£o dispon√≠vel para centralizar no mapa.');
+      alert('LocalizaÁ„o n„o disponÌvel para centralizar no mapa.');
     }
   };
 
@@ -42,7 +42,7 @@ const AppWithGeolocation = () => {
           setLongitude(position.coords.longitude);
         },
         (error) => {
-          console.error('Erro ao obter geolocaliza√ß√£o:', error);
+          console.error('Erro ao obter geolocalizaÁ„o:', error);
         },
         { enableHighAccuracy: true, maximumAge: 1000, timeout: 5000 }
       );
@@ -50,10 +50,22 @@ const AppWithGeolocation = () => {
     }
   }, []);
 
-  const fetchDestinos = async () => {
+  const fetchDestinos = async (query = '') => {
     try {
       const response = await axios.get('/api/destinos');
-      setDestinos(response.data);
+      let destinosFiltrados = response.data;
+
+      // Filtrar os destinos por nome ou outros campos relevantes
+      if (query) {
+        destinosFiltrados = destinosFiltrados.filter((destino) =>
+          destino.destino_nome.toLowerCase().includes(query.toLowerCase()) ||
+          (destino.bloco_nome && destino.bloco_nome.toLowerCase().includes(query.toLowerCase())) ||
+          (destino.andar_nome && destino.andar_nome.toLowerCase().includes(query.toLowerCase()))
+        );
+      }
+
+      setDestinos(destinosFiltrados);
+      console.log("Destinos filtrados:", destinosFiltrados); // Debug para ver destinos filtrados
     } catch (error) {
       console.error('Erro ao buscar destinos:', error);
     }
@@ -61,14 +73,14 @@ const AppWithGeolocation = () => {
 
   useEffect(() => {
     if (showDestinos) {
-      fetchDestinos();
+      fetchDestinos(searchQuery); // Passa o searchQuery como par‚metro para a funÁ„o de busca
     }
-  }, [showDestinos]);
+  }, [showDestinos, searchQuery]);
 
   const calcularRota = useCallback(
     async (destino) => {
       if (!latitude || !longitude || !destino) {
-        alert('Por favor, selecione um destino e garanta que a localiza√ß√£o esteja dispon√≠vel.');
+        alert('Por favor, selecione um destino e garanta que a localizaÁ„o esteja disponÌvel.');
         return;
       }
 
@@ -88,7 +100,7 @@ const AppWithGeolocation = () => {
         setTempoEstimado(`${tempoMin.toFixed(1)} - ${tempoMax.toFixed(1)} minutos`);
         setConfirmado(true);
         setIsRecalculating(false);
-        setInstrucoesConcluidas([]); // Reinicia instrucoesConcluidas ao calcular nova rota
+        setInstrucoesConcluidas([]);
       } catch (error) {
         console.error('Erro ao calcular a rota:', error);
         setIsRecalculating(false);
@@ -113,11 +125,11 @@ const AppWithGeolocation = () => {
 
       <div className="map-section">
         <MapView latitude={latitude} longitude={longitude} rota={rota} mapRef={mapRef} />
-        <button className="center-button" onClick={handleCenterMap}>üìç</button>
+        <button className="center-button" onClick={handleCenterMap}>??</button>
       </div>
 
       {instrucoes.length > 0 && (
-	<InstrucoesCompactas instrucoes={instrucoes} onVoltar={() => navigate('/')} />
+	    <InstrucoesCompactas instrucoes={instrucoes} onVoltar={() => navigate('/')} />
       )}
 
       {selectedDestino && !confirmado && (
@@ -139,8 +151,23 @@ const AppWithGeolocation = () => {
 
       {showDestinos && (
         <div className="search-container">
-          <input type="text" className="search-input" placeholder="Digite o destino" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} />
-          <DestinosList destinos={destinos} onSelectDestino={(destino) => { setSelectedDestino(destino); setShowDestinos(false); setConfirmado(false); }} />
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Digite o destino"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+          />
+          <DestinosList
+            destinos={destinos}
+            searchQuery={searchQuery} // Passa o searchQuery para DestinosList
+            onSelectDestino={(destino) => {
+              console.log("Destino selecionado:", destino);
+              setSelectedDestino(destino);
+              setShowDestinos(false);
+              setConfirmado(false);
+            }}
+          />
         </div>
       )}
     </div>
@@ -148,4 +175,3 @@ const AppWithGeolocation = () => {
 };
 
 export default AppWithGeolocation;
-
