@@ -172,7 +172,7 @@ router.post('/api/rota', async (req, res) => {
             }
             // Verificação para área externa ou mudança de andar
             if (waypoint.andar_id === null) {
-              instrucoes.push("Verifique se você está em uma área externa.");
+              instrucoes.push("Você está em uma área externa.");
             } else {
               instrucoes.push(`Confirme se chegou ao andar ${waypoint.andar_id}.`);
             }
