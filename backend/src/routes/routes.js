@@ -170,7 +170,12 @@ router.post('/api/rota', async (req, res) => {
             } else if (prevWaypoint.tipo === 'Elevador') {
               instrucoes.push(`Pegue o Elevador até o andar ${waypoint.andar_id}`);
             }
-            instrucoes.push(`Confirme se chegou ao andar ${waypoint.andar_id}.`);
+            // Verificação para área externa ou mudança de andar
+            if (waypoint.andar_id === null) {
+              instrucoes.push("Verifique se você está em uma área externa.");
+            } else {
+              instrucoes.push(`Confirme se chegou ao andar ${waypoint.andar_id}.`);
+            }
             andarAtual = waypoint.andar_id;
             distanciaAcumulada = 0; // Reiniciar a distância acumulada
           } else {
