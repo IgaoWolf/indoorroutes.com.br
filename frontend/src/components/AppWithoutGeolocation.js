@@ -5,8 +5,8 @@ import MapView from './MapView';
 import DestinosList from './DestinosList';
 import DestinoInfo from './DestinoInfo';
 import InstrucoesCompactas from './InstrucoesCompactas';
-import { FaArrowLeft } from 'react-icons/fa';
 import '../styles/AppWithoutGeo.css';
+import { FaArrowLeft } from 'react-icons/fa';
 import CenterIcon from '../styles/img/com-geolocalizao.png';
 
 const AppWithoutGeolocation = () => {
@@ -14,7 +14,7 @@ const AppWithoutGeolocation = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
   const [showDestinos, setShowDestinos] = useState(false);
-  const [selectingOrigem, setSelectingOrigem] = useState(true);
+  const [selectingOrigem, setSelectingOrigem] = useState(true); // Controla se estamos selecionando a origem ou o destino
   const [selectedOrigem, setSelectedOrigem] = useState(null);
   const [selectedDestino, setSelectedDestino] = useState(null);
   const [confirmado, setConfirmado] = useState(false);
@@ -23,6 +23,7 @@ const AppWithoutGeolocation = () => {
   const [instrucoes, setInstrucoes] = useState([]);
   const mapRef = useRef(null);
 
+  // Função para centralizar o mapa na origem selecionada
   const handleCenterMap = () => {
     if (mapRef.current && selectedOrigem) {
       mapRef.current.setView([selectedOrigem.latitude, selectedOrigem.longitude], 18);
@@ -31,32 +32,20 @@ const AppWithoutGeolocation = () => {
     }
   };
 
-  const fetchDestinos = async (query = '') => {
-    try {
-      const response = await axios.get('/api/destinos');
-      let destinosFiltrados = response.data;
-
-      if (query) {
-        destinosFiltrados = destinosFiltrados.filter((destino) =>
-          destino.destino_nome.toLowerCase().includes(query.toLowerCase()) ||
-          (destino.bloco_nome && destino.bloco_nome.toLowerCase().includes(query.toLowerCase())) ||
-          (destino.andar_nome && destino.andar_nome.toLowerCase().includes(query.toLowerCase()))
-        );
-      }
-
-      setDestinos(destinosFiltrados);
-      console.log("Destinos filtrados:", destinosFiltrados);
-    } catch (error) {
-      console.error('Erro ao buscar destinos:', error);
-    }
-  };
-
+  // Busca os destinos na API
   useEffect(() => {
-    if (showDestinos) {
-      fetchDestinos(searchQuery);
-    }
-  }, [showDestinos, searchQuery]);
+    const fetchDestinos = async () => {
+      try {
+        const response = await axios.get('/api/destinos');
+        setDestinos(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar destinos:', error);
+      }
+    };
+    fetchDestinos();
+  }, []);
 
+  // Calcula a rota com base nas seleções de origem e destino
   const calcularRota = useCallback(async () => {
     if (!selectedOrigem || !selectedDestino) {
       alert('Por favor, selecione uma origem e um destino.');
@@ -91,32 +80,19 @@ const AppWithoutGeolocation = () => {
     setRota([]);
     setTempoEstimado('');
     setInstrucoes([]);
-    setSelectingOrigem(true);
+    setSelectingOrigem(true); // Volta para o estado inicial de seleção de origem
     navigate('/');
   };
 
+  // Alterna entre selecionar origem e destino
   const toggleDestinos = () => {
-    setShowDestinos(!showDestinos);
-    if (!showDestinos) {
-      setSearchQuery('');
-      setDestinos([]);
-    }
-  };
-
-  const handleSelectDestino = (selecionado) => {
-    if (selectingOrigem) {
-      setSelectedOrigem(selecionado);
-      setSelectingOrigem(false);
-    } else {
-      setSelectedDestino(selecionado);
-      setShowDestinos(false);
-    }
-    setSearchQuery('');
+    setShowDestinos(true);
   };
 
   return (
     <div className="app-without-geolocation">
-      <button className="back-arrow" onClick={handleBack}>
+      {/* Botão de voltar inicial */}
+      <button className="back-arrow-button" onClick={handleBack}>
         <FaArrowLeft />
       </button>
 
@@ -128,26 +104,37 @@ const AppWithoutGeolocation = () => {
       </div>
 
       {instrucoes.length > 0 && (
-        <InstrucoesCompactas instrucoes={instrucoes} onBack={handleBack} />
+        <InstrucoesCompactas
+          instrucoes={instrucoes}
+          origem={selectedOrigem ? selectedOrigem.destino_nome : 'Origem não selecionada'}
+          destino={selectedDestino ? selectedDestino.destino_nome : 'Destino não selecionado'}
+          onBack={handleBack}
+        />
       )}
 
       {selectedOrigem && selectedDestino && !confirmado && (
-        <DestinoInfo destino={selectedDestino} origem={selectedOrigem} tempoEstimado={tempoEstimado} onConfirm={calcularRota} />
+        <DestinoInfo
+          destino={selectedDestino}
+          origem={selectedOrigem}
+          tempoEstimado={tempoEstimado}
+          onConfirm={calcularRota}
+        />
       )}
 
-      {confirmado && (
-        <div className="info-panel">
-          <h2>Rota de {selectedOrigem.destino_nome} para {selectedDestino.destino_nome}</h2>
-          <p>Tempo estimado: {tempoEstimado}</p>
-        </div>
-      )}
-
+      {/* Botão para selecionar origem ou destino */}
       <div className="bottom-panel">
         <button className="destino-button" onClick={toggleDestinos}>
-          {showDestinos ? 'Voltar' : selectingOrigem ? 'Selecione sua origem' : 'Agora escolha seu destino'}
+          {showDestinos
+            ? 'Voltar'
+            : confirmado
+            ? 'Escolher outro destino'
+            : selectingOrigem
+            ? 'Selecione sua origem'
+            : 'Selecione seu destino'}
         </button>
       </div>
 
+      {/* Lista de destinos para seleção de origem ou destino */}
       {showDestinos && (
         <div className="search-container">
           <input
@@ -157,7 +144,21 @@ const AppWithoutGeolocation = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <DestinosList destinos={destinos} onSelectDestino={handleSelectDestino} />
+          <DestinosList
+            destinos={destinos.filter((destino) =>
+              destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
+            )}
+            onSelectDestino={(selecionado) => {
+              if (selectingOrigem) {
+                setSelectedOrigem(selecionado);
+                setSelectingOrigem(false); // Após selecionar origem, passa para selecionar destino
+              } else {
+                setSelectedDestino(selecionado);
+                setShowDestinos(false); // Esconde a lista após selecionar o destino
+              }
+              setSearchQuery(''); // Limpa o campo de busca
+            }}
+          />
         </div>
       )}
     </div>
@@ -165,3 +166,4 @@ const AppWithoutGeolocation = () => {
 };
 
 export default AppWithoutGeolocation;
+

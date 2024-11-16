@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Tooltip, Polyline, useMap } from 'reac
 import L from 'leaflet';
 import '../styles/mapview.css';
 
-
 // Ícones para o mapa
 const userIcon = new L.Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/128/3237/3237472.png',
@@ -90,13 +89,25 @@ const MapView = ({ latitude, longitude, rota, mapRef }) => {
           {/* Ajusta o mapa para caber a rota e a posição do usuário uma única vez */}
           <AjustarMapaParaRota rota={rota} userPosition={userPosition} />
 
-          {/* Marker para a localização do usuário ou centro padrão */}
-          {userPosition && (
+          {/* Exibir o marcador apenas se a localização não for padrão */}
+          {latitude != null && longitude != null && (
             <Marker position={[userPosition.lat, userPosition.lon]} icon={userIcon}>
               <Tooltip direction="top" offset={[0, -38]} permanent>
-                {latitude && longitude ? 'Você está aqui!' : 'Localização padrão'}
+                Você está aqui!
               </Tooltip>
             </Marker>
+          )}
+
+          {/* Exibir o marcador do ponto padrão com texto "FAG" */}
+          {latitude == null && longitude == null && (
+            <Tooltip
+              direction="top"
+              permanent
+              offset={[0, -20]}
+              position={[defaultCenter.lat, defaultCenter.lon]}
+            >
+              FAG
+            </Tooltip>
           )}
 
           {/* Marker para o ponto final */}
