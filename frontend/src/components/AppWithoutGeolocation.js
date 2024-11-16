@@ -31,18 +31,31 @@ const AppWithoutGeolocation = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchDestinos = async () => {
-      try {
-        const response = await axios.get('/api/destinos');
-        setDestinos(response.data);
-        console.log("Destinos carregados:", response.data);
-      } catch (error) {
-        console.error('Erro ao buscar destinos:', error);
+  const fetchDestinos = async (query = '') => {
+    try {
+      const response = await axios.get('/api/destinos');
+      let destinosFiltrados = response.data;
+
+      if (query) {
+        destinosFiltrados = destinosFiltrados.filter((destino) =>
+          destino.destino_nome.toLowerCase().includes(query.toLowerCase()) ||
+          (destino.bloco_nome && destino.bloco_nome.toLowerCase().includes(query.toLowerCase())) ||
+          (destino.andar_nome && destino.andar_nome.toLowerCase().includes(query.toLowerCase()))
+        );
       }
-    };
-    fetchDestinos();
-  }, []);
+
+      setDestinos(destinosFiltrados);
+      console.log("Destinos filtrados:", destinosFiltrados);
+    } catch (error) {
+      console.error('Erro ao buscar destinos:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (showDestinos) {
+      fetchDestinos(searchQuery);
+    }
+  }, [showDestinos, searchQuery]);
 
   const calcularRota = useCallback(async () => {
     if (!selectedOrigem || !selectedDestino) {
@@ -83,7 +96,11 @@ const AppWithoutGeolocation = () => {
   };
 
   const toggleDestinos = () => {
-    setShowDestinos(true);
+    setShowDestinos(!showDestinos);
+    if (!showDestinos) {
+      setSearchQuery('');
+      setDestinos([]);
+    }
   };
 
   const handleSelectDestino = (selecionado) => {
@@ -140,12 +157,7 @@ const AppWithoutGeolocation = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <DestinosList
-            destinos={destinos.filter(destino =>
-              destino.destino_nome.toLowerCase().includes(searchQuery.toLowerCase())
-            )}
-            onSelectDestino={handleSelectDestino}
-          />
+          <DestinosList destinos={destinos} onSelectDestino={handleSelectDestino} />
         </div>
       )}
     </div>
@@ -153,4 +165,3 @@ const AppWithoutGeolocation = () => {
 };
 
 export default AppWithoutGeolocation;
-
