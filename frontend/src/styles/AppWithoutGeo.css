@@ -10,7 +10,8 @@ body {
   align-items: center;
 }
 
-.back-arrow {
+/* Botão de retorno (seta para voltar) */
+.app-without-geolocation .back-arrow {
   position: fixed;
   top: 15px;
   left: 15px;
@@ -30,7 +31,7 @@ body {
   transition: background-color 0.3s, transform 0.2s;
 }
 
-.back-arrow:hover {
+.app-without-geolocation .back-arrow:hover {
   background-color: #00509E;
   transform: scale(1.1);
 }

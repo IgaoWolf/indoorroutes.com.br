@@ -92,7 +92,7 @@ const AppWithoutGeolocation = () => {
   return (
     <div className="app-without-geolocation">
       {/* Botão de voltar inicial */}
-      <button className="back-arrow-button" onClick={handleBack}>
+      <button className="back-arrow" onClick={handleBack}>
         <FaArrowLeft />
       </button>
 
