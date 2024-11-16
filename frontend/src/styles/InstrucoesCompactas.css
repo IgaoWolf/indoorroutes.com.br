@@ -6,7 +6,7 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-/* Contêiner principal das instruções compactas */
+/* Contêiner principal */
 .instrucoes-compactas {
   position: fixed;
   top: 10px;
@@ -22,15 +22,14 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 1000;
-  font-family: 'Montserrat', sans-serif;
 }
 
+/* Cabeçalho com botão de voltar e título */
 .header {
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .back-arrow {
@@ -40,27 +39,47 @@ body {
   color: #333;
   cursor: pointer;
   padding: 5px;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .trajeto-titulo {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: #333;
   flex: 1;
   text-align: center;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
 }
 
+/* Linha separadora */
 .linha-separadora {
   width: 100%;
   height: 1px;
   background-color: #ddd;
   margin: 8px 0;
-  font-family: 'Montserrat', sans-serif;
 }
 
+/* Origem e Destino */
+.origem-destino {
+  width: 100%;
+  text-align: left;
+}
+
+.origem-texto,
+.destino-texto {
+  font-size: 18px; /* Aumente aqui o tamanho da fonte */
+  color: #333;
+  margin: 5px 0;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.origem-texto strong,
+.destino-texto strong {
+  font-weight: bold;
+  color: #555; /* Destaque para o texto "Origem:" e "Destino:" */
+}
+
+/* Texto da instrução principal */
 .instrucao-texto-principal {
   display: flex;
   justify-content: center;
@@ -70,25 +89,24 @@ body {
   text-align: center;
   width: 100%;
   position: relative;
-  font-family: 'Montserrat', sans-serif;
 }
 
+/* Botão para expandir ou recolher instruções */
 .seta-expandir {
   position: absolute;
   right: 10px;
   font-size: 14px;
   color: #333;
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
 }
 
+/* Lista de instruções adicionais */
 .instrucao-extra {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .instrucao-item {
@@ -97,5 +115,35 @@ body {
   text-align: center;
   margin: 4px 0;
   width: 90%;
-  font-family: 'Montserrat', sans-serif;
 }
+
+
+/* Origem e Destino */
+.origem-destino {
+  width: 100%;
+  text-align: left;
+}
+
+.origem-texto,
+.destino-texto {
+  font-size: 16px; /* Reduzimos o tamanho da fonte */
+  color: #333;
+  margin: 5px 0;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.origem-texto strong,
+.destino-texto strong {
+  font-weight: bold;
+  color: #555; /* Destaque para "Origem:" e "Destino:" */
+}
+
+/* Linhas separadoras */
+.linha-separadora {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+  margin: 10px 0;
+}
+
