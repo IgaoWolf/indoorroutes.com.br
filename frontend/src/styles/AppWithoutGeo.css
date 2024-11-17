@@ -36,30 +36,30 @@ body {
   transform: scale(1.1);
 }
 
-.info-panel {
+/* Botão de centralização no mapa */
+.center-button {
   position: fixed;
-  bottom: 8vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 500px;
-  padding: 15px;
-  text-align: center;
-  background-color: #fff;
-  border: 1px solid #333;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 2000;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s, transform 0.2s;
 }
 
-.info-panel h2 {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-  padding: 0;
+.center-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%) scale(1.1);
 }
 
+/* Campo de busca e lista de destinos */
 .search-container {
   position: fixed;
   bottom: 70px;
@@ -68,7 +68,7 @@ body {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 3000; /* Garantindo que fique acima de 1500 */
   width: 90%;
   max-width: 400px;
   padding: 10px;
@@ -92,81 +92,93 @@ body {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.destino-button {
+/* Painel superior (origem/destino selecionados) */
+.route-info-panel {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: #FFF;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1500;
+}
+
+.route-info-panel h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.route-info-panel p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+}
+
+.route-info-panel .route-icon {
+  margin-right: 5px;
+  font-size: 1.2rem;
+}
+
+/* Painel inferior para seleção de origem e destino */
+.selection-panel {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Botões no painel de seleção */
+.selection-panel button {
+  width: 100%;
+  padding: 12px;
   background-color: #FFB800;
-  color: #ffffff;
-  padding: 0.6em 1em;
+  color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  width: 80%;
-  max-width: 400px;
   text-align: center;
-  transition: background-color 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px auto;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.destino-button:hover {
+.selection-panel button:hover {
   background-color: #FFC107;
+  transform: scale(1.05);
 }
 
-.bottom-panel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 5vh;
-  background-color: #fff;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  max-width: 100vw;
-  z-index: 1000;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-  padding: 8px 0;
+.selection-panel button.selected {
+  background-color: #00509E;
+  color: white;
 }
 
-.center-button {
-  position: fixed;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #0077b6, #00b4d8);
-  border: none;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s, transform 0.2s;
+/* Botão desativado */
+.selection-panel button:disabled {
+  background-color: #E0E0E0;
+  color: #A9A9A9;
+  cursor: not-allowed;
 }
 
-.center-button:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.destino-message {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  color: #333;
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: 1rem;
-  font-weight: bold;
-  z-index: 1500;
-  text-align: center;
+/* Estilo adicional para o painel de informações */
+.route-info-panel p span {
+  display: inline-block;
+  margin-right: 8px;
 }
 

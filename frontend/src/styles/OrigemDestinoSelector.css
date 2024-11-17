@@ -1,0 +1,116 @@
+.origem-destino-selector {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: #FFF;
+  padding: 15px 20px;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1500; /* Certifique-se de que seja menor */
+}
+
+.origem-destino-selector .back-button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 auto 15px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.origem-destino-selector .back-button:hover {
+  background-color: #00509E;
+  transform: scale(1.1);
+}
+
+/* Painel de informações */
+.info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F8F9FA;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-item .icon {
+  font-size: 1.5rem;
+  color: #00509E;
+  margin-right: 10px;
+}
+
+.info-item .origem-icon {
+  color: #0077b6;
+}
+
+.info-item .destino-icon {
+  color: #FF5722;
+}
+
+.info-item span {
+  flex-grow: 1;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+}
+
+.change-button {
+  background-color: #FFB800;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.change-button:hover {
+  background-color: #FFC107;
+  transform: scale(1.05);
+}
+
+/* Botão de gerar rota */
+.generate-route-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.generate-route-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.generate-route-button:disabled {
+  background-color: #E0E0E0;
+  color: #A9A9A9;
+  cursor: not-allowed;
+}
+
