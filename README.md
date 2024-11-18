@@ -148,45 +148,136 @@ sudo certbot --nginx -d indoorroutes.com.br -d www.indoorroutes.com.br
 
 ```
 indoor-routes/
+├── Documentacao
+│   ├── Banco
+│   │   ├── Bloco 1
+│   │   │   ├── Bloco1-2Andar
+│   │   │   ├── Bloco1-Terreo
+│   │   │   └── INSERTS.sql
+│   │   ├── Bloco 4
+│   │   │   ├── ajusteb42andar.sql
+│   │   │   ├── ajusteb43andar.sql
+│   │   │   ├── ajusteb44andar.sql
+│   │   │   ├── ajusteb4terreo.sql
+│   │   │   ├── conexoes-fora-estacionamento.sql
+│   │   │   ├── conexoes.sql
+│   │   │   └── trobleshotting.sql
+│   │   ├── Dump-bd
+│   │   │   ├── indoorroutes_dump.sql
+│   │   │   ├── indoorroutes_dump_09-11-B04.sql
+│   │   │   ├── indoorroutes_dump_17-34_19-09.sql
+│   │   │   ├── indoorroutes_dump_20-09.sql
+│   │   │   ├── indoorroutes_dump_21-09.sql
+│   │   │   ├── indoorroutes_dump_23-09.sql
+│   │   │   ├── indoorroutes_dump_25-09-B04.sql
+│   │   │   ├── indoorroutes_dump_26-10-B04.sql
+│   │   │   ├── indoorroutes_dump_2andar_incluso.sql
+│   │   │   ├── indoorroutes_dump_B4A4_corrigidos_and_prod.sql
+│   │   │   ├── indoorroutes_dump_add_terreo_2_3_andares.sql
+│   │   │   ├── indoorroutes_dump_sem_comentarios.sql
+│   │   │   └── s-coment.py
+│   │   ├── ER.drawio
+│   │   ├── ER.drawio.png
+│   │   └── Tabelas.sql
+│   ├── Diagramas
+│   ├── Documentos
+│   │   ├── Ata do Brainstorming.docx
+│   │   ├── Documentação do Prototipo.docx
+│   │   ├── Documento de Casos de Teste.docx
+│   │   └── Documento de Premissas.docx
+│   ├── Instalação
+│   │   ├── AllowConnectBD.md
+│   │   ├── InstallPostgres.md
+│   │   └── nginx.conf
+│   ├── Modelagem
+│   │   └── Levantamento de Requisitos - MVP.docx
+│   └── Plantas
+│       ├── Bloco1
+│       │   └── PDF
+│       │       ├── Bloco 01 - 2º Pavto - Projeto Contabilidade-Model.pdf
+│       │       ├── Bloco 01 - 2º Pavto.pdf
+│       │       └── Bloco 01 - Terreo.pdf
+│       ├── Bloco4
+│       │   ├── PDF
+│       │   │   ├── 2 ANDAR.pdf
+│       │   │   ├── 3 ANDAR.pdf
+│       │   │   ├── 4 ANDAR.pdf
+│       │   │   └── TERREO.pdf
+│       │   └── PNG
+│       │       ├── 2 ANDAR.png
+│       │       ├── 3 ANDAR.png
+│       │       ├── 4 ANDAR.png
+│       │       └── TERREO-1.png
+│       └── Externo
+│           ├── PDF
+│           │   └── IMPLANTAÇÃO FAG A1.pdf
+│           └── PNG
+│               ├── IMPLANTAÇÃO FAG A1 B4.png
+│               └── IMPLANTAÇÃO FAG A1.png
 ├── README.md
-├── backend/
-│   ├── config/
-│   ├── node_modules/
-│   ├── package-lock.json
-│   ├── package.json
-│   └── src/
-│       ├── app.js
-│       ├── controllers/
-│       │   └── routesController.js
-│       ├── models/
-│       ├── routes/
-│       │   ├── adminRoutes.js
-│       │   └── routes.js
-│       ├── services/
-│       └── utils/
-├── frontend/
-│   ├── .env
-│   ├── .gitignore
-│   ├── README.md
-│   ├── build/
-│   ├── node_modules/
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── public/
-│   └── src/
-│       ├── App.css
-│       ├── App.js
-│       ├── components/
-│       │   ├── AppWithGeolocation.js
-│       │   ├── AppWithoutGeolocation.js
-│       │   ├── DestinoInfo.js
-│       │   ├── DestinosList.js
-│       │   ├── InstrucoesNavegacao.js
-│       │   └── MapView.js
-│       ├── index.js
-│       └── styles/
-│           ├── Admin.css
-│           └──App.css
+├── backend
+│   ├── config
+│   │   └── db.js
+│   ├── package-lock.json
+│   ├── package.json
+│   └── src
+│       ├── app.js
+│       ├── controllers
+│       │   └── routesController.js
+│       ├── models
+│       ├── routes
+│       │   ├── adminRoutes.js
+│       │   └── routes.js
+│       ├── services
+│       └── utils
+├── frontend
+│   ├── README.md
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   └── src
+│       ├── App.css
+│       ├── App.js
+│       ├── App.test.js
+│       ├── components
+│       │   ├── AppWithGeolocation.js
+│       │   ├── AppWithGeolocation.js~
+│       │   ├── AppWithGeolocation.jz~
+│       │   ├── AppWithoutGeolocation.js
+│       │   ├── DestinoInfo.js
+│       │   ├── DestinosList.js
+│       │   ├── InstrucoesCompactas.js
+│       │   ├── MapView.js
+│       │   └── OrigemDestinoSelector.js
+│       ├── index.css
+│       ├── index.js
+│       ├── reportWebVitals.js
+│       ├── setupTests.js
+│       └── styles
+│           ├── AppWithGeo.css
+│           ├── AppWithoutGeo.css
+│           ├── DestinoInfo.css
+│           ├── DestinosList.css
+│           ├── InstrucoesCompactas.css
+│           ├── OrigemDestinoSelector.css
+│           ├── Welcome.css
+│           ├── compass.css
+│           ├── img
+│           │   ├── com-geolocalizao.png
+│           │   ├── estudante-andando.png
+│           │   ├── indoor-routes.png
+│           │   └── sem-geolocalizacao.png
+│           └── mapview.css
+├── package-lock.json
+└── package.json
+
+
 
 ```
 
