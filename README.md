@@ -247,9 +247,8 @@ indoor-routes/
 │       ├── App.test.js
 │       ├── components
 │       │   ├── AppWithGeolocation.js
-│       │   ├── AppWithGeolocation.js~
-│       │   ├── AppWithGeolocation.jz~
 │       │   ├── AppWithoutGeolocation.js
+│       │   ├── OrigemDestinoSelector.js
 │       │   ├── DestinoInfo.js
 │       │   ├── DestinosList.js
 │       │   ├── InstrucoesCompactas.js
