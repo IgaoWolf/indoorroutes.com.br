@@ -27,7 +27,7 @@ const AppWithGeolocation = () => {
     if (latitude && longitude && mapRef.current) {
       mapRef.current.setView([latitude, longitude], 18);
     } else {
-      alert('Localização não disponível para centralizar no mapa.');
+      alert('LocalizaÃ§Ã£o nÃ£o disponÃ­vel para centralizar no mapa.');
     }
   };
 
@@ -39,7 +39,7 @@ const AppWithGeolocation = () => {
           setLongitude(position.coords.longitude);
         },
         (error) => {
-          console.error('Erro ao obter geolocalização:', error);
+          console.error('Erro ao obter geolocalizaÃ§Ã£o:', error);
         },
         { enableHighAccuracy: true, maximumAge: 1000, timeout: 5000 }
       );
@@ -75,7 +75,7 @@ const AppWithGeolocation = () => {
   const calcularRota = useCallback(
     async (destino) => {
       if (!latitude || !longitude || !destino) {
-        alert('Por favor, selecione um destino e garanta que a localização esteja disponível.');
+        alert('Por favor, selecione um destino e garanta que a localizaÃ§Ã£o esteja disponÃ­vel.');
         return;
       }
 
@@ -138,8 +138,8 @@ const AppWithGeolocation = () => {
       {instrucoes.length > 0 && (
         <InstrucoesCompactas
           instrucoes={instrucoes}
-          origem={latitude && longitude ? 'Sua localização atual' : 'Localização desconhecida'}
-          destino={selectedDestino ? selectedDestino.destino_nome : 'Destino não selecionado'}
+          origem={latitude && longitude ? 'Sua localizaÃ§Ã£o atual' : 'LocalizaÃ§Ã£o desconhecida'}
+          destino={selectedDestino ? selectedDestino.destino_nome : 'Destino nÃ£o selecionado'}
           onBack={handleBack}
         />
       )}
@@ -186,4 +186,5 @@ const AppWithGeolocation = () => {
 };
 
 export default AppWithGeolocation;
+
 

@@ -10,55 +10,62 @@ const OrigemDestinoSelector = ({
   onGenerateRoute,
   onBack,
   isGenerateRouteDisabled,
-  showSearchContainer, // Novo prop para condicionalmente renderizar
-  searchContainer,     // Novo prop para injetar o search-container
+  showSearchContainer, // Condicional para exibir o search-container
+  searchContainer,     // Conteúdo do search-container (busca)
 }) => {
   return (
-    <>
-      {/* Renderiza o search-container se estiver ativo */}
-      {showSearchContainer && searchContainer}
+    <div className="origem-destino-selector">
+      {/* Renderiza o campo de busca quando necessário */}
+      {showSearchContainer && (
+        <div className="search-section">
+          {searchContainer}
+        </div>
+      )}
 
-      {/* OrigemDestinoSelector */}
-      <div className="origem-destino-selector">
-        {/* Botão de voltar */}
-        <div className="header">
-          <button className="back-button" onClick={onBack}>
-            ←
+      {/* Painel principal do selector */}
+      {!showSearchContainer && (
+        <>
+          <div className="header">
+            <button className="back-button" onClick={onBack}>
+              ←
+            </button>
+          </div>
+
+          <div className="info-panel">
+            {/* Origem */}
+            <div className="info-item">
+              <FaCircle className="icon origem-icon" />
+              <span>
+                <strong>Origem:</strong> {origem ? origem.destino_nome : 'Não selecionada'}
+              </span>
+              <button className="change-button" onClick={onSelectOrigem}>
+                Escolher Origem
+              </button>
+            </div>
+
+            {/* Destino */}
+            <div className="info-item">
+              <FaMapMarkerAlt className="icon destino-icon" />
+              <span>
+                <strong>Destino:</strong> {destino ? destino.destino_nome : 'Não selecionado'}
+              </span>
+              <button className="change-button" onClick={onSelectDestino}>
+                Escolher Destino
+              </button>
+            </div>
+          </div>
+
+          {/* Botão para gerar rota */}
+          <button
+            className="generate-route-button"
+            onClick={onGenerateRoute}
+            disabled={isGenerateRouteDisabled}
+          >
+            Gerar Rota
           </button>
-        </div>
-
-        {/* Informações de origem e destino */}
-        <div className="info-panel">
-          <div className="info-item">
-            <FaCircle className="icon origem-icon" />
-            <span>
-              <strong>Origem:</strong> {origem ? origem.destino_nome : 'Não selecionada'}
-            </span>
-            <button className="change-button" onClick={onSelectOrigem}>
-              Escolher Origem
-            </button>
-          </div>
-          <div className="info-item">
-            <FaMapMarkerAlt className="icon destino-icon" />
-            <span>
-              <strong>Destino:</strong> {destino ? destino.destino_nome : 'Não selecionado'}
-            </span>
-            <button className="change-button" onClick={onSelectDestino}>
-              Escolher Destino
-            </button>
-          </div>
-        </div>
-
-        {/* Botão para gerar rota */}
-        <button
-          className="generate-route-button"
-          onClick={onGenerateRoute}
-          disabled={isGenerateRouteDisabled}
-        >
-          Gerar Rota
-        </button>
-      </div>
-    </>
+        </>
+      )}
+    </div>
   );
 };
 

@@ -1,3 +1,5 @@
+// AppWithoutGeolocation.jsx
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,7 +13,6 @@ const AppWithoutGeolocation = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [destinos, setDestinos] = useState([]);
-  const [filteredDestinos, setFilteredDestinos] = useState([]); // Destinos filtrados pela busca
   const [showOrigemList, setShowOrigemList] = useState(false);
   const [showDestinoList, setShowDestinoList] = useState(false);
   const [selectedOrigem, setSelectedOrigem] = useState(null);
@@ -21,47 +22,35 @@ const AppWithoutGeolocation = () => {
   const mapRef = useRef(null);
 
   // Busca os destinos na API
-  const fetchDestinos = async (query = '') => {
-    try {
-      const response = await axios.get('/api/destinos');
-      let destinosFiltrados = response.data;
-
-      // Filtra os destinos com base na query (similar ao AppWithGeolocation)
-      if (query) {
-        destinosFiltrados = destinosFiltrados.filter((destino) =>
-          destino.destino_nome.toLowerCase().includes(query.toLowerCase()) ||
-          (destino.bloco_nome && destino.bloco_nome.toLowerCase().includes(query.toLowerCase())) ||
-          (destino.andar_nome && destino.andar_nome.toLowerCase().includes(query.toLowerCase()))
-        );
-      }
-
-      setDestinos(response.data); // Armazena todos os destinos
-      setFilteredDestinos(destinosFiltrados); // Armazena os destinos filtrados
-    } catch (error) {
-      console.error('Erro ao buscar destinos:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchDestinos(); // Inicializa com todos os destinos ao carregar
+    const fetchInitialDestinos = async () => {
+      try {
+        const response = await axios.get('/api/destinos');
+        console.log('Dados brutos da API:', response.data);
+        setDestinos(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar destinos:', error);
+      }
+    };
+
+    fetchInitialDestinos();
   }, []);
 
-  // Atualiza os destinos filtrados sempre que a busca muda
-  useEffect(() => {
-    fetchDestinos(searchQuery);
-  }, [searchQuery]);
-
   const handleSelectOrigem = (origem) => {
+    console.log('Origem selecionada:', origem);
     setSelectedOrigem(origem);
     setShowOrigemList(false);
+    setSearchQuery('');
     if (selectedDestino) {
       calcularRota(origem, selectedDestino);
     }
   };
 
   const handleSelectDestino = (destino) => {
+    console.log('Destino selecionado:', destino);
     setSelectedDestino(destino);
     setShowDestinoList(false);
+    setSearchQuery('');
     if (selectedOrigem) {
       calcularRota(selectedOrigem, destino);
     }
@@ -125,25 +114,25 @@ const AppWithoutGeolocation = () => {
         onBack={handleBack}
         onGenerateRoute={() => calcularRota(selectedOrigem, selectedDestino)}
         isGenerateRouteDisabled={!selectedOrigem || !selectedDestino}
-        showSearchContainer={showOrigemList || showDestinoList}
-        searchContainer={
-          (showOrigemList || showDestinoList) && (
-            <div className="search-container">
-              <input
-                type="text"
-                className="search-input"
-                placeholder={`Digite ${showOrigemList ? 'a origem' : 'o destino'}`}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <DestinosList
-                destinos={filteredDestinos} // Usa os destinos filtrados
-                onSelectDestino={showOrigemList ? handleSelectOrigem : handleSelectDestino}
-              />
-            </div>
-          )
-        }
       />
+
+      {/* Renderiza o searchContainer quando necessário */}
+      {(showOrigemList || showDestinoList) && (
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder={`Digite ${showOrigemList ? 'a origem' : 'o destino'}`}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <DestinosList
+            destinos={destinos}
+            searchQuery={searchQuery}
+            onSelectDestino={showOrigemList ? handleSelectOrigem : handleSelectDestino}
+          />
+        </div>
+      )}
 
       {/* Tempo estimado e botões */}
       {selectedOrigem && selectedDestino && rota.length > 0 && (
